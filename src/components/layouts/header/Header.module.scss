@@ -1,0 +1,64 @@
+.mainHeader {
+  position: fixed;
+  top: 0;
+  left: 250px; /* vì sidebar rộng 250px */
+  right: 0;
+  height: 60px;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  z-index: 1000;
+}
+
+/* ==== Nút menu trái ==== */
+.headerLeft {
+  i {
+    font-size: 22px;
+    color: #24344d;
+    cursor: pointer;
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+}
+
+/* ==== Phần bên phải ==== */
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  position: relative;
+  margin-left: auto;
+}
+
+/* ==== Icon thư ==== */
+.mailIcon {
+  position: relative;
+  font-size: 20px;
+  color: #24344d;
+  cursor: pointer;
+
+  &:hover {
+    color: #007bff;
+  }
+
+  .badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 11px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
