@@ -1,49 +1,83 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "./Header.module.scss";
-import { FaEnvelope } from "react-icons/fa";
-import Notification from "./headerComp/notification/Notification";
-import Dropdown from "./headerComp/Dropdown/Dropdown";
+import { Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import styles from './Header.module.scss';
 
-const Header = () => {
-  const navigate = useNavigate();
-  const [showNotifications, setShowNotifications] = useState(false);
-  const [username, setUsername] = useState("Admin");
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const payload = JSON.parse(atob(token.split(".")[1]));
-        setUsername(payload.username || "Admin");
-      } catch {
-        setUsername("Admin");
-      }
-    }
-  }, []);
-
-  const toggleNotifications = () => setShowNotifications(prev => !prev);
+export default function Header() {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const location = useLocation();
+  
+  // Check if user is logged in (you can replace with actual auth logic)
+  const isLoggedIn = localStorage.getItem('user') || false;
+  const userRole = localStorage.getItem('userRole') || 'candidate';
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  }
+    localStorage.removeItem('user');
+    localStorage.removeItem('userRole');
+    window.location.href = '/';
+  };
 
-
+  const getDashboardLink = () => {
+    const dashboardLinks = {
+      admin: '/dashboard',
+      hr: '/dashboard',
+      interviewer: '/dashboard',
+      candidate: '/dashboard'
+    };
+    return dashboardLinks[userRole] || '/dashboard';
+  };
 
   return (
-    <header className={styles.mainHeader}>
-      <div className={styles.headerRight}>
-        <div className={styles.mailIcon} onClick={toggleNotifications}>
-          <FaEnvelope />
-          <span className={styles.badge}>6</span>
-          {showNotifications && <Notification />}
-        </div>
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <Link to="/" className={styles.logo}>
+          <h1>RecruitHub</h1>
+        </Link>
+        
+        <nav className={styles.navbar}>
+          <ul className={styles.navList}>
+            <li><Link to="/">Trang chủ</Link></li>
+            <li><Link to="/jobs">Việc làm</Link></li>
+            <li><Link to="/companies">Công ty</Link></li>
+          </ul>
+        </nav>
 
-        <Dropdown username={username} onLogout={handleLogout} />
+        <div className={styles.actions}>
+          {isLoggedIn ? (
+            <>
+              <Link to={getDashboardLink()} className={styles.btnDashboard}>
+                Dashboard
+              </Link>
+              <div className={styles.profileDropdown}>
+                <button 
+                  className={styles.profileBtn}
+                  onClick={() => setShowDropdown(!showDropdown)}
+                >
+                  👤 {userRole}
+                  <span className={styles.arrow}>▼</span>
+                </button>
+                {showDropdown && (
+                  <div className={styles.dropdownMenu}>
+                    <Link to="/profile" className={styles.dropdownItem}>
+                      Hồ sơ cá nhân
+                    </Link>
+                    <button 
+                      className={styles.dropdownItem}
+                      onClick={handleLogout}
+                    >
+                      Đăng xuất
+                    </button>
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className={styles.btnLogin}>Đăng nhập</Link>
+              <Link to="/register" className={styles.btnRegister}>Đăng ký</Link>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );
-};
-
-export default Header;
+}
