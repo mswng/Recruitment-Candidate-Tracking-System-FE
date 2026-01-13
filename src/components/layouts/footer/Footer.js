@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.footerLeft}>
         <span>
-          © 2025 <strong>ETC - SIMULATION - SYSTEM Dashboard</strong>. All rights reserved.
+          © 2025 <strong>RecruitHub</strong>. All rights reserved.
         </span>
       </div>
 
