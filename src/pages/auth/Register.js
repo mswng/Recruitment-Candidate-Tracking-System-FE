@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../../components/layouts/header/Header';
 import Footer from '../../components/layouts/footer/Footer';
 import styles from './Auth.module.scss';
@@ -12,6 +12,7 @@ export default function Register() {
     confirmPassword: '',
     role: 'candidate'
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -23,6 +24,8 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Register:', formData);
+    // Redirect to login page after successful registration
+    navigate('/login');
   };
 
   return (
@@ -34,6 +37,21 @@ export default function Register() {
         <h1>Đăng ký</h1>
         
         <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.formGroup}>
+            <label>Chọn vai trò *</label>
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              className={styles.select}
+            >
+              <option value="candidate">Ứng viên</option>
+              <option value="admin">Admin</option>
+              <option value="hr">HR</option>
+              <option value="interviewer">Interviewer</option>
+            </select>
+          </div>
+
           <div className={styles.formGroup}>
             <label>Họ và tên *</label>
             <input

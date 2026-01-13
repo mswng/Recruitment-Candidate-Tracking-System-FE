@@ -7,11 +7,17 @@ export const loginUser = (role = 'candidate') => {
     role: role
   }));
   localStorage.setItem('userRole', role);
+  
+  // Trigger custom event to notify AppRouter of role change
+  window.dispatchEvent(new Event('userRoleChanged'));
 };
 
 export const logoutUser = () => {
   localStorage.removeItem('user');
   localStorage.removeItem('userRole');
+  
+  // Trigger custom event when user logs out
+  window.dispatchEvent(new Event('userRoleChanged'));
 };
 
 export const isLoggedIn = () => {

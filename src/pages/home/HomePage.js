@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/layouts/header/Header';
 import Footer from '../../components/layouts/footer/Footer';
 import styles from './HomePage.module.scss';
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [searchData, setSearchData] = useState({
     keyword: '',
     location: '',
@@ -12,7 +14,9 @@ export default function HomePage() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log('Search:', searchData);
+    if (searchData.keyword) {
+      navigate(`/jobs?keyword=${searchData.keyword}&location=${searchData.location}&field=${searchData.field}`);
+    }
   };
 
   return (
@@ -20,13 +24,14 @@ export default function HomePage() {
       <Header />
       
       <div className={styles.heroBanner}>
-        <div className={styles.overlay}></div>
         <div className={styles.heroContent}>
-          <h1 className={styles.mainTitle}>
-            Có <span className={styles.highlight}>+59,862</span> Việc Làm Đang Tuyển
-          </h1>
+          <div className={styles.statsHighlight}>
+            <span className={styles.newJobs}>CÓ <strong>+12,790</strong></span>
+            <h1 className={styles.mainTitle}>VIỆC LÀM MỚI HÔM NAY</h1>
+          </div>
+          
           <p className={styles.subtitle}>
-            Nền tảng tìm việc làm hàng đầu Việt Nam - Kết nối nhân tài với cơ hội việc làm tốt
+            Nền tảng tìm việc làm hàng đầu Việt Nam - Kết nối nhân tài với cơ hội tốt
           </p>
 
           <form onSubmit={handleSearch} className={styles.searchForm}>
@@ -35,7 +40,7 @@ export default function HomePage() {
                 <span className={styles.icon}>🔍</span>
                 <input
                   type="text"
-                  placeholder="Tìm kiếm vị trí, công ty..."
+                  placeholder="Từ khóa, chức danh hoặc công ty"
                   value={searchData.keyword}
                   onChange={(e) => setSearchData({ ...searchData, keyword: e.target.value })}
                   className={styles.input}
@@ -44,24 +49,32 @@ export default function HomePage() {
 
               <div className={styles.searchGroup}>
                 <span className={styles.icon}>📍</span>
-                <input
-                  type="text"
-                  placeholder="Tất cả các địa điểm"
+                <select
                   value={searchData.location}
                   onChange={(e) => setSearchData({ ...searchData, location: e.target.value })}
                   className={styles.input}
-                />
+                >
+                  <option value="">Tất cả địa điểm</option>
+                  <option value="hanoi">Hà Nội</option>
+                  <option value="hcm">TP Hồ Chí Minh</option>
+                  <option value="danang">Đà Nẵng</option>
+                  <option value="remote">Remote</option>
+                </select>
               </div>
 
               <div className={styles.searchGroup}>
                 <span className={styles.icon}>💼</span>
-                <input
-                  type="text"
-                  placeholder="Ngành nghề"
+                <select
                   value={searchData.field}
                   onChange={(e) => setSearchData({ ...searchData, field: e.target.value })}
                   className={styles.input}
-                />
+                >
+                  <option value="">Ngành nghề</option>
+                  <option value="it">IT / Công nghệ</option>
+                  <option value="design">Design</option>
+                  <option value="marketing">Marketing</option>
+                  <option value="sales">Kinh doanh / Bán hàng</option>
+                </select>
               </div>
 
               <button type="submit" className={styles.btnSearch}>
@@ -69,48 +82,33 @@ export default function HomePage() {
               </button>
             </div>
           </form>
-
-          <div className={styles.features}>
-            <div className={styles.feature}>
-              <span className={styles.featureIcon}>🚀</span>
-              <p>Cơ hội việc làm mới mỗi ngày</p>
-            </div>
-            <div className={styles.feature}>
-              <span className={styles.featureIcon}>💰</span>
-              <p>Mức lương cạnh tranh</p>
-            </div>
-            <div className={styles.feature}>
-              <span className={styles.featureIcon}>📱</span>
-              <p>Ứng tuyển dễ dàng</p>
-            </div>
-          </div>
         </div>
       </div>
 
       <div className={styles.statsSection}>
-        <div className={styles.statsContainer}>
-          <div className={styles.stat}>
-            <h3>59,862+</h3>
-            <p>Việc làm đang tuyển</p>
+        <div className={styles.statsGrid}>
+          <div className={styles.statCard}>
+            <div className={styles.statNumber}>59,862+</div>
+            <div className={styles.statLabel}>Việc làm đang tuyển</div>
           </div>
-          <div className={styles.stat}>
-            <h3>45,000+</h3>
-            <p>Công ty tuyển dụng</p>
+          <div className={styles.statCard}>
+            <div className={styles.statNumber}>12,500+</div>
+            <div className={styles.statLabel}>Công ty tuyển dụng</div>
           </div>
-          <div className={styles.stat}>
-            <h3>1M+</h3>
-            <p>Ứng viên đăng ký</p>
+          <div className={styles.statCard}>
+            <div className={styles.statNumber}>1M+</div>
+            <div className={styles.statLabel}>Ứng viên đăng ký</div>
           </div>
-          <div className={styles.stat}>
-            <h3>98%</h3>
-            <p>Độ hài lòng</p>
+          <div className={styles.statCard}>
+            <div className={styles.statNumber}>98%</div>
+            <div className={styles.statLabel}>Độ hài lòng</div>
           </div>
         </div>
       </div>
 
       <div className={styles.jobsPreview}>
         <div className={styles.container}>
-          <h2>Việc Làm Nổi Bật</h2>
+          <h2 className={styles.sectionTitle}>Việc Làm Nổi Bật</h2>
           <div className={styles.jobsGrid}>
             {[1, 2, 3, 4, 5, 6].map(job => (
               <div key={job} className={styles.jobCard}>

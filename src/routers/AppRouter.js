@@ -1,9 +1,29 @@
 import { Route, Routes } from 'react-router-dom'
 import { adminRouter, publicRouter, hrRouter, interviewerRouter, candidateRouter } from './routes'
 import DefaultLayout from '../components/layouts/defaultlayout/DefaultLayout';
+import { useState, useEffect } from 'react';
 
 function AppRouter() {
-    const userRole = localStorage.getItem('userRole') || 'candidate';
+    const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || 'candidate');
+
+    // Listen for storage changes to update role when user logs in/out
+    useEffect(() => {
+        const handleStorageChange = () => {
+            const newRole = localStorage.getItem('userRole') || 'candidate';
+            setUserRole(newRole);
+        };
+
+        // Listen for storage changes from other tabs/windows
+        window.addEventListener('storage', handleStorageChange);
+
+        // Also listen for custom event in same tab
+        window.addEventListener('userRoleChanged', handleStorageChange);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            window.removeEventListener('userRoleChanged', handleStorageChange);
+        };
+    }, []);
 
     const getRoleRoutes = () => {
         switch(userRole) {
