@@ -365,8 +365,8 @@ export default function AdminDashboard() {
                       <td>{job.salary}</td>
                       <td>
                         <span className={`${styles.typeBadge} ${styles[job.type]}`}>
-                          {job.type === 'full-time' && '💼 Toàn thời'}
-                          {job.type === 'part-time' && '⏰ Bán thời'}
+                          {job.type === 'full-time' && '💼 Toàn thời gian'}
+                          {job.type === 'part-time' && '⏰ Bán thời gian'}
                           {job.type === 'contract' && '📋 Hợp đồng'}
                           {job.type === 'freelance' && '🆓 Freelance'}
                         </span>
@@ -378,7 +378,6 @@ export default function AdminDashboard() {
                         <span className={`${styles.statusBadge} ${styles[job.status]}`}>
                           {job.status === 'active' && '✅ Đang tuyển'}
                           {job.status === 'closed' && '❌ Đã đóng'}
-                          {job.status === 'draft' && '📝 Nháp'}
                         </span>
                       </td>
                       <td>
@@ -548,8 +547,8 @@ export default function AdminDashboard() {
                 onChange={(e) => setJobForm({ ...jobForm, type: e.target.value })}
                 className={styles.input}
               >
-                <option value="full-time">💼 Toàn thời</option>
-                <option value="part-time">⏰ Bán thời</option>
+                <option value="full-time">💼 Toàn thời gian</option>
+                <option value="part-time">⏰ Bán thời gian</option>
                 <option value="contract">📋 Hợp đồng</option>
                 <option value="freelance">🆓 Freelance</option>
               </select>

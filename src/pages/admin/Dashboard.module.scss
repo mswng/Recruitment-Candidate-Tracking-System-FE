@@ -6,10 +6,10 @@
 }
 
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
   color: white;
   padding: 48px 40px;
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15);
   margin: 0;
 
   .headerContent {
@@ -66,15 +66,15 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(90deg, #2563EB 0%, #1D4ED8 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
   }
 
   &:hover {
-    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.15);
+    box-shadow: 0 12px 32px rgba(37, 99, 235, 0.15);
     transform: translateY(-8px);
-    border-color: #667eea;
+    border-color: #2563EB;
 
     &::before {
       opacity: 1;
@@ -88,13 +88,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+    background: linear-gradient(135deg, #2563EB15 0%, #10B98115 100%);
     border-radius: 14px;
     transition: all 0.3s ease;
   }
 
   &:hover .statIcon {
-    background: linear-gradient(135deg, #667eea25 0%, #764ba225 100%);
+    background: linear-gradient(135deg, #2563EB25 0%, #10B98125 100%);
     transform: scale(1.1);
   }
 
@@ -135,7 +135,7 @@
 
 .actionBtn {
   padding: 16px 28px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
   color: white;
   border: none;
   border-radius: 12px;
@@ -145,7 +145,7 @@
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 
   &:hover {
     transform: translateY(-4px);
@@ -181,12 +181,12 @@
   letter-spacing: 0.3px;
 
   &:hover {
-    color: #667eea;
+    color: #2563EB;
   }
 
   &.active {
-    color: #667eea;
-    border-bottom-color: #667eea;
+    color: #2563EB;
+    border-bottom-color: #2563EB;
   }
 }
 
@@ -255,8 +255,8 @@
 
   &:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
   }
 }
 
@@ -495,7 +495,7 @@
     margin: 0 0 6px;
     font-size: 14px;
     font-weight: 600;
-    color: #667eea;
+    color: #2563EB;
   }
 
   .company {
@@ -522,7 +522,7 @@
   .viewBtn {
     width: 100%;
     padding: 10px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
     color: white;
     border: none;
     border-radius: 6px;
@@ -555,7 +555,7 @@
 
   &:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    border-color: #667eea;
+    border-color: #2563EB;
   }
 
   .interviewCardContent {
@@ -580,7 +580,7 @@
       margin: 0 0 12px;
       font-size: 14px;
       font-weight: 600;
-      color: #667eea;
+      color: #2563EB;
     }
 
     .details {
@@ -627,7 +627,7 @@
       transition: all 0.3s;
 
       &:hover {
-        background: #667eea;
+        background: #2563EB;
         color: white;
       }
     }
@@ -659,7 +659,7 @@
 }
 
 .modalHeader {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
   color: white;
   padding: 24px;
   display: flex;
@@ -706,8 +706,8 @@
 
   &:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
   }
 }
 
@@ -752,7 +752,7 @@
 // App Count Badge
 .appCount {
   display: inline-block;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
   color: white;
   padding: 4px 10px;
   border-radius: 20px;
