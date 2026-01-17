@@ -1,931 +1,225 @@
-.heroBanner {
-  position: relative;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
-  min-height: 600px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  color: white;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: -100px;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.05);
-    animation: float 6s ease-in-out infinite;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -50px;
-    left: 10%;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.05);
-    animation: float 8s ease-in-out infinite reverse;
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-  }
+section {
+  padding: 90px 20px;
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.heroContent {
-  position: relative;
-  z-index: 10;
+/* TITLE CHUNG */
+.sectionTitle {
+  font-size: 42px;
+  font-weight: 900;
   text-align: center;
-  max-width: 1200px;
-  width: 100%;
-  padding: 0 24px;
+  margin-bottom: 60px;
+  color: #0f172a;
 }
 
-.statsHighlight {
-  margin-bottom: 24px;
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #020617, #1e3a8a, #4f46e5);
+  color: #fff;
+  padding: 150px 20px 180px;
+  text-align: center;
 }
 
-.newJobs {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 16px;
-
-  strong {
-    color: #10b981;
-    font-weight: 700;
-  }
+.heroInner h1 {
+  font-size: 60px;
+  font-weight: 900;
 }
 
-.mainTitle {
-  font-size: 52px;
+.heroInner h1 span {
+  color: #22c55e;
+}
+
+.heroInner p {
+  font-size: 20px;
+  max-width: 720px;
+  margin: auto;
+  opacity: 0.9;
+}
+
+/* BADGE TO HƠN */
+.heroBadge {
+  background: rgba(255, 255, 255, 0.18);
+  padding: 16px 36px;
+  border-radius: 999px;
   font-weight: 800;
-  margin: 0 0 16px;
-  line-height: 1.2;
-  letter-spacing: -1px;
-
-  .highlight {
-    color: #10b981;
-    font-weight: 900;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 36px;
-  }
-}
-
-.subtitle {
   font-size: 18px;
-  margin: 0 0 40px;
-  opacity: 0.95;
-  font-weight: 500;
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-    margin-bottom: 30px;
-  }
+  letter-spacing: 0.6px;
+  display: inline-block;
+  margin-bottom: 28px;
 }
 
-.searchForm {
-  margin-bottom: 0;
-}
-
-.searchContainer {
-  display: grid;
-  grid-template-columns: 1fr 200px 200px auto;
-  gap: 0;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  max-width: 1000px;
-  margin: 0 auto;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    padding: 12px;
-    background-color: transparent;
-    max-width: 100%;
-  }
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 8px;
-    background-color: transparent;
-  }
-}
-
-.searchGroup {
-  display: flex;
-  align-items: center;
-  border-right: 1px solid #E5E7EB;
-  padding: 14px 16px;
-  background-color: #fff;
-
-  @media (max-width: 1024px) {
-    border: 1px solid #E5E7EB;
-    border-radius: 6px;
-    background-color: #fff;
-  }
-
-  .icon {
-    font-size: 18px;
-    margin-right: 10px;
-    min-width: 20px;
-    opacity: 0.7;
-  }
-
-  &:last-of-type {
-    border-right: none;
-  }
-
-  .input {
-    border: none;
-    outline: none;
-    flex: 1;
-    font-size: 14px;
-    background: transparent;
-    font-family: inherit;
-    color: #333;
-
-    &::placeholder {
-      color: #999;
-    }
-
-    &:focus {
-      background-color: #f9f9f9;
-    }
-  }
-}
-
-.btnSearch {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  border: none;
-  padding: 14px 40px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s;
-  white-space: nowrap;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-
-  &:hover {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: 1024px) {
-    width: 100%;
-    padding: 12px;
-    border-radius: 6px;
-  }
-}
-
-.features {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  max-width: 800px;
-  margin: 0 auto;
-
-  @media (max-width: 768px) {
-    gap: 20px;
-  }
-}
-
-.feature {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-
-  .featureIcon {
-    font-size: 28px;
-  }
-
-  p {
-    margin: 0;
-    font-size: 14px;
-    opacity: 0.95;
-  }
-}
-
-.statsSection {
-  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-  padding: 60px 24px;
-  margin-top: -40px;
-  position: relative;
-  z-index: 5;
+/* STATS – TÁCH HẲN MÀU */
+.stats {
+  background: linear-gradient(135deg, #020617, #0b1c3f);
+  color: #fff;
+  margin-top: 50px;
+  padding-top: 120px;
 }
 
 .statsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
   max-width: 1200px;
-  margin: 0 auto;
-}
-
-.statCard {
-  background: white;
-  border-radius: 12px;
-  padding: 32px 24px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
   text-align: center;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s;
-  border: 1px solid #f0f0f0;
-
-  &:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    transform: translateY(-4px);
-  }
-
-  .statNumber {
-    font-size: 40px;
-    font-weight: 800;
-    color: #10b981;
-    margin-bottom: 8px;
-  }
-
-  .statLabel {
-    font-size: 15px;
-    color: #666;
-    font-weight: 600;
-  }
 }
 
-.jobsPreview {
-  padding: 60px 24px;
-  background-color: #ffffff;
+.statsGrid h3 {
+  font-size: 48px;
+  font-weight: 900;
+  color: #22c55e;
 }
 
-.container {
+.statsGrid span {
+  font-size: 18px;
+}
+
+/* ABOUT */
+.about {
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+}
+
+.aboutCard {
+  max-width: 960px;
+  margin: auto;
+  background: #fff;
+  padding: 70px 80px;
+  border-radius: 30px;
+  box-shadow: 0 40px 90px rgba(15, 23, 42, 0.18);
+  text-align: center;
+  border-left: 8px solid #2563eb;
+}
+
+.aboutCard h2 {
+  font-size: 42px;
+  font-weight: 900;
+  margin-bottom: 30px;
+}
+
+.aboutCard p {
+  font-size: 18px;
+  line-height: 1.9;
+  color: #334155;
+}
+
+/* VALUES */
+.values {
+  background: #f8fafc;
+}
+
+.valueGrid {
   max-width: 1200px;
-  margin: 0 auto;
-
-  .sectionTitle {
-    font-size: 36px;
-    color: #333;
-    margin: 0 0 40px;
-    font-weight: 800;
-    text-align: left;
-
-    @media (max-width: 768px) {
-      font-size: 28px;
-      margin-bottom: 30px;
-    }
-  }
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
 }
 
-.jobsGrid {
+.valueCard {
+  background: #fff;
+  padding: 36px;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+  border-top: 6px solid #2563eb;
+}
+
+.valueCard h3 {
+  font-size: 22px;
+}
+
+.valueCard p {
+  font-size: 16px;
+  color: #475569;
+}
+
+/* JOBS */
+.jobs {
+  background: #f1f5f9;
+}
+
+.jobGrid {
+  max-width: 1200px;
+  margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
 }
 
 .jobCard {
-  background: white;
-  border: 1px solid #E5E7EB;
-  border-radius: 12px;
-  padding: 24px;
-  transition: all 0.3s;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-
-  &:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    transform: translateY(-4px);
-    border-color: #10b981;
-  }
-
-  .jobCompany {
-    display: inline-block;
-    background: #e8f5e9;
-    color: #10b981;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    width: fit-content;
-  }
-
-  h3 {
-    margin: 0 0 12px;
-    font-size: 18px;
-    color: #333;
-    font-weight: 700;
-    line-height: 1.4;
-  }
-
-  p {
-    margin: 0 0 8px;
-    color: #666;
-    font-size: 14px;
-
-    &.location,
-    &.salary {
-      font-weight: 600;
-    }
-
-    &.salary {
-      color: #10b981;
-      margin-bottom: 12px;
-    }
-
-    &.description {
-      margin: 12px 0;
-      line-height: 1.5;
-      color: #999;
-      font-size: 13px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      flex-grow: 1;
-    }
-  }
+  background: #fff;
+  padding: 36px;
+  border-radius: 26px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
 }
 
-.btnApply {
+.jobCard h3 {
+  font-size: 24px;
+}
+
+.jobCard strong {
+  font-size: 18px;
+  color: #16a34a;
+}
+
+.jobCard button {
+  margin-top: 24px;
   width: 100%;
-  padding: 12px;
-  margin-top: 16px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
+  padding: 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: #fff;
+  font-weight: 800;
   border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-size: 14px;
-
-  &:hover {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: 768px) {
-    padding: 12px;
-  }
 }
 
-@media (max-width: 768px) {
-  .jobsGrid {
-    grid-template-columns: 1fr;
-  }
+.hot {
+  background: #22c55e;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 8px;
 }
 
-/* Quảng Cáo Banner */
-.advertisementBanner {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #059669 100%);
-  padding: 40px 24px;
-  color: white;
-  margin: 0;
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .adContent {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-
-    h3 {
-      margin: 0;
-      font-size: 32px;
-      font-weight: 800;
-
-      @media (max-width: 768px) {
-        font-size: 24px;
-      }
-    }
-
-    p {
-      margin: 0;
-      font-size: 16px;
-      opacity: 0.95;
-      max-width: 600px;
-
-      @media (max-width: 768px) {
-        font-size: 14px;
-      }
-    }
-  }
-}
-
-.btnAdvert {
-  background: white;
-  color: #059669;
-  border: none;
-  padding: 12px 32px;
-  border-radius: 6px;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 15px;
-  transition: all 0.3s;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    background: #f0f0f0;
-  }
-}
-
-.hotBadge {
-  display: inline-block;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-}
-
-/* Công Ty Hàng Đầu */
-.topCompanies {
-  padding: 60px 24px;
-  background: white;
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .sectionTitle {
-    font-size: 36px;
-    color: #333;
-    margin: 0 0 40px;
-    font-weight: 800;
-    text-align: center;
-
-    @media (max-width: 768px) {
-      font-size: 28px;
-      margin-bottom: 30px;
-    }
-  }
-}
-
-.carouselWrapper {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  position: relative;
-
-  @media (max-width: 768px) {
-    gap: 12px;
-  }
-}
-
-.companiesCarousel {
-  flex: 1;
-  overflow: hidden;
-  border-radius: 12px;
-}
-
-.newsCarousel {
-  flex: 1;
-  overflow: hidden;
-  border-radius: 12px;
-}
-
-.carouselTrack {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  gap: 24px;
-  padding: 0;
-  width: 100%;
-
-  @media (max-width: 768px) {
-    gap: 16px;
-  }
-}
-
-.companiesCarousel .carouselTrack {
-  width: 300%;
-
-  .companyCard {
-    flex: 1;
-    min-width: calc(100% / 3);
-  }
-}
-
-.newsCarousel .carouselTrack {
-  width: 200%;
-
-  .newsCard {
-    flex: 1;
-    min-width: 50%;
-  }
-}
-
-.carouselPrev,
-.carouselNext {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  border: none;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s;
-  flex-shrink: 0;
-  font-weight: bold;
-
-  &:hover {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-    transform: scale(1.1);
-  }
-
-  @media (max-width: 768px) {
-    width: 40px;
-    height: 40px;
-    font-size: 16px;
-  }
-}
-
-.companyCard {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s;
-  border: 1px solid #E5E7EB;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-
-  &:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    transform: translateY(-4px);
-    border-color: #10b981;
-  }
-
-  .companyLogo {
-    font-size: 48px;
-    margin-bottom: 8px;
-  }
-
-  h3 {
-    margin: 0;
-    font-size: 16px;
-    color: #333;
-    font-weight: 700;
-  }
-
-  .jobCount {
-    margin: 0;
-    color: #10b981;
-    font-size: 13px;
-    font-weight: 600;
-  }
-}
-
-.btnViewCompany {
-  width: 100%;
-  padding: 10px 16px;
-  background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
-  color: #333;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 13px;
-  transition: all 0.3s;
-
-  &:hover {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
-    border-color: #10b981;
-  }
-}
-
-/* Tin Tức & Blog */
-.newsSection {
-  padding: 60px 24px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .sectionTitle {
-    font-size: 36px;
-    color: #333;
-    margin: 0 0 40px;
-    font-weight: 800;
-    text-align: center;
-
-    @media (max-width: 768px) {
-      font-size: 28px;
-      margin-bottom: 30px;
-    }
-  }
+/* NEWS */
+.newsGrid {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
 }
 
 .newsCard {
-  background: white;
-  border: 1px solid #E5E7EB;
-  border-radius: 12px;
-  padding: 24px;
-  transition: all 0.3s;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-
-  &:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    transform: translateY(-4px);
-    border-color: #10b981;
-  }
-
-  .newsImage {
-    font-size: 48px;
-    margin-bottom: 16px;
-    text-align: center;
-  }
-
-  .newsCategory {
-    display: inline-block;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    width: fit-content;
-  }
-
-  h3 {
-    margin: 0 0 12px;
-    font-size: 18px;
-    color: #333;
-    font-weight: 700;
-    line-height: 1.4;
-  }
-
-  .newsExcerpt {
-    margin: 0 0 16px;
-    color: #666;
-    font-size: 14px;
-    line-height: 1.6;
-    flex-grow: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .newsFooter {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 12px;
-    border-top: 1px solid #f0f0f0;
-
-    .newsDate {
-      color: #999;
-      font-size: 12px;
-      font-weight: 600;
-    }
-  }
+  background: #f8fafc;
+  padding: 32px;
+  border-radius: 22px;
+  border-left: 8px solid #2563eb;
 }
 
-.btnReadMore {
-  background: transparent;
-  color: #10b981;
-  border: none;
-  padding: 0;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 13px;
-  transition: all 0.3s;
-
-  &:hover {
-    color: #059669;
-    transform: translateX(4px);
-  }
+.newsCard h3 {
+  font-size: 22px;
 }
 
-/* Insights Section */
-.insightsSection {
-  padding: 60px 24px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .sectionTitle {
-    font-size: 36px;
-    color: #333;
-    margin: 0 0 40px;
-    font-weight: 800;
-    text-align: center;
-
-    @media (max-width: 768px) {
-      font-size: 28px;
-      margin-bottom: 30px;
-    }
-  }
+.newsCard p {
+  font-size: 16px;
+  color: #475569;
 }
 
-.insightsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
+.newsCard span {
+  font-size: 14px;
+  color: #64748b;
 }
 
-.insightCard {
-  background: white;
-  border-radius: 12px;
-  padding: 32px 24px;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s;
-  border: 1px solid #E5E7EB;
-
-  &:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    transform: translateY(-4px);
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .statsGrid,
+  .valueGrid,
+  .jobGrid,
+  .newsGrid {
+    grid-template-columns: 1fr;
   }
 
-  .insightIcon {
-    font-size: 40px;
-    margin-bottom: 16px;
-  }
-
-  h3 {
-    margin: 0 0 12px;
-    font-size: 16px;
-    color: #333;
-    font-weight: 700;
-  }
-
-  .insightValue {
-    margin: 0 0 8px;
-    font-size: 32px;
-    color: #10b981;
-    font-weight: 800;
-  }
-
-  .insightDesc {
-    margin: 0;
-    color: #666;
-    font-size: 13px;
-    line-height: 1.5;
-  }
-}
-
-/* CTA Section */
-.ctaSection {
-  padding: 80px 24px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .ctaContent {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-
-    h2 {
-      margin: 0;
-      font-size: 40px;
-      font-weight: 800;
-      line-height: 1.2;
-
-      @media (max-width: 768px) {
-        font-size: 28px;
-      }
-    }
-
-    p {
-      margin: 0;
-      font-size: 18px;
-      opacity: 0.95;
-      max-width: 600px;
-
-      @media (max-width: 768px) {
-        font-size: 15px;
-      }
-    }
-  }
-}
-
-.ctaButtons {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    width: 100%;
-
-    button {
-      width: 100%;
-    }
-  }
-}
-
-.btnCtaPrimary {
-  background: white;
-  color: #10b981;
-  border: none;
-  padding: 14px 40px;
-  border-radius: 6px;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 15px;
-  transition: all 0.3s;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-}
-
-.btnCtaSecondary {
-  background: transparent;
-  color: white;
-  border: 2px solid white;
-  padding: 12px 38px;
-  border-radius: 6px;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 15px;
-  transition: all 0.3s;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
+  .heroInner h1 {
+    font-size: 42px;
   }
 }

@@ -1,9 +1,15 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
 
-const PrivateRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
-  return token ? children : <Navigate to="/login" replace />;
-};
+export default function PrivateRouter({ children, role }) {
+  const currentRole = localStorage.getItem("role");
 
-export default PrivateRoute;
+  if (!currentRole) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (role && currentRole !== role) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
