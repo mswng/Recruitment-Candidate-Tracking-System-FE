@@ -1,25 +1,54 @@
-import React, { useState } from 'react';
-import styles from './users.module.scss';
+import React, { useState } from "react";
+import styles from "./users.module.scss";
 
 export default function UserManagement() {
-  const [users, setUsers] = useState([
-    { id: 1, fullName: 'Nguyễn Văn A', email: 'nguyenvana@example.com', role: 'candidate', status: 'active' },
-    { id: 2, fullName: 'Trần Thị B', email: 'tranthib@example.com', role: 'hr', status: 'active' },
-    { id: 3, fullName: 'Lê Văn C', email: 'levanc@example.com', role: 'interviewer', status: 'inactive' },
-  ]);
+ const [users, setUsers] = useState([
+  { id: 1, fullName: "Nguyễn Văn A", email: "a@gmail.com", role: "candidate", status: "active" },
+  { id: 2, fullName: "Trần Thị B", email: "b@gmail.com", role: "hr", status: "active" },
+  { id: 3, fullName: "Lê Văn C", email: "c@gmail.com", role: "interviewer", status: "inactive" },
+  { id: 4, fullName: "Phạm Đức D", email: "d@gmail.com", role: "candidate", status: "active" },
+  { id: 5, fullName: "Hoàng Anh E", email: "e@gmail.com", role: "candidate", status: "active" },
+  { id: 6, fullName: "Vũ Minh F", email: "f@gmail.com", role: "hr", status: "inactive" },
+  { id: 7, fullName: "Ngô Thanh G", email: "g@gmail.com", role: "interviewer", status: "active" },
+  { id: 8, fullName: "Đặng Thu H", email: "h@gmail.com", role: "candidate", status: "active" },
+]);
+
 
   const [showModal, setShowModal] = useState(false);
-  const [newUser, setNewUser] = useState({ fullName: '', email: '', role: 'candidate' });
+  const [isEdit, setIsEdit] = useState(false);
+  const [currentId, setCurrentId] = useState(null);
 
-  const handleAddUser = () => {
-    setUsers([...users, { ...newUser, id: users.length + 1, status: 'active' }]);
-    setNewUser({ fullName: '', email: '', role: 'candidate' });
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    role: "candidate",
+  });
+
+  const openAdd = () => {
+    setForm({ fullName: "", email: "", role: "candidate" });
+    setIsEdit(false);
+    setShowModal(true);
+  };
+
+  const openEdit = (u) => {
+    setForm(u);
+    setCurrentId(u.id);
+    setIsEdit(true);
+    setShowModal(true);
+  };
+
+  const handleSave = () => {
+    if (isEdit) {
+      setUsers(users.map(u => (u.id === currentId ? { ...u, ...form } : u)));
+    } else {
+      setUsers([...users, { ...form, id: users.length + 1, status: "active" }]);
+    }
     setShowModal(false);
   };
 
   const toggleStatus = (id) => {
-    setUsers(users.map(u => 
-      u.id === id ? { ...u, status: u.status === 'active' ? 'inactive' : 'active' } : u
+    setUsers(users.map(u =>
+      u.id === id ? { ...u, status: u.status === "active" ? "inactive" : "active" } : u
     ));
   };
 
@@ -30,10 +59,8 @@ export default function UserManagement() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>Quản lý người dùng</h1>
-        <button className={styles.btnAdd} onClick={() => setShowModal(true)}>
-          + Thêm người dùng
-        </button>
+        <h1></h1>
+        <button className={styles.btnAdd} onClick={openAdd}>+ Thêm người dùng</button>
       </div>
 
       <div className={styles.tableContainer}>
@@ -48,31 +75,27 @@ export default function UserManagement() {
             </tr>
           </thead>
           <tbody>
-            {users.map(user => (
-              <tr key={user.id}>
-                <td>{user.fullName}</td>
-                <td>{user.email}</td>
+            {users.map(u => (
+              <tr key={u.id}>
+                <td>{u.fullName}</td>
+                <td>{u.email}</td>
                 <td>
-                  <span className={styles.badge}>
-                    {user.role === 'candidate' ? 'Ứng viên' : user.role === 'hr' ? 'HR' : 'Interviewer'}
+           <span className={`${styles.badge} ${styles[u.role]}`}>
+             {u.role}
+           </span>
+          </td>
+
+                <td>
+                  <span className={`${styles.status} ${styles[u.status]}`}>
+                    {u.status === "active" ? "Kích hoạt" : "Vô hiệu"}
                   </span>
                 </td>
                 <td>
-                  <span className={`${styles.status} ${styles[user.status]}`}>
-                    {user.status === 'active' ? 'Kích hoạt' : 'Vô hiệu'}
-                  </span>
-                </td>
-                <td>
-                  <button 
-                    className={styles.btnSmall}
-                    onClick={() => toggleStatus(user.id)}
-                  >
-                    {user.status === 'active' ? 'Vô hiệu' : 'Kích hoạt'}
+                  <button className={styles.btnSmall} onClick={() => openEdit(u)}>Sửa</button>
+                  <button className={styles.btnSmall} onClick={() => toggleStatus(u.id)}>
+                    {u.status === "active" ? "Vô hiệu" : "Kích hoạt"}
                   </button>
-                  <button 
-                    className={`${styles.btnSmall} ${styles.danger}`}
-                    onClick={() => deleteUser(user.id)}
-                  >
+                  <button className={`${styles.btnSmall} ${styles.danger}`} onClick={() => deleteUser(u.id)}>
                     Xóa
                   </button>
                 </td>
@@ -85,47 +108,35 @@ export default function UserManagement() {
       {showModal && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
-            <h2>Thêm người dùng mới</h2>
-            <form>
-              <div className={styles.formGroup}>
-                <label>Họ và tên</label>
-                <input 
-                  type="text"
-                  value={newUser.fullName}
-                  onChange={(e) => setNewUser({ ...newUser, fullName: e.target.value })}
-                  placeholder="Nhập họ và tên"
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Email</label>
-                <input 
-                  type="email"
-                  value={newUser.email}
-                  onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-                  placeholder="Nhập email"
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Vai trò</label>
-                <select 
-                  value={newUser.role}
-                  onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
-                >
-                  <option value="candidate">Ứng viên</option>
-                  <option value="hr">HR</option>
-                  <option value="interviewer">Interviewer</option>
-                  <option value="admin">Admin</option>
-                </select>
-              </div>
-              <div className={styles.actions}>
-                <button type="button" className={styles.btnSave} onClick={handleAddUser}>
-                  Lưu
-                </button>
-                <button type="button" className={styles.btnCancel} onClick={() => setShowModal(false)}>
-                  Hủy
-                </button>
-              </div>
-            </form>
+            <h2>{isEdit ? "Cập nhật người dùng" : "Thêm người dùng"}</h2>
+
+            <div className={styles.formGroup}>
+              <label>Họ và tên</label>
+              <input value={form.fullName}
+                onChange={e => setForm({ ...form, fullName: e.target.value })} />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label>Email</label>
+              <input value={form.email}
+                onChange={e => setForm({ ...form, email: e.target.value })} />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label>Vai trò</label>
+              <select value={form.role}
+                onChange={e => setForm({ ...form, role: e.target.value })}>
+                <option value="candidate">Ứng viên</option>
+                <option value="hr">HR</option>
+                <option value="interviewer">Interviewer</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+
+            <div className={styles.actions}>
+              <button className={styles.btnSave} onClick={handleSave}>Lưu</button>
+              <button className={styles.btnCancel} onClick={() => setShowModal(false)}>Hủy</button>
+            </div>
           </div>
         </div>
       )}

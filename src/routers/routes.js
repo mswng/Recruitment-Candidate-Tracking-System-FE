@@ -5,8 +5,12 @@ import HomePage from "../pages/home/HomePage";
 import Jobs from "../pages/jobs/Jobs";
 import Companies from "../pages/companies/Companies";
 
+// AUTH (đã chuyển sang components/layouts/auth)
+import Login from "../components/layouts/auth/Login";
+import Register from "../components/layouts/auth/Register";
+import ForgotPassword from "../components/layouts/auth/ForgotPassword";
+
 // ADMIN
-import Home from "../pages/admin/home";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import UserManagement from "../pages/admin/users";
 import PipelineConfig from "../pages/admin/pipeline";
@@ -22,30 +26,31 @@ import InterviewDetail from "../pages/interviewer/InterviewDetail";
 // CANDIDATE
 import CandidateDashboard from "../pages/candidate/CandidateDashboard";
 
-// AUTH (PUBLIC)
-import Login from "../pages/auth/Login";
-import ForgotPassword from "../pages/auth/ForgotPassword";
-import Register from "../pages/auth/Register";
+// PROFILE
 import Profile from "../pages/profile/Profile";
 
+// ================= PUBLIC ROUTES =================
 const publicRouter = [
-  { path: "/", element: <HomePage /> },             // Trang chủ
-  { path: "/jobs", element: <Jobs /> },             // Tìm việc
-  { path: "/companies", element: <Companies /> },   // Công ty
+  { path: "/", element: <HomePage /> },
+  { path: "/jobs", element: <Jobs /> },
+  { path: "/companies", element: <Companies /> },
+
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
 ];
 
+// ================= ADMIN ROUTES =================
 const adminRouter = [
-  { path: "/dashboard", element: <AdminDashboard /> },        // Dashboard Admin
-  { path: "/users", element: <UserManagement /> },  // Quản lý user
-  { path: "/pipeline", element: <PipelineConfig /> }, // Pipeline
-  { path: "/interviews", element: <MyInterviews /> }, // Lịch PV
-  { path: "/interviews/:id", element: <InterviewDetail /> }, // Chi tiết PV
-  { path: "/profile", element: <Profile /> }, // Hồ sơ cá nhân
+  { path: "/dashboard", element: <AdminDashboard /> },
+  { path: "/users", element: <UserManagement /> },
+  { path: "/pipeline", element: <PipelineConfig /> },
+  { path: "/interviews", element: <MyInterviews /> },
+  { path: "/interviews/:id", element: <InterviewDetail /> },
+  { path: "/profile", element: <Profile /> },
 ];
 
+// ================= HR ROUTES =================
 const hrRouter = [
   { path: "/dashboard", element: <HRDashboard /> },
   { path: "/interviews", element: <MyInterviews /> },
@@ -53,6 +58,7 @@ const hrRouter = [
   { path: "/profile", element: <Profile /> },
 ];
 
+// ================= INTERVIEWER ROUTES =================
 const interviewerRouter = [
   { path: "/dashboard", element: <InterviewerDashboard /> },
   { path: "/interviews", element: <MyInterviews /> },
@@ -60,9 +66,16 @@ const interviewerRouter = [
   { path: "/profile", element: <Profile /> },
 ];
 
+// ================= CANDIDATE ROUTES =================
 const candidateRouter = [
   { path: "/dashboard", element: <CandidateDashboard /> },
   { path: "/profile", element: <Profile /> },
 ];
 
-export { adminRouter, publicRouter, hrRouter, interviewerRouter, candidateRouter };
+export {
+  publicRouter,
+  adminRouter,
+  hrRouter,
+  interviewerRouter,
+  candidateRouter,
+};

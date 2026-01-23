@@ -1,19 +1,13 @@
-.authPage {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.authContainer {
-  flex: 1;
+.loginContainer {
+  min-height: calc(100vh - 72px);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 40px 20px;
+  background: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
+  padding: 0px;
 }
 
-.authBox {
+.loginBox {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
@@ -47,18 +41,17 @@
     font-size: 14px;
   }
 
-  input,
-  select {
+  input {
     padding: 12px 16px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #E5E7EB;
     border-radius: 4px;
     font-size: 14px;
     transition: all 0.3s;
 
     &:focus {
       outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      border-color: #2563EB;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
 
     &::placeholder {
@@ -67,21 +60,38 @@
   }
 }
 
+.linksRow {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.forgot {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.forgot:hover {
+  text-decoration: underline;
+}
+
+
 .forgotPassword {
   text-decoration: none;
-  color: #667eea;
+  color: #2563EB;
   font-size: 13px;
   text-align: right;
   transition: color 0.3s;
 
   &:hover {
-    color: #764ba2;
+    color: #1D4ED8;
   }
 }
 
 .btnSubmit {
   padding: 12px;
-  background-color: #667eea;
+  background-color: #2563EB;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -91,7 +101,7 @@
   transition: all 0.3s;
 
   &:hover {
-    background-color: #764ba2;
+    background-color: #1D4ED8;
   }
 
   &:active {
@@ -127,20 +137,19 @@
   transition: all 0.3s;
 
   &:hover {
-    background-color: #f5f5f5;
-    border-color: #667eea;
+    background-color: #F8FAFC;
+    border-color: #2563EB;
   }
 }
 
-.signup,
-.login {
+.signup {
   text-align: center;
   margin: 24px 0 0;
-  color: #666;
+  color: #6B7280;
   font-size: 14px;
 
   a {
-    color: #667eea;
+    color: #2563EB;
     text-decoration: none;
     font-weight: 600;
 
@@ -149,53 +158,3 @@
     }
   }
 }
-
-.select {
-  padding: 12px 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  font-size: 14px;
-  background-color: #fff;
-  cursor: pointer;
-  transition: all 0.3s;
-
-  &:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
-
-  option {
-    padding: 8px;
-  }
-}
-
-.quickLoginButtons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-top: 24px;
-}
-
-.btnQuickLogin {
-  padding: 10px 16px;
-  background-color: #f5f5f5;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-  color: #333;
-
-  &:hover {
-    background-color: #667eea;
-    color: #fff;
-    border-color: #667eea;
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-}
-

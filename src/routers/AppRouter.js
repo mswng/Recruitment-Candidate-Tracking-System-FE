@@ -1,60 +1,45 @@
-import { Route, Routes } from 'react-router-dom'
-import { adminRouter, publicRouter, hrRouter, interviewerRouter, candidateRouter } from './routes'
-import DefaultLayout from '../components/layouts/defaultlayout/DefaultLayout';
-import { useState, useEffect } from 'react';
+import { Routes, Route } from "react-router-dom";
+import {
+  publicRouter,
+  adminRouter,
+  hrRouter,
+  interviewerRouter,
+  candidateRouter,
+} from "./routes";
 
 function AppRouter() {
-    const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || 'candidate');
+  return (
+    <Routes>
+      {/* PUBLIC */}
+      {publicRouter.map((r, i) => (
+        <Route key={i} path={r.path} element={r.element} />
+      ))}
 
-    // Listen for storage changes to update role when user logs in/out
-    useEffect(() => {
-        const handleStorageChange = () => {
-            const newRole = localStorage.getItem('userRole') || 'candidate';
-            setUserRole(newRole);
-        };
+      {/* ADMIN */}
+      {adminRouter.map((r, i) => (
+        <Route key={`admin-${i}`} path={`/admin${r.path}`} element={r.element} />
+      ))}
 
-        // Listen for storage changes from other tabs/windows
-        window.addEventListener('storage', handleStorageChange);
+      {/* HR */}
+      {hrRouter.map((r, i) => (
+        <Route key={`hr-${i}`} path={`/hr${r.path}`} element={r.element} />
+      ))}
 
-        // Also listen for custom event in same tab
-        window.addEventListener('userRoleChanged', handleStorageChange);
+      {/* INTERVIEWER */}
+      {interviewerRouter.map((r, i) => (
+        <Route
+          key={`interviewer-${i}`}
+          path={`/interviewer${r.path}`}
+          element={r.element}
+        />
+      ))}
 
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-            window.removeEventListener('userRoleChanged', handleStorageChange);
-        };
-    }, []);
-
-    const getRoleRoutes = () => {
-        switch(userRole) {
-            case 'admin':
-                return adminRouter;
-            case 'hr':
-                return hrRouter;
-            case 'interviewer':
-                return interviewerRouter;
-            case 'candidate':
-                return candidateRouter;
-            default:
-                return candidateRouter;
-        }
-    };
-
-    const roleRoutes = getRoleRoutes();
-
-    return (
-        <Routes>
-            {publicRouter.map((item, index) => (
-                <Route key={index} path={item.path} element={item.element}></Route>
-            ))}
-            {roleRoutes.map((item, index) => (
-                <Route key={index} path={item.path} element={
-                    <DefaultLayout>
-                        {item.element}
-                    </DefaultLayout>
-                }></Route>
-            ))}
-        </Routes>
-    )
+      {/* CANDIDATE */}
+      {candidateRouter.map((r, i) => (
+        <Route key={`candidate-${i}`} path={r.path} element={r.element} />
+      ))}
+    </Routes>
+  );
 }
+
 export default AppRouter;

@@ -1,132 +1,142 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Header from '../../components/layouts/header/Header';
-import Footer from '../../components/layouts/footer/Footer';
-import styles from './HomePage.module.scss';
+import React from "react";
+import styles from "./HomePage.module.scss";
+import heroImage from "../../assets/imgs/hero-interview.jpg";
 
 export default function HomePage() {
-  const navigate = useNavigate();
-  const [searchData, setSearchData] = useState({
-    keyword: '',
-    location: '',
-    field: ''
-  });
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchData.keyword) {
-      navigate(`/jobs?keyword=${searchData.keyword}&location=${searchData.location}&field=${searchData.field}`);
-    }
-  };
-
   return (
     <>
-      <Header />
-      
-      <div className={styles.heroBanner}>
-        <div className={styles.heroContent}>
-          <div className={styles.statsHighlight}>
-            <span className={styles.newJobs}>CÓ <strong>+12,790</strong></span>
-            <h1 className={styles.mainTitle}>VIỆC LÀM MỚI HÔM NAY</h1>
-          </div>
-          
-          <p className={styles.subtitle}>
-            Nền tảng tìm việc làm hàng đầu Việt Nam - Kết nối nhân tài với cơ hội tốt
-          </p>
+      {/* HERO */}
+      <section className={styles.hero}>
+        <div className={styles.heroInner}>
+          {/* LEFT */}
+          <div className={styles.heroContent}>
+            <span className={styles.heroBadge}>CƠ HỘI NGHỀ NGHIỆP</span>
 
-          <form onSubmit={handleSearch} className={styles.searchForm}>
-            <div className={styles.searchContainer}>
-              <div className={styles.searchGroup}>
-                <span className={styles.icon}>🔍</span>
-                <input
-                  type="text"
-                  placeholder="Từ khóa, chức danh hoặc công ty"
-                  value={searchData.keyword}
-                  onChange={(e) => setSearchData({ ...searchData, keyword: e.target.value })}
-                  className={styles.input}
-                />
-              </div>
+            <h1>
+              Gia nhập <span>RecruitHub</span>
+            </h1>
 
-              <div className={styles.searchGroup}>
-                <span className={styles.icon}>📍</span>
-                <select
-                  value={searchData.location}
-                  onChange={(e) => setSearchData({ ...searchData, location: e.target.value })}
-                  className={styles.input}
-                >
-                  <option value="">Tất cả địa điểm</option>
-                  <option value="hanoi">Hà Nội</option>
-                  <option value="hcm">TP Hồ Chí Minh</option>
-                  <option value="danang">Đà Nẵng</option>
-                  <option value="remote">Remote</option>
-                </select>
-              </div>
+            <p>
+              Nền tảng kết nối nhân tài công nghệ với các doanh nghiệp hàng đầu
+              tại Việt Nam và quốc tế.
+            </p>
 
-              <div className={styles.searchGroup}>
-                <span className={styles.icon}>💼</span>
-                <select
-                  value={searchData.field}
-                  onChange={(e) => setSearchData({ ...searchData, field: e.target.value })}
-                  className={styles.input}
-                >
-                  <option value="">Ngành nghề</option>
-                  <option value="it">IT / Công nghệ</option>
-                  <option value="design">Design</option>
-                  <option value="marketing">Marketing</option>
-                  <option value="sales">Kinh doanh / Bán hàng</option>
-                </select>
-              </div>
-
-              <button type="submit" className={styles.btnSearch}>
-                TÌM VIỆC
-              </button>
+            <div className={styles.heroActions}>
+              <button className={styles.primaryBtn}>Ứng tuyển ngay</button>
+              <button className={styles.secondaryBtn}>Khám phá thêm</button>
             </div>
-          </form>
-        </div>
-      </div>
+          </div>
 
-      <div className={styles.statsSection}>
+          {/* RIGHT */}
+          <div className={styles.heroImageWrap}>
+            <img src={heroImage} alt="RecruitHub Interview" />
+
+            <div className={styles.heroFloatCard}>
+              <strong>1.000+</strong>
+              <span>Doanh nghiệp tin dùng</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* STATS */}
+      <section className={styles.stats}>
         <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>59,862+</div>
-            <div className={styles.statLabel}>Việc làm đang tuyển</div>
+          <div>
+            <h3>6+</h3>
+            <span>Vị trí đang tuyển</span>
           </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>12,500+</div>
-            <div className={styles.statLabel}>Công ty tuyển dụng</div>
+          <div>
+            <h3>2018</h3>
+            <span>Năm thành lập</span>
           </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>1M+</div>
-            <div className={styles.statLabel}>Ứng viên đăng ký</div>
+          <div>
+            <h3>300+</h3>
+            <span>Nhân sự</span>
           </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>98%</div>
-            <div className={styles.statLabel}>Độ hài lòng</div>
-          </div>
-        </div>
-      </div>
-
-      <div className={styles.jobsPreview}>
-        <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>Việc Làm Nổi Bật</h2>
-          <div className={styles.jobsGrid}>
-            {[1, 2, 3, 4, 5, 6].map(job => (
-              <div key={job} className={styles.jobCard}>
-                <div className={styles.jobCompany}>TechCorp</div>
-                <h3>React Developer</h3>
-                <p className={styles.location}>📍 Hà Nội</p>
-                <p className={styles.salary}>💰 15 - 25 triệu</p>
-                <p className={styles.description}>
-                  Tìm kiếm React Developer có kinh nghiệm 2+ năm...
-                </p>
-                <button className={styles.btnApply}>Ứng tuyển</button>
-              </div>
-            ))}
+          <div>
+            <h3>98%</h3>
+            <span>Nhân viên hài lòng</span>
           </div>
         </div>
-      </div>
+      </section>
 
-      <Footer />
+
+      {/* VALUES */}
+      <section className={styles.values}>
+        <h2 className={styles.sectionTitle}>Giá trị chúng tôi mang lại</h2>
+        <div className={styles.valueGrid}>
+          <div className={styles.valueCard}>
+            <h3>Đào tạo và Mentoring</h3>
+            <p>Chương trình đào tạo nội bộ, mentoring một kèm một cùng chuyên gia.</p>
+          </div>
+          <div className={styles.valueCard}>
+            <h3>Lộ trình rõ ràng</h3>
+            <p>Đánh giá minh bạch, thăng tiến dựa trên năng lực.</p>
+          </div>
+          <div className={styles.valueCard}>
+            <h3>Dự án lớn</h3>
+            <p>Tham gia các dự án công nghệ quy mô doanh nghiệp.</p>
+          </div>
+          <div className={styles.valueCard}>
+            <h3>Môi trường quốc tế</h3>
+            <p>Hợp tác toàn cầu, văn hóa làm việc hiện đại.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* JOBS */}
+      <section className={styles.jobs}>
+        <h2 className={styles.sectionTitle}>Vị trí đang tuyển</h2>
+        <div className={styles.jobGrid}>
+          <div className={styles.jobCard}>
+            <span className={styles.hot}>HOT</span>
+            <h3>React Developer</h3>
+            <p>Hà Nội / Remote • Full-time</p>
+            <strong>15 – 25 triệu</strong>
+            <button>Ứng tuyển ngay</button>
+          </div>
+
+          <div className={styles.jobCard}>
+            <span className={styles.hot}>HOT</span>
+            <h3>Backend Java</h3>
+            <p>TP.HCM • Full-time</p>
+            <strong>18 – 30 triệu</strong>
+            <button>Ứng tuyển ngay</button>
+          </div>
+
+          <div className={styles.jobCard}>
+            <h3>UI/UX Designer</h3>
+            <p>Hybrid • Part-time</p>
+            <strong>12 – 20 triệu</strong>
+            <button>Ứng tuyển ngay</button>
+          </div>
+        </div>
+      </section>
+
+      {/* NEWS */}
+      <section className={styles.news}>
+        <h2 className={styles.sectionTitle}>Tin tức và Thông báo</h2>
+        <div className={styles.newsGrid}>
+          <div className={styles.newsCard}>
+            <h3>Văn hóa làm việc tại RecruitHub</h3>
+            <p>Môi trường trẻ trung, sáng tạo, minh bạch.</p>
+            <span>14/01/2026</span>
+          </div>
+
+          <div className={styles.newsCard}>
+            <h3>Quy trình tuyển dụng minh bạch</h3>
+            <p>Mọi bước rõ ràng từ CV đến offer.</p>
+            <span>13/01/2026</span>
+          </div>
+
+          <div className={styles.newsCard}>
+            <h3>Cơ hội phát triển dài hạn</h3>
+            <p>Lộ trình nghề nghiệp và đào tạo bài bản.</p>
+            <span>12/01/2026</span>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

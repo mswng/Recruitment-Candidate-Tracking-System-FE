@@ -1,819 +1,170 @@
-.dashboard {
+/* ====== LAYOUT ====== */
+.adminLayout {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8f9ff 0%, #f5f7ff 100%);
+  padding-top: 72px; // đẩy xuống dưới header RecruitHub
+  display: flex;
+  flex-direction: column;
+  background: #dae9f3;
+}
+
+/* ====== TOP BAR ====== */
+.adminTopbar {
+  height: 72px;
+  flex-shrink: 0;
+  position: relative; // KHÔNG fixed/absolute
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* MENU NGANG Ở GIỮA */
+.adminMenu {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.menuBtn {
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s;
+  text-decoration: none;
+}
+
+.menuBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.activeMenu {
+  background: #fff;
+  color: #1e3a8a;
+}
+
+/* LOGOUT */
+.logoutBtn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  background: #ef4444;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ====== CONTENT ====== */
+.adminContent {
+  flex: 1;
+  padding: 32px 48px 48px;
   display: flex;
   flex-direction: column;
 }
 
-.header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 48px 40px;
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
-  margin: 0;
-
-  .headerContent {
-    max-width: 100%;
-    margin: 0;
-
-    h1 {
-      margin: 0 0 12px;
-      font-size: 48px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-
-    p {
-      margin: 0;
-      font-size: 18px;
-      opacity: 0.95;
-      font-weight: 500;
-    }
-  }
-}
-
-.container {
-  max-width: 100%;
-  margin: 0;
-  padding: 48px;
+/* ====== DASHBOARD WRAPPER ====== */
+.dashboardWrapper {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  justify-content: center;
 }
 
+/* ====== STATS ====== */
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  margin-bottom: 40px;
 }
 
 .statCard {
-  background: white;
-  border-radius: 16px;
-  padding: 36px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  transition: all 0.3s ease;
-  position: relative;
-  border: 2px solid #f0f0f0;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  &:hover {
-    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.15);
-    transform: translateY(-8px);
-    border-color: #667eea;
-
-    &::before {
-      opacity: 1;
-    }
-  }
-
-  .statIcon {
-    font-size: 56px;
-    width: 80px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-    border-radius: 14px;
-    transition: all 0.3s ease;
-  }
-
-  &:hover .statIcon {
-    background: linear-gradient(135deg, #667eea25 0%, #764ba225 100%);
-    transform: scale(1.1);
-  }
-
-  .statContent {
-    h3 {
-      margin: 0 0 10px;
-      font-size: 40px;
-      font-weight: 800;
-      color: #333;
-      letter-spacing: -1px;
-    }
-
-    p {
-      margin: 0 0 12px;
-      color: #666;
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-    }
-
-    small {
-      font-size: 14px;
-      color: #10b981;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-  }
-}
-
-// Quick Actions
-.quickActions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  margin-top: 20px;
-}
-
-.actionBtn {
-  padding: 16px 28px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-  }
-
-  &:active {
-    transform: translateY(-2px);
-  }
-}
-
-// Tabs Navigation
-.tabsNav {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-  border-bottom: 2px solid #f0f0f0;
-  padding-bottom: 0;
-}
-
-.tabBtn {
-  padding: 14px 24px;
-  background: transparent;
-  border: none;
-  border-bottom: 3px solid transparent;
-  color: #666;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: -2px;
-  letter-spacing: 0.3px;
-
-  &:hover {
-    color: #667eea;
-  }
-
-  &.active {
-    color: #667eea;
-    border-bottom-color: #667eea;
-  }
-}
-
-// Management Section
-.managementSection {
-  background: white;
-  border-radius: 16px;
-  padding: 40px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  margin-bottom: 40px;
-  border: 2px solid #f0f0f0;
-
-  h2 {
-    margin: 0 0 28px;
-    font-size: 28px;
-    font-weight: 800;
-    color: #333;
-    letter-spacing: -0.5px;
-  }
-}
-
-.sectionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-
-  h2 {
-    margin: 0;
-    font-size: 24px;
-  }
-}
-
-.addBtn {
-  padding: 14px 28px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
-  }
-}
-
-// Search Filter
-.searchFilter {
-  margin-bottom: 24px;
-}
-
-.searchInput {
-  width: 100%;
-  padding: 14px 18px;
-  border: 2px solid #e8e8e8;
-  border-radius: 10px;
-  font-size: 16px;
-  transition: all 0.3s;
-
-  &:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
-}
-
-// Table Styles
-.tableWrapper {
-  overflow-x: auto;
-  border-radius: 12px;
-  border: 2px solid #f0f0f0;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 16px;
-
-  thead {
-    background: linear-gradient(135deg, #f8f9ff 0%, #f5f7ff 100%);
-    border-bottom: 2px solid #e8e8e8;
-  }
-
-  th {
-    padding: 20px 16px;
-    text-align: left;
-    font-weight: 800;
-    color: #333;
-    letter-spacing: 0.3px;
-    font-size: 15px;
-    text-transform: uppercase;
-  }
-
-  td {
-    padding: 18px 16px;
-    border-bottom: 1px solid #e8e8e8;
-    color: #555;
-    font-weight: 500;
-  }
-
-  tbody tr {
-    transition: all 0.2s ease;
-
-    &:hover {
-      background-color: #f8f9ff;
-    }
-  }
-}
-
-// Role Badge
-.roleBadge {
-  display: inline-block;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-
-  &.candidate {
-    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-    color: #0c4a6e;
-  }
-
-  &.hr {
-    background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
-    color: #831843;
-  }
-
-  &.interviewer {
-    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-    color: #78350f;
-  }
-
-  &.admin {
-    background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%);
-    color: #3730a3;
-  }
-}
-
-// Status Badge
-.statusBadge {
-  display: inline-block;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-
-  &.active {
-    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-    color: #064e3b;
-  }
-
-  &.inactive {
-    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-    color: #7c2d12;
-  }
-
-  &.pending {
-    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-    color: #78350f;
-  }
-
-  &.interview_scheduled {
-    background-color: #dbeafe;
-    color: #1e40af;
-  }
-
-  &.screening {
-    background-color: #e0e7ff;
-    color: #3730a3;
-  }
-
-  &.rejected {
-    background-color: #fee2e2;
-    color: #991b1b;
-  }
-
-  &.accepted {
-    background-color: #d1fae5;
-    color: #065f46;
-  }
-
-  &.scheduled {
-    background-color: #dbeafe;
-    color: #1e40af;
-  }
-
-  &.completed {
-    background-color: #d1fae5;
-    color: #065f46;
-  }
-}
-
-// Type Badge
-.typeBadge {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-
-  &.full-time {
-    background-color: #d1fae5;
-    color: #065f46;
-  }
-
-  &.part-time {
-    background-color: #dbeafe;
-    color: #1e40af;
-  }
-
-  &.contract {
-    background-color: #fde2e4;
-    color: #be123c;
-  }
-
-  &.freelance {
-    background-color: #f3e8ff;
-    color: #6b21a8;
-  }
-}
-
-// Actions Buttons
-.actions {
-  display: flex;
-  gap: 8px;
-}
-
-.editBtn,
-.deleteBtn {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-
-  &:hover {
-    transform: translateY(-1px);
-  }
-}
-
-.editBtn {
-  background-color: #dbeafe;
-  color: #1e40af;
-
-  &:hover {
-    background-color: #bfdbfe;
-  }
-}
-
-.deleteBtn {
-  background-color: #fee2e2;
-  color: #991b1b;
-
-  &:hover {
-    background-color: #fecaca;
-  }
-}
-
-// Application Cards Grid
-.cardsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.applicationCard {
-  background: white;
-  border: 1px solid #e8e8e8;
-  border-radius: 10px;
-  padding: 20px;
-  transition: all 0.3s;
-
-  &:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    transform: translateY(-4px);
-  }
-
-  .cardHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    margin-bottom: 12px;
-
-    h3 {
-      margin: 0;
-      font-size: 16px;
-      color: #333;
-    }
-  }
-
-  .position {
-    margin: 0 0 6px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #667eea;
-  }
-
-  .company {
-    margin: 0 0 16px;
-    font-size: 13px;
-    color: #666;
-  }
-
-  .cardFooter {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 16px 0;
-    padding-top: 12px;
-    border-top: 1px solid #e8e8e8;
-    font-size: 13px;
-
-    .date,
-    .rating {
-      color: #666;
-    }
-  }
-
-  .viewBtn {
-    width: 100%;
-    padding: 10px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-    }
-  }
-}
-
-// Interviews List
-.interviewsList {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 20px;
-}
-
-.interviewCard {
-  background: white;
-  border: 1px solid #e8e8e8;
-  border-radius: 10px;
-  padding: 20px;
-  transition: all 0.3s;
-
-  &:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    border-color: #667eea;
-  }
-
-  .interviewCardContent {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    margin-bottom: 16px;
-    gap: 20px;
-  }
-
-  .interviewInfo {
-    flex: 1;
-
-    h3 {
-      margin: 0 0 4px;
-      font-size: 16px;
-      font-weight: 700;
-      color: #333;
-    }
-
-    .position {
-      margin: 0 0 12px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #667eea;
-    }
-
-    .details {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-
-      span {
-        font-size: 13px;
-        color: #666;
-      }
-    }
-  }
-
-  .interviewStatus {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 8px;
-
-    .result {
-      font-size: 12px;
-      color: #065f46;
-      font-weight: 600;
-    }
-  }
-
-  .interviewActions {
-    display: flex;
-    gap: 10px;
-    padding-top: 16px;
-    border-top: 1px solid #e8e8e8;
-
-    button {
-      flex: 1;
-      padding: 8px 12px;
-      background: #f0f0f0;
-      color: #333;
-      border: none;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-
-      &:hover {
-        background: #667eea;
-        color: white;
-      }
-    }
-  }
-}
-
-// Modal Styles
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 20px;
-}
-
-.modalContent {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  width: 100%;
-  max-width: 500px;
-  overflow: hidden;
-}
-
-.modalHeader {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: #fff;
   padding: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  h2 {
-    margin: 0;
-    font-size: 20px;
-  }
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
-.closeBtn {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  font-size: 20px;
-  cursor: pointer;
-  transition: all 0.3s;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
+.statCard p {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 6px;
 }
 
-.modalBody {
+.statCard h3 {
+  color: #2563eb;
+  font-size: 28px;
+  letter-spacing: 0.5px;
+}
+
+/* ====== CHARTS ====== */
+.chartsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.chartBox {
+  background: #fff;
   padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: 0.25s;
 }
 
-.input {
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #e8e8e8;
-  border-radius: 8px;
-  font-size: 14px;
-  font-family: inherit;
-  transition: all 0.3s;
-
-  &:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
+.chartBox:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
 }
 
-.modalFooter {
-  padding: 16px 24px;
-  background-color: #f8f9fa;
-  display: flex;
-  gap: 12px;
-  justify-content: flex-end;
-}
-
-.cancelBtn,
-.saveBtn {
-  padding: 10px 24px;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.cancelBtn {
-  background: #e8e8e8;
-  color: #333;
-
-  &:hover {
-    background: #d8d8d8;
-  }
-}
-
-.saveBtn {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-  }
-}
-
-// App Count Badge
-.appCount {
-  display: inline-block;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 12px;
+.chartBox h4 {
+  margin-bottom: 16px;
   font-weight: 700;
+  color: #1e3a8a;
 }
 
-// Responsive Design
-@media (max-width: 768px) {
-  .header .headerContent h1 {
-    font-size: 24px;
-  }
-
+/* ====== RESPONSIVE ====== */
+@media (max-width: 1024px) {
   .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .chartsGrid {
     grid-template-columns: 1fr;
   }
 
-  .statCard {
-    flex-direction: row;
-  }
-
-  .tabsNav {
-    gap: 4px;
-  }
-
-  .tabBtn {
-    padding: 10px 16px;
-    font-size: 12px;
-  }
-
-  .managementSection {
-    padding: 20px;
-  }
-
-  .cardsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .interviewCardContent {
-    flex-direction: column;
-  }
-
-  .interviewStatus {
-    align-items: flex-start;
-  }
-
-  .table {
-    font-size: 12px;
-
-    th,
-    td {
-      padding: 12px 8px;
-    }
-  }
-
-  .actions {
-    flex-direction: column;
-  }
-
-  .editBtn,
-  .deleteBtn {
-    width: 100%;
+  .adminMenu {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }
+.adminPage {
+  margin-top: 72px; /* đẩy xuống dưới Header */
+  min-height: calc(100vh - 72px);
+  padding: 32px 48px;
+  background: #f5f7fb;
+}
+.adminLayout {
+  min-height: 100vh;
+  padding-top: 72px;
+  display: flex;
+  flex-direction: column;
+  background: #dae9f3;   // ← MÀU NỀN CHUNG ADMIN
+}
+
+.adminPage {
+  background: #dae9f3;  // hoặc transparent nếu muốn ăn nền ngoài
+}
+

@@ -1,0 +1,131 @@
+.dashboardDark {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #94a8d2, #b5d5f5);
+}
+
+/* ===== TOPBAR ĐỒNG BỘ INTERVIEWER ===== */
+.topbar {
+  height: 72px;
+  padding: 0 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 18px;
+  margin: 24px;
+
+  /* GIỐNG 100% INTERVIEWER */
+  background: linear-gradient(135deg, #0f2a5c, #2563eb);
+
+  box-shadow: 0 10px 30px rgba(52, 77, 130, 0.25);
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 800;
+  color: white;
+}
+
+/* MENU */
+.menu button {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: none;
+
+  /* dịu hơn admin, giống interviewer */
+  background: rgba(255, 255, 255, 0.18);
+  color: rgb(147, 187, 247);
+
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.menu button:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* tab đang chọn */
+.menu .active {
+  background: linear-gradient(135deg, #677fea, #e0e7ff);
+  color: #214ecb;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.35);
+}
+
+/* LOGOUT */
+.logoutBtn {
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: 2px solid #ef4444;
+
+  background: transparent;
+  color: #ef4444;
+
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.logoutBtn:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* ===== CONTENT ===== */
+.container {
+  padding: 36px 48px;
+}
+
+/* HEADER TRONG TRANG */
+.dashboardHeader {
+  background: linear-gradient(135deg, #0d224f, #2563eb);
+  color: white;
+  padding: 26px 34px;
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 36px;
+}
+
+.btnFindJobs {
+  background: rgb(255, 255, 255);
+  color: #2563eb;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+/* STATS */
+.statsOverview {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 22px;
+  margin-bottom: 40px;
+}
+
+.statCard {
+  background: linear-gradient(135deg, #08235e, #4c6dd7);
+  color: rgb(255, 255, 255);
+  padding: 22px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.35);
+}
+
+/* ANALYTICS */
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.chartCard {
+  background: linear-gradient(180deg, #75aded, #9198b0);
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 20px 45px rgba(189, 200, 224, 0.25);
+}

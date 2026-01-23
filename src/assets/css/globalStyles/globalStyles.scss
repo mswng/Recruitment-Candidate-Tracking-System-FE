@@ -1,9 +1,25 @@
 :root{
-    --primary-c: #4582ff;
-    --bgr-c: #F7F6F5;
-    --text-c:#342d47;
-    --section-bgr:#FCFCFC;
-    --border-c: #545454;
+    /* Primary Colors */
+    --primary-c: #2563EB;
+    --primary-hover: #1D4ED8;
+    --secondary-c: #10B981;
+    
+    /* Background Colors */
+    --bgr-c: #F8FAFC;
+    --section-bgr: #FFFFFF;
+    --card-bgr: #FFFFFF;
+    
+    /* Text Colors */
+    --text-c: #111827;
+    --text-secondary: #6B7280;
+    
+    /* Border Colors */
+    --border-c: #E5E7EB;
+    
+    /* Status Colors */
+    --error-c: #EF4444;
+    --warning-c: #F59E0B;
+    --success-c: #10B981;
 }
 /* === INTER FONT FAMILY === */
 @font-face {

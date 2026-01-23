@@ -1,154 +1,129 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styles from '../admin/Dashboard.module.scss';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import styles from "./CandidateDashboard.module.scss";
+
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+} from "recharts";
 
 export default function CandidateDashboard() {
-  const [stats] = useState({
+  const navigate = useNavigate();
+
+  const stats = {
     appliedJobs: 12,
     pendingApplications: 5,
     interviewScheduled: 2,
-    offersReceived: 1
-  });
-
-  const [applications] = useState([
-    {
-      id: 1,
-      company: 'TechCorp',
-      position: 'React Developer',
-      status: 'pending',
-      appliedDate: '2024-01-15'
-    },
-    {
-      id: 2,
-      company: 'InnovateLabs',
-      position: 'Full Stack Developer',
-      status: 'interview',
-      appliedDate: '2024-01-10'
-    },
-    {
-      id: 3,
-      company: 'StartupXYZ',
-      position: 'Backend Developer',
-      status: 'offer',
-      appliedDate: '2024-01-05'
-    }
-  ]);
-
-  const getStatusColor = (status) => {
-    switch(status) {
-      case 'pending': return '#ffc107';
-      case 'interview': return '#17a2b8';
-      case 'offer': return '#28a745';
-      case 'rejected': return '#dc3545';
-      default: return '#6c757d';
-    }
+    offersReceived: 1,
+    savedJobs: 8,
+    successRate: 67,
   };
 
-  const getStatusText = (status) => {
-    const statusMap = {
-      'pending': 'Chờ xử lý',
-      'interview': 'Phỏng vấn',
-      'offer': 'Nhận Offer',
-      'rejected': 'Từ chối'
-    };
-    return statusMap[status] || status;
-  };
+  const applicationTrend = [
+    { month: "T8", value: 2 },
+    { month: "T9", value: 5 },
+    { month: "T10", value: 7 },
+    { month: "T11", value: 9 },
+    { month: "T12", value: 12 },
+  ];
+
+  const statusStats = [
+    { name: "Pending", value: 5 },
+    { name: "Interview", value: 2 },
+    { name: "Offer", value: 1 },
+    { name: "Rejected", value: 4 },
+  ];
 
   return (
-    <div className={styles.dashboard}>
-      <div className={styles.header}>
-        <div className={styles.headerContent}>
-          <h1>Dashboard Ứng viên</h1>
-          <p>Quản lý đơn ứng tuyển của bạn</p>
-        </div>
-      </div>
+    <div className={styles.dashboardDark}>
+      {/* ===== TOP BAR GIỐNG INTERVIEWER ===== */}
+      <header className={styles.topbar}>
+        <div className={styles.brand}>RecruitHub</div>
+
+        <nav className={styles.menu}>
+          <button className={styles.active}>Overview</button>
+          <button>Applications</button>
+          <button>Interviews</button>
+          <button>Jobs</button>
+          <button>Profile</button>
+        </nav>
+
+        <button
+          className={styles.logoutBtn}
+          onClick={() => {
+            localStorage.clear();
+            navigate("/login");
+          }}
+        >
+          Logout
+        </button>
+      </header>
 
       <div className={styles.container}>
-        <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>📝</div>
-            <div className={styles.statContent}>
-              <h3>{stats.appliedJobs}</h3>
-              <p>Đã ứng tuyển</p>
-            </div>
+        {/* ===== HEADER ===== */}
+        <div className={styles.dashboardHeader}>
+          <div>
+            <h1>👋 Xin chào, Nguyễn Văn A!</h1>
+            <p>Theo dõi tiến trình ứng tuyển & phân tích hồ sơ của bạn</p>
           </div>
-
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>⏳</div>
-            <div className={styles.statContent}>
-              <h3>{stats.pendingApplications}</h3>
-              <p>Chờ xử lý</p>
-            </div>
-          </div>
-
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>🎤</div>
-            <div className={styles.statContent}>
-              <h3>{stats.interviewScheduled}</h3>
-              <p>Phỏng vấn</p>
-            </div>
-          </div>
-
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>⭐</div>
-            <div className={styles.statContent}>
-              <h3>{stats.offersReceived}</h3>
-              <p>Nhận Offer</p>
-            </div>
-          </div>
+          <Link to="/jobs" className={styles.btnFindJobs}>
+            🔍 Tìm Việc Mới
+          </Link>
         </div>
 
-        <div className={styles.managementSection}>
-          <h2>Đơn ứng tuyển gần đây</h2>
-          <div className={styles.applicationsList}>
-            {applications.map(app => (
-              <div key={app.id} className={styles.applicationCard}>
-                <div className={styles.appHeader}>
-                  <div>
-                    <h3>{app.position}</h3>
-                    <p className={styles.company}>{app.company}</p>
-                  </div>
-                  <span 
-                    className={styles.statusBadge}
-                    style={{ backgroundColor: getStatusColor(app.status) }}
-                  >
-                    {getStatusText(app.status)}
-                  </span>
-                </div>
-                <div className={styles.appFooter}>
-                  <p>Ứng tuyển: {app.appliedDate}</p>
-                  <Link to={`/applications/${app.id}`} className={styles.btnView}>
-                    Xem chi tiết →
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* ===== STATS ===== */}
+        <div className={styles.statsOverview}>
+          {[
+            { label: "Đã Ứng Tuyển", value: stats.appliedJobs },
+            { label: "Chờ Xử Lý", value: stats.pendingApplications },
+            { label: "Phỏng Vấn", value: stats.interviewScheduled },
+            { label: "Nhận Offer", value: stats.offersReceived },
+            { label: "Công Việc Lưu", value: stats.savedJobs },
+            { label: "Tỷ Lệ Thành Công", value: `${stats.successRate}%` },
+          ].map((s, i) => (
+            <div key={i} className={styles.statCard}>
+              <p>{s.label}</p>
+              <h3>{s.value}</h3>
+            </div>
+          ))}
         </div>
 
-        <div className={styles.managementSection}>
-          <h2>Quản lý hồ sơ</h2>
-          <div className={styles.managementGrid}>
-            <Link to="/profile" className={styles.managementCard}>
-              <span className={styles.icon}>👤</span>
-              <h3>Hồ sơ cá nhân</h3>
-              <p>Cập nhật thông tin & CV</p>
-              <span className={styles.arrow}>→</span>
-            </Link>
+        {/* ===== ANALYTICS ===== */}
+        <div className={styles.analyticsGrid}>
+          <div className={styles.chartCard}>
+            <h2>📈 Xu hướng ứng tuyển theo tháng</h2>
+            <ResponsiveContainer width="100%" height={260}>
+              <LineChart data={applicationTrend}>
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#054de8"
+                  strokeWidth={3}
+                  dot={{ r: 5 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
 
-            <div className={styles.managementCard}>
-              <span className={styles.icon}>💼</span>
-              <h3>Các việc làm lưu</h3>
-              <p>Quản lý danh sách yêu thích</p>
-              <span className={styles.arrow}>→</span>
-            </div>
-
-            <div className={styles.managementCard}>
-              <span className={styles.icon}>📊</span>
-              <h3>Thống kê ứng tuyển</h3>
-              <p>Xem lịch sử & báo cáo</p>
-              <span className={styles.arrow}>→</span>
-            </div>
+          <div className={styles.chartCard}>
+            <h2>📊 Trạng thái hồ sơ</h2>
+            <ResponsiveContainer width="100%" height={260}>
+              <BarChart data={statusStats}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="value" fill="#2563eb" radius={[8, 8, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </div>

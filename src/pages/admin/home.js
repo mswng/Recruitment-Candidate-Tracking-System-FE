@@ -4,32 +4,32 @@ import Sidebar from "../../components/Sidebar";
 export default function AdminHome() {
   return (
     <div>
-      {/* Header */}
+      {/* Header trên cùng của trang Admin */}
       <Header />
 
-      {/* Content */}
+      {/* Khu vực nội dung chính */}
       <div style={{ display: "flex", backgroundColor: "#f5f6f8" }}>
-        {/* Sidebar */}
+        {/* Thanh sidebar bên trái */}
         <Sidebar />
 
-        {/* Main content */}
+        {/* Nội dung trung tâm */}
         <div style={{ flex: 1, padding: 24 }}>
-          <h2>Dashboard Admin</h2>
+          <h2>Admin Dashboard</h2>
 
-          {/* Thống kê */}
+          {/* Khu vực thống kê nhanh */}
           <div style={{ display: "flex", gap: 16, marginTop: 20 }}>
             <div style={cardStyle}>
-              <p>Users</p>
+              <p>Total Users</p>
               <h3>120</h3>
             </div>
 
             <div style={cardStyle}>
-              <p>Roles</p>
+              <p>Total Roles</p>
               <h3>4</h3>
             </div>
 
             <div style={cardStyle}>
-              <p>Active</p>
+              <p>Active Users</p>
               <h3>95</h3>
             </div>
           </div>
@@ -39,6 +39,7 @@ export default function AdminHome() {
   );
 }
 
+/* Style cho các thẻ thống kê */
 const cardStyle = {
   background: "#ffffff",
   padding: 20,
