@@ -17,7 +17,7 @@
   background-size: cover;
   background-position: center;
 
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 /* LỚP MỜ */
@@ -39,15 +39,15 @@
   border-radius: 22px;
 
   width: 100%;
-  max-width: 600px;          
-  padding: 44px 40px;   
+  max-width: 600px;
+  padding: 44px 40px;
 
-  transform: translateY(24px); 
+  transform: translateY(-70px);
 
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.32);
 
   h1 {
-    font-size: 35px;         
+    font-size: 35px;
     font-weight: 800;
     text-align: center;
     margin-bottom: 28px;
@@ -74,7 +74,7 @@
   }
 
   input {
-    height: 50px;           /* 🔽 THẤP HƠN */
+    height: 50px;
     padding: 0 16px;
     border-radius: 10px;
     border: 1px solid #e5e7eb;
@@ -88,10 +88,26 @@
   }
 }
 
+/* ================= QUÊN MẬT KHẨU ================= */
+.forgotTop {
+  margin-top: -6px;
+  margin-bottom: 6px;
+  text-align: right;
+  font-size: 14px;
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+  display: block;
+}
+
+.forgotTop:hover {
+  text-decoration: underline;
+}
+
 /* ================= BUTTON ================= */
 .btnSubmit {
-  margin-top: 8px;
-  height: 50px;              /* 🔽 NÚT GỌN */
+  margin-top: 10px;
+  height: 50px;
   border-radius: 12px;
 
   background: linear-gradient(135deg, #2563eb, #1e40af);
@@ -111,10 +127,16 @@
   }
 }
 
-/* ================= LINKS ================= */
-.login {
+/* ================= SIGNUP ================= */
+.signup {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+
   text-align: center;
-  margin-top: 18px;
   font-size: 14px;
   color: #6b7280;
 
@@ -122,15 +144,11 @@
     color: #2563eb;
     font-weight: 700;
     text-decoration: none;
-  }
-}
 
-.forgotPassword {
-  font-size: 14px;
-  text-align: right;
-  color: #2563eb;
-  font-weight: 600;
-  text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 /* ================= MOBILE ================= */
@@ -138,10 +156,45 @@
   .authBox {
     max-width: 100%;
     padding: 36px 22px;
-    transform: translateY(12px); /* mobile đẩy ít hơn */
+    transform: translateY(12px);
   }
 
   .authBox h1 {
     font-size: 26px;
   }
+}
+
+/* LINK LOGIN */
+.login a {
+  text-decoration: none;
+  color: #2563eb;
+  font-weight: 500;
+}
+
+.login a:hover {
+  text-decoration: none;
+  color: #1d4ed8;
+}
+
+/* FONT ĐỒNG BỘ */
+.authBox h1 {
+  font-family: inherit;
+  font-weight: 800;
+}
+
+.formGroup label,
+.formGroup input,
+.btnSubmit {
+  font-family: inherit;
+}
+.login {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;   // căn giữa ngang
+  align-items: center;
+  gap: 6px;
+
+  font-size: 14px;
+  color: #6b7280;
 }

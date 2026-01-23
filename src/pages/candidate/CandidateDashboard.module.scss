@@ -1,553 +1,131 @@
-.candidateDashboard {
+.dashboardDark {
   min-height: 100vh;
-  background: white;
-  padding: 0;
+  background: linear-gradient(180deg, #94a8d2, #b5d5f5);
 }
 
-.dashboardHeader {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #10b981 100%);
+/* ===== TOPBAR ĐỒNG BỘ INTERVIEWER ===== */
+.topbar {
+  height: 72px;
+  padding: 0 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 18px;
+  margin: 24px;
+
+  /* GIỐNG 100% INTERVIEWER */
+  background: linear-gradient(135deg, #0f2a5c, #2563eb);
+
+  box-shadow: 0 10px 30px rgba(52, 77, 130, 0.25);
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 800;
   color: white;
-  padding: 32px 40px;
-  border-radius: 0;
+}
+
+/* MENU */
+.menu button {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: none;
+
+  /* dịu hơn admin, giống interviewer */
+  background: rgba(255, 255, 255, 0.18);
+  color: rgb(147, 187, 247);
+
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.menu button:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* tab đang chọn */
+.menu .active {
+  background: linear-gradient(135deg, #677fea, #e0e7ff);
+  color: #214ecb;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.35);
+}
+
+/* LOGOUT */
+.logoutBtn {
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: 2px solid #ef4444;
+
+  background: transparent;
+  color: #ef4444;
+
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.logoutBtn:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* ===== CONTENT ===== */
+.container {
+  padding: 36px 48px;
+}
+
+/* HEADER TRONG TRANG */
+.dashboardHeader {
+  background: linear-gradient(135deg, #0d224f, #2563eb);
+  color: white;
+  padding: 26px 34px;
+  border-radius: 20px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 16px;
-    text-align: center;
-    padding: 24px 20px;
-  }
-
-  .headerContent {
-    flex: 1;
-
-    h1 {
-      margin: 0 0 8px;
-      font-size: 32px;
-      font-weight: 800;
-
-      @media (max-width: 768px) {
-        font-size: 24px;
-      }
-    }
-
-    p {
-      margin: 0;
-      font-size: 16px;
-      opacity: 0.95;
-
-      @media (max-width: 768px) {
-        font-size: 14px;
-      }
-    }
-  }
-
-  .btnFindJobs {
-    background: white;
-    color: #10b981;
-    border: none;
-    padding: 12px 32px;
-    border-radius: 8px;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 15px;
-    text-decoration: none;
-    transition: all 0.3s;
-    white-space: nowrap;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    @media (max-width: 768px) {
-      width: 100%;
-      padding: 12px 24px;
-    }
-  }
+  margin-bottom: 36px;
 }
 
-.container {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 40px;
-
-  @media (max-width: 1024px) {
-    padding: 0 32px;
-  }
-
-  @media (max-width: 768px) {
-    padding: 0 20px;
-  }
+.btnFindJobs {
+  background: rgb(255, 255, 255);
+  color: #2563eb;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 700;
 }
 
-/* Thống Kê Overview */
+/* STATS */
 .statsOverview {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 16px;
-  margin-bottom: 32px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
+  grid-template-columns: repeat(6, 1fr);
+  gap: 22px;
+  margin-bottom: 40px;
 }
 
-.statItem {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s;
-  border: 1px solid #f0f0f0;
-
-  &:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
-  }
-
-  .statIcon {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .statText {
-    flex: 1;
-
-    p {
-      margin: 0 0 4px;
-      font-size: 12px;
-      color: #999;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    h3 {
-      margin: 0;
-      font-size: 28px;
-      color: #333;
-      font-weight: 800;
-    }
-  }
-
-  @media (max-width: 768px) {
-    padding: 16px;
-
-    .statIcon {
-      width: 50px;
-      height: 50px;
-      font-size: 24px;
-    }
-
-    .statText h3 {
-      font-size: 24px;
-    }
-  }
+.statCard {
+  background: linear-gradient(135deg, #08235e, #4c6dd7);
+  color: rgb(255, 255, 255);
+  padding: 22px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.35);
 }
 
-/* Sections */
-.section {
-  background: white;
-  border-radius: 8px;
-  padding: 28px;
-  margin-bottom: 28px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid #f0f0f0;
-
-  h2 {
-    margin: 0 0 20px;
-    font-size: 24px;
-    color: #333;
-    font-weight: 800;
-  }
-
-  @media (max-width: 768px) {
-    padding: 16px;
-    margin-bottom: 16px;
-    border-radius: 8px;
-
-    h2 {
-      font-size: 18px;
-      margin-bottom: 14px;
-    }
-  }
-}
-
-.sectionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-
-  h2 {
-    margin: 0;
-    flex: 1;
-  }
-
-  .btnViewAll {
-    color: #10b981;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 14px;
-    transition: all 0.3s;
-
-    &:hover {
-      color: #059669;
-      transform: translateX(4px);
-    }
-  }
-}
-
-/* Applications Grid */
-.applicationsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-}
-
-.applicationCard {
-  background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
-  border: 1px solid #E5E7EB;
-  border-radius: 12px;
-  padding: 24px;
-  transition: all 0.3s;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-
-  &:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    transform: translateY(-4px);
-    border-color: #10b981;
-    background: white;
-  }
-
-  .appCardTop {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 16px;
-
-    .companyLogo {
-      font-size: 40px;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
-
-    .statusBadge {
-      color: white;
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-  }
-
-  h3 {
-    margin: 0 0 8px;
-    font-size: 18px;
-    color: #333;
-    font-weight: 700;
-  }
-
-  .company {
-    margin: 0 0 12px;
-    color: #10b981;
-    font-weight: 600;
-    font-size: 14px;
-  }
-
-  .appliedDate {
-    margin: 0 0 16px;
-    color: #999;
-    font-size: 13px;
-  }
-
-  .btnViewDetails {
-    color: #10b981;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 14px;
-    transition: all 0.3s;
-    margin-top: auto;
-
-    &:hover {
-      color: #059669;
-      transform: translateX(4px);
-    }
-  }
-}
-
-/* Two Column Section */
-.twoColumnSection {
+/* ANALYTICS */
+.analyticsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 28px;
-  margin-bottom: 28px;
-
-  @media (max-width: 968px) {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
 }
 
-/* Jobs List */
-.jobsList {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.jobItem {
-  background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
-  border: 1px solid #E5E7EB;
-  border-radius: 10px;
-  padding: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  transition: all 0.3s;
-
-  &:hover {
-    background: white;
-    border-color: #10b981;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-
-  h4 {
-    margin: 0 0 4px;
-    font-size: 16px;
-    color: #333;
-    font-weight: 700;
-  }
-
-  .jobCompany {
-    margin: 0 0 6px;
-    color: #10b981;
-    font-weight: 600;
-    font-size: 13px;
-  }
-
-  .jobMeta {
-    margin: 0;
-    color: #999;
-    font-size: 12px;
-  }
-
-  .btnApplyNow {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 12px;
-    text-decoration: none;
-    transition: all 0.3s;
-    white-space: nowrap;
-
-    &:hover {
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-      transform: translateY(-2px);
-    }
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
-
-    .btnApplyNow {
-      width: 100%;
-      text-align: center;
-    }
-  }
-}
-
-/* Suggested Jobs */
-.suggestedJobs {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.suggestedCard {
-  background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
-  border: 1px solid #E5E7EB;
-  border-radius: 10px;
-  padding: 16px;
-  transition: all 0.3s;
-
-  &:hover {
-    background: white;
-    border-color: #10b981;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-
-  .suggestionHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-
-    .jobIcon {
-      font-size: 24px;
-    }
-
-    .matchBadge {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: white;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-  }
-
-  h4 {
-    margin: 0 0 4px;
-    font-size: 16px;
-    color: #333;
-    font-weight: 700;
-  }
-
-  .suggestionCompany {
-    margin: 0 0 12px;
-    color: #10b981;
-    font-weight: 600;
-    font-size: 13px;
-  }
-
-  .matchBar {
-    background: #e8e8e8;
-    height: 6px;
-    border-radius: 3px;
-    margin-bottom: 12px;
-    overflow: hidden;
-
-    .matchProgress {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      height: 100%;
-      border-radius: 3px;
-      transition: width 0.5s ease;
-    }
-  }
-
-  .btnApply {
-    width: 100%;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 6px;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s;
-
-    &:hover {
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-      transform: translateY(-2px);
-    }
-  }
-}
-
-/* Management Grid */
-.managementGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-  }
-}
-
-.managementCard {
-  background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
-  border: 1px solid #E5E7EB;
-  border-radius: 12px;
+.chartCard {
+  background: linear-gradient(180deg, #75aded, #9198b0);
+  border-radius: 22px;
   padding: 24px;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.3s;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  position: relative;
-
-  &:hover {
-    background: white;
-    border-color: #10b981;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    transform: translateY(-4px);
-
-    .arrow {
-      color: #10b981;
-      transform: translateX(4px);
-    }
-  }
-
-  .icon {
-    font-size: 40px;
-  }
-
-  h3 {
-    margin: 0;
-    font-size: 16px;
-    color: #333;
-    font-weight: 700;
-  }
-
-  p {
-    margin: 0;
-    font-size: 13px;
-    color: #999;
-  }
-
-  .arrow {
-    color: #ddd;
-    font-weight: 700;
-    transition: all 0.3s;
-  }
-}
-
-@media (max-width: 768px) {
-  .candidateDashboard {
-    padding: 20px 0;
-  }
-
-  .managementGrid {
-    grid-template-columns: 1fr;
-  }
+  box-shadow: 0 20px 45px rgba(189, 200, 224, 0.25);
 }

@@ -1,3 +1,16 @@
+/* =========================
+   GLOBAL
+========================= */
+* {
+  font-family: "Inter", "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+$be-bg: #ecf0f3;        // nền be nhạt
+$be-border: #ecf0f3;    // viền be
+$text-main: #1f2937;
+$text-sub: #6b7280;
+
+/* SECTION CHUNG */
 section {
   padding: 90px 20px;
 }
@@ -11,12 +24,39 @@ section {
   color: #0f172a;
 }
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 .hero {
   background: linear-gradient(135deg, #020617, #1e3a8a, #4f46e5);
   color: #fff;
   padding: 150px 20px 180px;
-  text-align: center;
+}
+
+.heroInner {
+  max-width: 1300px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 80px;
+}
+
+.heroContent {
+  text-align: left;
+}
+
+.heroBadge {
+  background: rgba(255, 255, 255, 0.18);
+  padding: 16px 36px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
 }
 
 .heroInner h1 {
@@ -31,23 +71,75 @@ section {
 .heroInner p {
   font-size: 20px;
   max-width: 720px;
-  margin: auto;
   opacity: 0.9;
 }
 
-/* BADGE TO HƠN */
-.heroBadge {
-  background: rgba(255, 255, 255, 0.18);
-  padding: 16px 36px;
-  border-radius: 999px;
-  font-weight: 800;
-  font-size: 18px;
-  letter-spacing: 0.6px;
-  display: inline-block;
-  margin-bottom: 28px;
+.heroActions {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
 }
 
-/* STATS – TÁCH HẲN MÀU */
+.primaryBtn {
+  padding: 16px 34px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #022c22;
+  font-weight: 900;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 20px 40px rgba(34, 197, 94, 0.4);
+}
+
+.secondaryBtn {
+  padding: 16px 34px;
+  border-radius: 999px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  color: #fff;
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* IMAGE */
+.heroImageWrap {
+  position: relative;
+}
+
+.heroImageWrap img {
+  width: 200%;
+  max-width: 720px;
+  border-radius: 40px;
+  box-shadow: 0 50px 90px rgba(0, 0, 0, 0.45);
+}
+
+.heroFloatCard {
+  position: absolute;
+  bottom: -30px;
+  left: -30px;
+  background: #fff;
+  padding: 22px 26px;
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.heroFloatCard strong {
+  font-size: 28px;
+  color: #2563eb;
+  display: block;
+}
+
+.heroFloatCard span {
+  font-size: 14px;
+  color: #475569;
+}
+
+/* =========================
+   STATS
+========================= */
 .stats {
   background: linear-gradient(135deg, #020617, #0b1c3f);
   color: #fff;
@@ -64,30 +156,40 @@ section {
   text-align: center;
 }
 
+.statsGrid div {
+  background: $be-bg;
+  border: 1px solid $be-border;
+  border-radius: 22px;
+  padding: 28px;
+}
+
 .statsGrid h3 {
-  font-size: 48px;
+  font-size: 44px;
   font-weight: 900;
-  color: #22c55e;
+  color: #2563eb;
 }
 
 .statsGrid span {
-  font-size: 18px;
+  font-size: 16px;
+  color: $text-sub;
 }
 
-/* ABOUT */
+/* =========================
+   ABOUT
+========================= */
 .about {
-  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  background: linear-gradient(135deg, #afdaf8);
 }
 
 .aboutCard {
   max-width: 960px;
   margin: auto;
-  background: #fff;
+  background: $be-bg;
   padding: 70px 80px;
   border-radius: 30px;
-  box-shadow: 0 40px 90px rgba(15, 23, 42, 0.18);
+  border: 1px solid $be-border;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
   text-align: center;
-  border-left: 8px solid #2563eb;
 }
 
 .aboutCard h2 {
@@ -102,7 +204,9 @@ section {
   color: #334155;
 }
 
-/* VALUES */
+/* =========================
+   VALUES
+========================= */
 .values {
   background: #f8fafc;
 }
@@ -116,23 +220,26 @@ section {
 }
 
 .valueCard {
-  background: #fff;
+  background: $be-bg;
+  border: 1px solid $be-border;
   padding: 36px;
   border-radius: 24px;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
-  border-top: 6px solid #2563eb;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
 }
 
 .valueCard h3 {
-  font-size: 22px;
+  font-size: 20px;
+  color: $text-main;
 }
 
 .valueCard p {
-  font-size: 16px;
-  color: #475569;
+  font-size: 15px;
+  color: $text-sub;
 }
 
-/* JOBS */
+/* =========================
+   JOBS
+========================= */
 .jobs {
   background: #f1f5f9;
 }
@@ -146,18 +253,20 @@ section {
 }
 
 .jobCard {
-  background: #fff;
+  background: $be-bg;
+  border: 1px solid $be-border;
   padding: 36px;
   border-radius: 26px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.06);
 }
 
 .jobCard h3 {
-  font-size: 24px;
+  font-size: 22px;
+  color: $text-main;
 }
 
 .jobCard strong {
-  font-size: 18px;
+  font-size: 17px;
   color: #16a34a;
 }
 
@@ -180,7 +289,9 @@ section {
   border-radius: 8px;
 }
 
-/* NEWS */
+/* =========================
+   NEWS
+========================= */
 .newsGrid {
   max-width: 1200px;
   margin: auto;
@@ -190,27 +301,30 @@ section {
 }
 
 .newsCard {
-  background: #f8fafc;
+  background: $be-bg;
+  border: 1px solid $be-border;
   padding: 32px;
   border-radius: 22px;
-  border-left: 8px solid #2563eb;
 }
 
 .newsCard h3 {
-  font-size: 22px;
+  font-size: 20px;
+  color: $text-main;
 }
 
 .newsCard p {
-  font-size: 16px;
-  color: #475569;
+  font-size: 15px;
+  color: $text-sub;
 }
 
 .newsCard span {
-  font-size: 14px;
-  color: #64748b;
+  font-size: 13px;
+  color: #9ca3af;
 }
 
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE
+========================= */
 @media (max-width: 1024px) {
   .statsGrid,
   .valueGrid,
@@ -219,7 +333,38 @@ section {
     grid-template-columns: 1fr;
   }
 
+  .heroInner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .heroContent {
+    text-align: center;
+  }
+
+  .heroActions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .heroImageWrap {
+    margin-top: 60px;
+  }
+
+  .heroFloatCard {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .heroInner h1 {
     font-size: 42px;
   }
 }
+/* ===== FORCE ĐỒNG BỘ NỀN NGOÀI ===== */
+.about,
+.values,
+.jobs,
+.news {
+  background: #dae9f3 !important;  ///màu nền
+}
+

@@ -11,10 +11,7 @@ export default function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    /**
-     * PHÂN QUYỀN THEO EMAIL (DEMO)
-     * Sau này thay bằng API là xong
-     */
+    // DEMO phân quyền bằng email
     if (email === "admin@recruithub.com") {
       localStorage.setItem("role", "admin");
       navigate("/admin/dashboard");
@@ -33,9 +30,11 @@ export default function Login() {
       return;
     }
 
-    // mặc định là candidate
-    localStorage.setItem("role", "candidate");
-    navigate("/dashboard");
+    if (email === "candidate@recruithub.com") {
+      localStorage.setItem("role", "candidate");
+      navigate("/candidate/dashboard");
+      return;
+    }
   };
 
   return (
@@ -50,7 +49,6 @@ export default function Login() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Nhập email công ty"
               required
             />
           </div>
@@ -61,23 +59,22 @@ export default function Login() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Nhập mật khẩu"
               required
             />
           </div>
 
-          <Link to="/forgot-password" className={styles.forgotPassword}>
+          {/* QUÊN MẬT KHẨU Ở TRÊN */}
+          <Link to="/forgot-password" className={styles.forgotTop}>
             Quên mật khẩu?
           </Link>
 
-          <button type="submit" className={styles.btnSubmit}>
-            Đăng nhập
-          </button>
-        </form>
+          <button className={styles.btnSubmit}>Đăng nhập</button>
 
-        <p className={styles.login}>
-          Chưa có tài khoản? <Link to="/register">Đăng ký</Link>
-        </p>
+          {/* ĐĂNG KÝ Ở DƯỚI */}
+          <div className={styles.signup}>
+            Chưa có tài khoản? <Link to="/register">Đăng ký</Link>
+          </div>
+        </form>
       </div>
     </AuthLayout>
   );

@@ -3,7 +3,8 @@ import Header from "../header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import styles from "./DefaultLayout.module.scss";
 
-export default function DefaultLayout({ children }) {
+
+export default function DashboardLayout({ children }) {
   return (
     <div className={styles.wrapper}>
       <Sidebar />
