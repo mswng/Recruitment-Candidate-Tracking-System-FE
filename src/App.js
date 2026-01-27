@@ -13,6 +13,13 @@ import HrDashboard from "./pages/hr/HRDashboard";
 import InterviewerDashboard from "./pages/interviewer/InterviewerDashboard";
 import CandidateDashboard from "./pages/candidate/CandidateDashboard";
 
+//Candidate pages
+import RecruitmentPages from "./pages/candidate/RecruitmentPages";
+import Profile from "./pages/candidate/Profile";
+import AppliedJobs from "./pages/candidate/appliedJobs";
+import JobsDetail from "./pages/candidate/JobsDetail";
+
+
 function App() {
   return (
     <>
@@ -33,10 +40,11 @@ function App() {
           path="/interviewer/dashboard"
           element={<InterviewerDashboard />}
         />
-        <Route
-          path="/candidate/dashboard"
-          element={<CandidateDashboard />}
-        />
+        <Route path="/candidate/dashboard" element={<CandidateDashboard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/applied-jobs" element={<AppliedJobs />} />
+        <Route path="/jobs" element={<RecruitmentPages />} />
+        <Route path="/jobs/:id" element={<JobsDetail />} />
       </Routes>
     </>
   );

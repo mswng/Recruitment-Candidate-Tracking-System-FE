@@ -26,8 +26,8 @@ export const MENU = {
 
   candidate: [
     { key: "dashboard", label: "Trang chủ", path: "/candidate/dashboard" },
-    { key: "jobs", label: "Tuyển dụng", path: "/hr/jobs" },
+    { key: "jobs", label: "Tuyển dụng", path: "/jobs" },
     { key: "profile", label: "Quản lý hồ sơ", path: "/profile" },
-    { key: "applications", label: "Xem đơn ứng tuyển", path: "/applications" }
+    { key: "applied-jobs", label: "Xem đơn ứng tuyển", path: "/applied-jobs" }
   ]
 };
