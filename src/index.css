@@ -18,3 +18,38 @@ body {
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
 }
+/* ===== FORCE CLICK GLOBAL (CHỮA CHÁY) ===== */
+html, body, #root {
+  pointer-events: auto !important;
+}
+
+#root * {
+  pointer-events: auto !important;
+}
+
+header, nav, main, table, td, button, input, label, span {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 9999;
+}
+/* FIX BUG RECHARTS ĐÈ CLICK */
+#recharts_measurement_span {
+  pointer-events: none !important;
+  position: absolute !important;
+  top: -99999px !important;
+  left: -99999px !important;
+}
+/* ===== FORCE UNBLOCK CLICK ===== */
+*,
+*::before,
+*::after {
+  pointer-events: auto !important;
+}
+
+.recharts-wrapper,
+.recharts-surface,
+svg,
+canvas,
+#recharts_measurement_span {
+  pointer-events: none !important;
+}

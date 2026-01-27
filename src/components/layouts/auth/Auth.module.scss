@@ -198,3 +198,41 @@
   font-size: 14px;
   color: #6b7280;
 }
+/* ===== FIX ZOOM OVERFLOW ===== */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.authPage,
+.authContainer {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Không cho box to hơn màn hình khi zoom */
+.authBox {
+  width: 100%;
+  max-width: min(600px, 92vw);
+}
+
+/* Tránh translate bị đẩy ra ngoài khi zoom */
+@media (max-height: 700px), (max-width: 768px) {
+  .authBox {
+    transform: translateY(0);
+  }
+}
+
+/* Ngăn text dài làm bung box */
+.authBox,
+.formGroup input,
+.formGroup label {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* Ngăn scrollbar do 100vh + zoom */
+.authPage {
+  min-height: 100dvh;
+  height: auto;
+}

@@ -19,7 +19,8 @@ export default function AdminLayout() {
         <button className={styles.logoutBtn}>Logout</button>
       </div>
 
-      <main className={styles.adminContent}>
+      <main className={`${styles.adminContent} admin-main`}>
+
         <Outlet />
       </main>
     </div>

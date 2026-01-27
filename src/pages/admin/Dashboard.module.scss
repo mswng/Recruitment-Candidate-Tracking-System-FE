@@ -1,193 +1,240 @@
-/* =========================
-   ADMIN LAYOUT
-========================= */
-.adminLayout {
-  min-height: 100vh;
-  padding-top: 72px;
-  display: flex;
-  flex-direction: column;
-  background: #dae9f3;
-}
-
 .adminPage {
-  margin-top: 72px;
-  min-height: calc(100vh - 72px);
-  padding: 32px 48px;
-  background: #dae9f3;
-}
-
-/* =========================
-   TOP BAR
-========================= */
-.adminTopbar {
-  height: 72px;
-  flex-shrink: 0;
-  position: relative;
-  background: linear-gradient(135deg, #1e3a8a, #2563eb);
-  display: flex;
-  align-items: center;
-  padding: 0 32px;
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.brand {
-  font-size: 20px;
-  font-weight: 800;
-}
-
-.adminMenu {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-}
-
-.menuBtn {
-  padding: 10px 22px;
-  border-radius: 999px;
-  border: 2px solid rgba(255, 255, 255, 0.35);
+  min-height: 100vh;
   background: transparent;
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.25s;
-  text-decoration: none;
+  padding: 32px;
 }
 
-.menuBtn:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.activeMenu {
-  background: #fff;
-  color: #1e3a8a;
-}
-
-.logoutBtn {
-  padding: 10px 20px;
-  border-radius: 12px;
-  border: none;
-  background: #ef4444;
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-/* =========================
-   CONTENT
-========================= */
-.adminContent {
-  flex: 1;
-  padding: 32px 48px 48px;
-  display: flex;
-  flex-direction: column;
-}
-
-/* =========================
-   DASHBOARD
-========================= */
 .dashboardWrapper {
-  flex: 1;
+  max-width: 1300px;
+  margin: auto;
+}
+
+.adminContent {
+  position: relative;
+  z-index: 1;
+}
+
+.chartRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+  margin-top: 10px;
+}
+.statsHeader {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #1e3a8a;
+}
+
+.statYear {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.chartRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+  margin-top: 10px;
+}
+
+/* TOP STATS */
+.statsTop {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.statMini {
+  background: #fff;
+  border-radius: 18px;
+  padding: 22px;
+  min-height: 100px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  margin-top: 32px;
-}
-
-/* =========================
-   HR GRID
-========================= */
-.hrGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.hrFull {
-  grid-column: 1 / -1;
-}
-
-.hrWide {
-  grid-column: span 2;
-}
-
-.hrMini {
-  min-height: 140px;
-}
-
-/* =========================
-   HR CARD
-========================= */
-.hrCard {
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 24px 28px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
-  border-left: 6px solid #2563eb;
-}
-
-.hrCard h4 {
-  margin-bottom: 14px;
-  font-weight: 800;
-  color: #1e3a8a;
-}
-
-.hrCard p,
-.hrCard li {
-  color: #334155;
-  line-height: 1.6;
-  font-size: 14.5px;
-}
-
-.hrCard ul {
-  padding-left: 18px;
-}
-
-/* =========================
-   HR TILE (Ô VUÔNG)
-========================= */
-.hrTile {
-  height: 110px;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  border-radius: 18px;
-  font-weight: 800;
-  font-size: 16px;
-  cursor: pointer;
-  color: #1e3a8a;
-  background: #ffffff;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
   box-shadow: 0 10px 24px rgba(0,0,0,0.06);
-  border: 2px solid #2563eb;
-  transition: 0.2s;
+  position: relative;
 }
 
-.hrTile:hover {
-  background: linear-gradient(135deg, #2563eb, #4f46e5);
-  color: #fff;
-  transform: translateY(-3px);
-  box-shadow: 0 16px 32px rgba(37,99,235,0.35);
+.statMini::before {
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:6px;
+  border-radius:18px 18px 0 0;
+}
+.statMini:nth-child(1)::before { background:#2563eb; }
+.statMini:nth-child(2)::before { background:#22c55e; }
+.statMini:nth-child(3)::before { background:#f59e0b; }
+.statMini:nth-child(4)::before { background:#ef4444; }
+
+.statMini p { font-size:13px;color:#475569;font-weight:600; }
+.statMini h3 { font-size:28px;font-weight:900;color:#0f172a; }
+
+/* GRID */
+.adminGrid {
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
 }
 
-/* =========================
-   TIMELINE
-========================= */
-.hrTimeline p {
-  padding: 8px 0;
+/* CARD */
+.adminCard {
+  background:#fff;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 12px 28px rgba(0,0,0,.06);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.adminCard h4 {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: #1e3a8a;
+  margin-bottom: 10px;
+}
+
+/* OVERVIEW TABLE */
+.simpleTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+.simpleTable td {
+  padding: 8px 4px;
+  border-bottom: 1px dashed #e5e7eb;
+}
+.rightCell {
+  text-align: right;
+  font-weight: 700;
+}
+
+/* ===== HOT JOBS (FIXED) ===== */
+.hotWrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.hotTable {
+  width: 92%;
+  margin-top: 8px;
+}
+
+.hotHeader,
+.hotRow {
+  display: grid;
+  grid-template-columns: 1fr 80px;
+  align-items: center;
+}
+
+.hotHeader {
+  padding: 10px 0;
+  font-weight: 700;
+  color: #1e3a8a;
+  border-bottom: 2px solid #c7d2fe;
+}
+
+.hotRow {
+  padding: 10px 0;
   border-bottom: 1px dashed #e5e7eb;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 1024px) {
-  .hrGrid {
-    grid-template-columns: 1fr;
-  }
+.hotRow:last-child { border-bottom: none; }
 
-  .adminMenu {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+.hotTitle {
+  text-align: left;
+  padding-left: 6px;
+  font-weight: 500;
+}
+
+.hotCount {
+  text-align: right;
+  padding-right: 6px;
+  font-weight: 800;
+  color: #2563eb;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .statsTop { grid-template-columns: repeat(2,1fr); }
+  .adminGrid { grid-template-columns: 1fr; }
+}
+/* ===== HOT JOBS FINAL FIX ===== */
+.hotHeader,
+.hotRow {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.colLeft {
+  flex: 1;
+  text-align: left !important;
+}
+
+.colRight {
+  width: 80px;
+  text-align: right !important;
+  font-weight: 800;
+  color: #2563eb;
+}
+/* ===== HOT JOBS TEXT COLOR FIX ===== */
+.hotHeader,
+.hotRow {
+  color: #0f172a !important; /* đen */
+}
+
+.colRight {
+  color: #0f172a !important; /* số cũng đen */
+  font-weight: 700;
+}
+/* RESET COLOR bị kế thừa từ recharts */
+.hotTable,
+.hotTable * {
+  color: #0f172a !important; /* đen */
+  fill: #0f172a !important;  /* chặn svg style */
+}
+/* ===== NORMALIZE DATA WEIGHT ===== */
+
+/* HOT JOBS: số & nội dung không in đậm */
+.hotRow .hotTitle,
+.hotRow .hotCount,
+.colLeft,
+.colRight {
+  font-weight: 400 !important; /* thường */
+}
+
+/* OVERVIEW TABLE: cột phải không in đậm */
+.simpleTable .rightCell {
+  font-weight: 400 !important;
+}
+/* FIX CLICK CHO CÁC TRANG KHÁC NGOÀI DASHBOARD */
+.admin-main {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+.adminPage,
+.dashboardWrapper {
+  pointer-events: auto;
+}
+/* NGĂN SVG RECHARTS ĐÈ ROUTE KHÁC */
+.chartWrap {
+  position: relative;
+  z-index: 0;
+  pointer-events: none;
+}
+.admin-main {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
 }

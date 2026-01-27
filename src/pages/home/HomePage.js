@@ -31,10 +31,10 @@ export default function HomePage() {
           <div className={styles.heroImageWrap}>
             <img src={heroImage} alt="RecruitHub Interview" />
 
-            <div className={styles.heroFloatCard}>
-              <strong>1.000+</strong>
-              <span>Doanh nghiệp tin dùng</span>
-            </div>
+          
+              
+          
+            
           </div>
         </div>
       </section>

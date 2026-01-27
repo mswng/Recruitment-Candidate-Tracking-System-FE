@@ -8,19 +8,27 @@ export default function Header() {
 
   const menus = MENU[role] || [];
 
+  const isActive = (path) => {
+    const current = location.pathname;
+
+    if (path === "/") {
+      return current === "/";
+    }
+
+    return current === path || current.startsWith(path + "/");
+  };
+
   return (
     <header className={styles.header}>
-      {/* LEFT */}
       <div className={styles.left}>RecruitHub</div>
 
-      {/* CENTER */}
       <nav className={styles.center}>
         {menus.map((item) => (
           <Link
             key={item.key}
             to={item.path}
             className={`${styles.menuItem} ${
-              location.pathname === item.path ? styles.active : ""
+              isActive(item.path) ? styles.active : ""
             }`}
           >
             {item.label}
@@ -28,7 +36,6 @@ export default function Header() {
         ))}
       </nav>
 
-      {/* RIGHT */}
       <div className={styles.right}>
         {role === "guest" ? (
           <>
