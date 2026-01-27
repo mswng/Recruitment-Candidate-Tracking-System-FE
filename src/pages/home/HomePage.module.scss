@@ -34,16 +34,22 @@ section {
 }
 
 .heroInner {
-  max-width: 1300px;
+  max-width: min(1280px, 95vw);
   margin: auto;
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.2fr 1fr;
   align-items: center;
-  gap: 80px;
+  gap: clamp(40px, 6vw, 80px);
 }
+
 
 .heroContent {
   text-align: left;
+  white-space: normal; // cho phép xuống dòng phần khác
+}
+
+.heroContent h1 {
+  white-space: nowrap; // CHỈ giữ tiêu đề 1 dòng
 }
 
 .heroBadge {
@@ -109,7 +115,7 @@ section {
 }
 
 .heroImageWrap img {
-  width: 200%;
+  width: 100%;
   max-width: 720px;
   border-radius: 40px;
   box-shadow: 0 50px 90px rgba(0, 0, 0, 0.45);
@@ -117,8 +123,8 @@ section {
 
 .heroFloatCard {
   position: absolute;
-  bottom: -30px;
-  left: -30px;
+  bottom: -20px;
+  left: clamp(10px, 3vw, 30px);
   background: #fff;
   padding: 22px 26px;
   border-radius: 20px;
@@ -281,13 +287,34 @@ section {
   border: none;
 }
 
+
 .hot {
-  background: #22c55e;
+  background: linear-gradient(135deg, #ef4444, #f97316);
   color: #fff;
-  padding: 6px 12px;
-  font-size: 12px;
-  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  letter-spacing: .5px;
+  box-shadow: 0 6px 14px rgba(239, 68, 68, 0.35);
 }
+
+.jobCard h3 {
+  margin-top: 6px;
+  font-weight: 800;
+}
+
+.jobCard p {
+  font-size: 14px;
+  color: #64748b;
+  margin: 4px 0 10px;
+}
+
+.jobCard strong {
+  font-size: 18px;
+  margin-top: auto; // đẩy xuống đáy
+}
+
 
 /* =========================
    NEWS
@@ -347,14 +374,22 @@ section {
     flex-wrap: wrap;
   }
 
-  .heroImageWrap {
-    margin-top: 60px;
-  }
+.heroImageWrap {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;   /* KHÓA tràn */
+  display: flex;
+  justify-content: center;
+}
 
-  .heroFloatCard {
-    left: 50%;
-    transform: translateX(-50%);
-  }
+
+.heroFloatCard {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  max-width: calc(100% - 48px); /* không vượt khung */
+  box-sizing: border-box;
+}
 
   .heroInner h1 {
     font-size: 42px;
@@ -367,4 +402,86 @@ section {
 .news {
   background: #dae9f3 !important;  ///màu nền
 }
+/* Giới hạn khung khi zoom */
+.heroInner,
+.statsGrid,
+.valueGrid,
+.jobGrid,
+.newsGrid,
+.aboutCard {
+  max-width: min(1200px, 95vw);
+}
+// tràn màng hình
+.pageWrap {
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
+/* Ảnh hero không vượt khung */
+.heroImageWrap img {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 40px;
+  box-shadow: 0 50px 90px rgba(0, 0, 0, 0.45);
+}
+
+
+
+/* Float card không bị đẩy ra ngoài */
+.heroFloatCard {
+  bottom: 24px;  // nằm trong ảnh, không tràn
+}
+
+
+/* Ngăn text bung box */
+h1, h2, h3, p, span {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Grid co lại khi zoom */
+.statsGrid,
+.valueGrid,
+.jobGrid,
+.newsGrid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.jobCard {
+  position: relative;   // để HOT bám theo card
+  overflow: hidden;
+}
+.heroImageWrap {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;   /* khóa tràn */
+}
+
+/* Badge 1000+ */
+.heroFloatCard {
+  position: absolute;
+  bottom: 24px;   /* cách đáy ảnh */
+  left: 24px;     /* góc trái */
+  background: #ffffff;
+  padding: 14px 20px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: calc(100% - 48px);
+  box-sizing: border-box;
+}
+
+.heroFloatCard strong {
+  font-size: 22px;
+  font-weight: 800;
+  color: #2563eb;
+}
+
+.heroFloatCard span {
+  font-size: 13px;
+  color: #475569;
+}

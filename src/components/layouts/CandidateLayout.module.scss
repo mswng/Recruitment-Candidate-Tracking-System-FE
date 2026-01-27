@@ -1,0 +1,59 @@
+.wrap {
+  min-height: 100vh;
+  background: #eaf3f9;
+}
+
+/* HEADER */
+.header {
+  height: 80px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 900;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+
+  span {
+    cursor: pointer;
+    font-weight: 600;
+    color: #1f2937;
+  }
+}
+
+.userBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+
+  img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  span {
+    font-weight: 600;
+  }
+}
+
+/* ĐẨY NỘI DUNG XUỐNG DƯỚI HEADER */
+.content {
+  padding-top: 40px;
+}

@@ -19,15 +19,13 @@ export const MENU = {
   interviewer: [
     { key: "dashboard", label: "Trang chủ", path: "/interviewer/dashboard" },
     { key: "schedule", label: "Lịch phỏng vấn", path: "/interviewer/schedule" },
-    { key: "results", label: "Phỏng vấn", path: "/interviewer/results" },
-    { key: "evaluation", label: "Đánh giá", path: "/interviewer/evaluation" },
-    { key: "candidates", label: "Ứng viên", path: "/hr/candidates" }
-  ],
+],
+
 
   candidate: [
-    { key: "dashboard", label: "Trang chủ", path: "/candidate/dashboard" },
-    { key: "jobs", label: "Tuyển dụng", path: "/hr/jobs" },
-    { key: "profile", label: "Quản lý hồ sơ", path: "/profile" },
-    { key: "applications", label: "Xem đơn ứng tuyển", path: "/applications" }
+    { key: "dashboard", label: "Trang chủ", path: "/candidate" },
+    { key: "jobs", label: "Tuyển dụng", path: "/jobs" },
+    { key: "profile", label: "Hồ sơ", path: "/candidate/profile" },
+    { key: "applications", label: "Đơn đã nộp", path: "/candidate/applications" }
   ]
 };

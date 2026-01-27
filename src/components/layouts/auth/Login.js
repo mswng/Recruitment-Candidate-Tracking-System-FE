@@ -32,7 +32,7 @@ export default function Login() {
 
     if (email === "candidate@recruithub.com") {
       localStorage.setItem("role", "candidate");
-      navigate("/candidate/dashboard");
+      navigate("/");
       return;
     }
   };

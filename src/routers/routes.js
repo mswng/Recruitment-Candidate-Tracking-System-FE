@@ -16,7 +16,7 @@ import UserManagement from "../pages/admin/users";
 import PipelineConfig from "../pages/admin/pipeline";
 
 // HR
-import HRDashboard from "../pages/hr/HRDashboard";
+import HRDashboard from "../pages/hr/HrDashboard";
 
 // INTERVIEWER
 import InterviewerDashboard from "../pages/interviewer/InterviewerDashboard";
