@@ -1,0 +1,335 @@
+.wrapper {
+  padding: 24px;
+  min-height: 100vh;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 28px;
+}
+
+/* LEFT */
+.leftCol {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  gap: 24px;
+}
+
+/* CARD */
+.card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.06);
+}
+
+.title {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.table {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 10px 14px;
+}
+
+.table span {
+  font-weight: 500; /* nhẹ */
+  color: #334155;
+}
+
+.table b {
+  font-weight: 400; /* bỏ đậm */
+  color: #0f172a;
+}
+
+/* SMALL CARD */
+.smallGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.smallCard {
+  background: #fff;
+  border: 2px solid #93c5fd;
+  border-radius: 16px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  color: #1e3a8a;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.smallCard:hover {
+  background: #eff6ff;
+}
+
+/* RIGHT */
+.calendarBox {
+  background: #fff;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.06);
+}
+
+// lịch phỏng vấn
+/* ===== SCHEDULE WRAP ===== */
+.wrapper {
+  padding: 32px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px 32px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+}
+
+/* ===== FILTER ===== */
+.filterRow {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 14px 0 22px;
+}
+
+.filterRow button {
+  min-width: 120px;
+  padding: 8px 0;
+  border-radius: 999px;
+  border: 2px solid #2563eb;
+  background: #fff;
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filterRow button:hover {
+  background: #eff6ff;
+}
+
+.activeFilter {
+  background: #2563eb !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+/* ===== TABLE ===== */
+.scheduleTable {
+  display: grid;
+  grid-template-columns: 90px 1fr 180px;
+  gap: 14px;
+}
+
+.scheduleRow {
+  display: contents;
+  cursor: pointer;
+}
+
+.scheduleCell {
+  background: #fff;
+  padding: 14px 16px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+}
+
+.scheduleRow:hover .scheduleCell {
+  background: #f1f5ff;
+}
+
+.timeCell {
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: #1e40af;
+}
+
+.infoCell {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.infoCell h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.infoCell p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.metaCell {
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+}
+
+.badgePending {
+  background: #fde68a;
+  color: #92400e;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.badgeDone {
+  background: #bbf7d0;
+  color: #065f46;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+// danh sách ứng viên===============================
+.metaCell {
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.viewCv {
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.link {
+  color: #16a34a;
+  cursor: pointer;
+  font-weight: 600;
+}
+///////  ĐÁNH GIÁ ỨNG VIÊN ////////////////////
+.reviewCard {
+  max-width: 760px;
+  margin: auto;
+}
+
+.infoTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+.infoTable td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.infoTable td:first-child {
+  width: 180px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.link {
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.scoreBox {
+  margin: 16px 0;
+}
+
+.scoreBox input {
+  width: 100%;
+}
+
+.noteBox {
+  margin-top: 12px;
+}
+
+.noteBox textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #cbd5f5;
+}
+
+.actionRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.primaryBtn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+/// CV PREVIEW /////////////////////////
+.cvModal {
+  background: #fff;
+  width: 70%;
+  max-width: 900px;
+  height: 85vh;
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+}
+
+.cvFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+}
+
+.pdfBox {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.pdfNav {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 10px;
+
+  button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+.backBtn {
+  background: #3b82f6; // xanh sáng
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.backBtn:hover {
+  background: #2563eb;
+}

@@ -24,7 +24,6 @@ import MyInterviews from "../pages/interviewer/MyInterviews";
 import InterviewDetail from "../pages/interviewer/InterviewDetail";
 
 // CANDIDATE
-import CandidateDashboard from "../pages/candidate/CandidateDashboard";
 import Profile from "../pages/candidate/Profile";
 import AppliedJobs from "../pages/candidate/appliedJobs";
 import Jobs from "../pages/candidate/RecruitmentPages";
@@ -66,7 +65,6 @@ const interviewerRouter = [
 
 // ================= CANDIDATE ROUTES =================
 const candidateRouter = [
-  { path: "/dashboard", element: <CandidateDashboard /> },
   { path: "/profile", element: <Profile /> },
   { path: "/applied-jobs", element: <AppliedJobs /> },
   { path: "/jobs", element: <Jobs /> },

@@ -1,85 +1,56 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../admin/Dashboard.module.scss";
+import Calendar from "../hr/Calendar";
+import styles from "./InterviewerDashboard.module.scss";
 
 export default function InterviewerDashboard() {
   const navigate = useNavigate();
 
-  const interviews = [
-    {
-      id: 1,
-      name: "Thomas Alva",
-      position: "Backend Developer",
-      time: "11:30 AM",
-      status: "Pending",
-    },
-    {
-      id: 2,
-      name: "Masum Billah",
-      position: "UI/UX Designer",
-      time: "12:00 PM",
-      status: "Completed",
-    },
-    {
-      id: 3,
-      name: "Smith Lives",
-      position: "Content Writer",
-      time: "12:30 PM",
-      status: "Pending",
-    },
-  ];
-
   return (
-    <div className={styles.dashboard}>
-      {/* ===== TOP BAR ===== */}
-      <header className={styles.topbar}>
-        <div className={styles.brand}>Interviewer Dashboard</div>
-
-        <nav className={styles.menu}>
-          <button className={styles.active}>Dashboard</button>
-          <button>Interview Schedule</button>
-          <button>Candidate Resume</button>
-          <button>Evaluation</button>
-        </nav>
-
-        <button
-          className={styles.logoutBtn}
-          onClick={() => {
-            localStorage.clear();
-            navigate("/login");
-          }}
-        >
-          Logout
-        </button>
-      </header>
-
-      <div className={styles.container}>
-        {/* ===== INTERVIEW LIST ===== */}
-        <div className={styles.chartBox}>
-          <h4>Interview Schedule</h4>
-
-          <div className={styles.interviewHeader}>
-            <span>Candidate</span>
-            <span>Position</span>
-            <span>Time</span>
-            <span>Status</span>
-            <span>Action</span>
+    <div className={styles.wrapper}>
+      <div className={styles.layout}>
+        {/* LEFT */}
+        <div className={styles.leftCol}>
+          {/* THÔNG TIN */}
+          <div className={styles.card}>
+            <h4 className={styles.title}>Thông tin</h4>
+            <div className={styles.table}>
+              <span>Họ tên:</span><b>Nguyễn Văn A</b>
+              <span>Vai trò:</span><b>Interviewer</b>
+              <span>Phòng ban:</span><b>Technical Team</b>
+            </div>
           </div>
 
-          {interviews.map((i) => (
-            <div key={i.id} className={styles.interviewRow}>
-              <span>{i.name}</span>
-              <span>{i.position}</span>
-              <span>{i.time}</span>
-              <span>{i.status}</span>
-
-              <div className={styles.actionBtns}>
-                <button className={styles.blueBtn}>View Resume</button>
-                <button className={styles.greenBtn}>Conduct</button>
-                <button className={styles.yellowBtn}>Evaluate</button>
-              </div>
+          {/* TỔNG QUAN */}
+          <div className={styles.card}>
+            <h4 className={styles.title}>Tổng quan hôm nay</h4>
+            <div className={styles.table}>
+              <span>Lịch phỏng vấn:</span><b>3</b>
+              <span>Đang chờ:</span><b>2</b>
+              <span>Đã hoàn thành:</span><b>1</b>
             </div>
-          ))}
+          </div>
+
+          {/* 2 CARD */}
+          <div className={styles.smallGrid}>
+            <div
+              className={styles.smallCard}
+              onClick={() => navigate("/interviewer/schedule")}
+            >
+              Xem lịch phỏng vấn
+            </div>
+            <div
+              className={styles.smallCard}
+              onClick={() => navigate("/interviewer/my-interviews")}
+            >
+              Danh sách ứng viên
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT - CALENDAR */}
+        <div className={styles.calendarBox}>
+          <Calendar data={{}} />
         </div>
       </div>
     </div>
