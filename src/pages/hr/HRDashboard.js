@@ -16,23 +16,25 @@ export default function HrDashboard() {
 
   return (
     <div className={styles.wrapper}>
-      {/* ROW 1: 3 CARD */}
-      <h3 className={styles.sectionTitle}></h3>
+     {/* ROW 1: 3 CARD */}
+<h3 className={styles.sectionTitle}></h3>
 
-      <div className={styles.overviewGrid}>
-        <div className={styles.statCard}>
-          <p>CV chờ duyệt</p>
-          <h2>35</h2>
-        </div>
-        <div className={styles.statCard}>
-          <p>Job đang mở</p>
-          <h2>48</h2>
-        </div>
-        <div className={styles.statCard}>
-          <p>Phỏng vấn hôm nay</p>
-          <h2>12</h2>
-        </div>
-      </div>
+<div className={styles.overviewGrid}>
+  <div className={`${styles.statCard} ${styles.cardBlue}`}>
+    <p>CV chờ duyệt</p>
+    <h2>35</h2>
+  </div>
+
+  <div className={`${styles.statCard} ${styles.cardGreen}`}>
+    <p>Job đang mở</p>
+    <h2>48</h2>
+  </div>
+
+  <div className={`${styles.statCard} ${styles.cardOrange}`}>
+    <p>Phỏng vấn hôm nay</p>
+    <h2>12</h2>
+  </div>
+</div>
 
       {/* ROW 2: CALENDAR */}
       <div className={styles.calendarFull}>
