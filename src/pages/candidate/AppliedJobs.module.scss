@@ -1,0 +1,80 @@
+.wrapper {
+  max-width: 900px;
+  margin: 24px auto;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  padding: 0 8px;
+  color: #1a9ead;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 0 0 1px #a7bdc4;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
+  }
+}
+
+.company {
+  font-size: 14px;
+  color: #374151;
+}
+
+.salary {
+  color: #1676a3;
+  font-weight: 600;
+}
+
+.meta {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: #6b7280;
+  margin: 8px 0 12px;
+}
+
+.status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.WAIT_INTERVIEW {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.WAIT_RESULT {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.PASSED {
+  background: #ecfdf5;
+  color: #16a34a;
+}
+
+.FAILED {
+  background: #fef2f2;
+  color: #dc2626;
+}

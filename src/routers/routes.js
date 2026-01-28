@@ -16,7 +16,7 @@ import UserManagement from "../pages/admin/users";
 import PipelineConfig from "../pages/admin/pipeline";
 
 // HR
-import HRDashboard from "../pages/hr/HrDashboard";
+import HRDashboard from "../pages/hr/HRDashboard";
 
 // INTERVIEWER
 import InterviewerDashboard from "../pages/interviewer/InterviewerDashboard";
@@ -24,10 +24,10 @@ import MyInterviews from "../pages/interviewer/MyInterviews";
 import InterviewDetail from "../pages/interviewer/InterviewDetail";
 
 // CANDIDATE
-import CandidateDashboard from "../pages/candidate/CandidateDashboard";
-
-// PROFILE
-import Profile from "../pages/profile/Profile";
+import Profile from "../pages/candidate/Profile";
+import AppliedJobs from "../pages/candidate/appliedJobs";
+import Jobs from "../pages/candidate/RecruitmentPages";
+import JobsDetail from "../pages/candidate/JobsDetail"; 
 
 // ================= PUBLIC ROUTES =================
 const publicRouter = [
@@ -47,7 +47,6 @@ const adminRouter = [
   { path: "/pipeline", element: <PipelineConfig /> },
   { path: "/interviews", element: <MyInterviews /> },
   { path: "/interviews/:id", element: <InterviewDetail /> },
-  { path: "/profile", element: <Profile /> },
 ];
 
 // ================= HR ROUTES =================
@@ -55,7 +54,6 @@ const hrRouter = [
   { path: "/dashboard", element: <HRDashboard /> },
   { path: "/interviews", element: <MyInterviews /> },
   { path: "/interviews/:id", element: <InterviewDetail /> },
-  { path: "/profile", element: <Profile /> },
 ];
 
 // ================= INTERVIEWER ROUTES =================
@@ -63,13 +61,14 @@ const interviewerRouter = [
   { path: "/dashboard", element: <InterviewerDashboard /> },
   { path: "/interviews", element: <MyInterviews /> },
   { path: "/interviews/:id", element: <InterviewDetail /> },
-  { path: "/profile", element: <Profile /> },
 ];
 
 // ================= CANDIDATE ROUTES =================
 const candidateRouter = [
-  { path: "/dashboard", element: <CandidateDashboard /> },
   { path: "/profile", element: <Profile /> },
+  { path: "/applied-jobs", element: <AppliedJobs /> },
+  { path: "/jobs", element: <Jobs /> },
+  { path: "/jobs/:id", element: <JobsDetail /> },
 ];
 
 export {

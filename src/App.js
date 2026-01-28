@@ -1,34 +1,37 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/layouts/header/Header";
-import { Navigate } from "react-router-dom";
 
+// Public pages
 import HomePage from "./pages/home/HomePage";
 import Login from "./components/layouts/auth/Login";
 import Register from "./components/layouts/auth/Register";
 import ForgotPassword from "./components/layouts/auth/ForgotPassword";
 
+// Admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import UserManagement from "./pages/admin/users";
-import HrDashboard from "./pages/hr/HrDashboard";
 
+// HR pages
+import HrDashboard from "./pages/hr/HRDashboard";
 
+// Interviewer pages
 import InterviewerDashboard from "./pages/interviewer/InterviewerDashboard";
 import InterviewerSchedule from "./pages/interviewer/InterviewerSchedule";
 import InterviewerReview from "./pages/interviewer/InterviewerReview";
 import InterviewerMyInterviews from "./pages/interviewer/InterviewerMyInterviews";
 import InterviewerCV from "./pages/interviewer/InterviewerCV";
 
-import CandidateLayout from "./components/layouts/CandidateLayout";
-import CandidateProfile from "./pages/candidate/CandidateProfile";
-import MyApplications from "./pages/candidate/MyApplications";
+// Candidate pages
+import RecruitmentPages from "./pages/candidate/RecruitmentPages";
+import Profile from "./pages/candidate/Profile";
+import AppliedJobs from "./pages/candidate/appliedJobs";
+import JobsDetail from "./pages/candidate/JobsDetail";
 
 function App() {
-  const { pathname } = useLocation();
-  const isCandidate = pathname.startsWith("/candidate");
-
   return (
     <>
-      {!isCandidate && <Header />}
+      {/* Header hiển thị cho tất cả các trang */}
+      <Header />
 
       <Routes>
         {/* PUBLIC */}
@@ -45,19 +48,24 @@ function App() {
         <Route path="/hr/dashboard" element={<HrDashboard />} />
 
         {/* INTERVIEWER */}
-        <Route path="/interviewer" element={<Navigate to="/interviewer/dashboard" />} />
-
+        <Route
+          path="/interviewer"
+          element={<Navigate to="/interviewer/dashboard" replace />}
+        />
         <Route path="/interviewer/dashboard" element={<InterviewerDashboard />} />
         <Route path="/interviewer/schedule" element={<InterviewerSchedule />} />
         <Route path="/interviewer/review" element={<InterviewerReview />} />
         <Route path="/interviewer/cv" element={<InterviewerCV />} />
-        <Route path="/interviewer/my-interviews" element={<InterviewerMyInterviews />} />
+        <Route
+          path="/interviewer/my-interviews"
+          element={<InterviewerMyInterviews />}
+        />
 
         {/* CANDIDATE */}
-        <Route path="/candidate" element={<CandidateLayout />}>
-          <Route path="applications" element={<MyApplications />} />
-          <Route path="profile" element={<CandidateProfile />} />
-        </Route>
+        <Route path="/candidate/profile" element={<Profile />} />
+        <Route path="/candidate/applied-jobs" element={<AppliedJobs />} />
+        <Route path="/jobs" element={<RecruitmentPages />} />
+        <Route path="/jobs/:id" element={<JobsDetail />} />
       </Routes>
     </>
   );

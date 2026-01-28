@@ -1,0 +1,128 @@
+.wrapper {
+  max-width: 1000px;
+  margin: 24px auto;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px #92b2d3;
+}
+
+.logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.content {
+  flex: 1;
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+
+  h3 {
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+.salary {
+  color: #2549ad;
+  font-weight: 600;
+}
+
+.company {
+  font-size: 14px;
+  color: #374151;
+  margin: 4px 0;
+}
+
+.meta {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.tags {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.tag {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 999px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.applyBtn {
+  background:#2e55c0;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.applyBtn:hover {
+  background:#172f71;
+  color: #cfd0d1;
+}
+
+.saveBtn {
+  background: #fff;
+  border: 1px solid #1e3a8a;
+  color: #1e3a8a;
+  padding: 6px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.saveBtn:hover {
+  background: #172f71;
+  color:  #cfd0d1;
+}
+
+.search {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+
+  input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+  }
+
+  button {
+    background:#2e55c0;
+    color: #fff;
+    border: none;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
