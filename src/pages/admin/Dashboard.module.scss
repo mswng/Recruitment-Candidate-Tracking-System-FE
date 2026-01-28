@@ -12,6 +12,14 @@
 .adminContent {
   position: relative;
   z-index: 1;
+  pointer-events: auto !important;
+}
+.adminDashboard {
+  .chartWrap,
+  svg,
+  canvas {
+    pointer-events: none;
+  }
 }
 
 .chartRow {
@@ -69,10 +77,10 @@
   height:6px;
   border-radius:18px 18px 0 0;
 }
-.statMini:nth-child(1)::before { background:#2563eb; }
+.statMini:nth-child(1)::before { background:#c0f457; }
 .statMini:nth-child(2)::before { background:#22c55e; }
 .statMini:nth-child(3)::before { background:#f59e0b; }
-.statMini:nth-child(4)::before { background:#ef4444; }
+.statMini:nth-child(4)::before { background:#44adef; }
 
 .statMini p { font-size:13px;color:#475569;font-weight:600; }
 .statMini h3 { font-size:28px;font-weight:900;color:#0f172a; }
@@ -226,12 +234,6 @@
 .adminPage,
 .dashboardWrapper {
   pointer-events: auto;
-}
-/* NGĂN SVG RECHARTS ĐÈ ROUTE KHÁC */
-.chartWrap {
-  position: relative;
-  z-index: 0;
-  pointer-events: none;
 }
 .admin-main {
   position: relative;

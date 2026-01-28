@@ -22,6 +22,11 @@
   gap: 16px;
 }
 
+.wrapper {
+  min-height: 100vh;
+  padding: 24px 32px; // 👈 thêm lề
+}
+
 .statCard {
   background: #fff;
   border-radius: 16px;
@@ -112,3 +117,47 @@
   border-bottom: 1px dashed #e5e7eb;
 }
 .item:last-child { border-bottom: none; }
+.overviewGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.statCard {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+  border-left: 6px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.statCard p {
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.statCard h2 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* MÀU VIỀN */
+.cardBlue {
+  border-left-color: #2563eb;
+}
+
+.cardGreen {
+  border-left-color: #16a34a;
+}
+
+.cardOrange {
+  border-left-color: #de39af;
+}
+
+/* hover xịn */
+.statCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.12);
+}
