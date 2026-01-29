@@ -2,38 +2,82 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "./AuthLayout";
 import styles from "./Auth.module.scss";
+import { login } from "../../../api/server/loginAPI";
+import { jwtDecode } from "jwt-decode";
 
-export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Login = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = (e) => {
+  // ✅ Khởi tạo đầy đủ -> không uncontrolled warning
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    remember: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setForm({
+      ...form,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // DEMO phân quyền bằng email
-    if (email === "admin@recruithub.com") {
-      localStorage.setItem("role", "admin");
-      navigate("/admin/dashboard");
-      return;
-    }
+    try {
+      const result = await login({
+        email: form.email,
+        password: form.password,
+      });
 
-    if (email === "hr@recruithub.com") {
-      localStorage.setItem("role", "hr");
-      navigate("/hr/dashboard");
-      return;
-    }
+      // BE trả về result.token
+      if (!result?.token) {
+        alert("Sai email hoặc mật khẩu!");
+        return;
+      }
 
-    if (email === "interviewer@recruithub.com") {
-      localStorage.setItem("role", "interviewer");
-      navigate("/interviewer/dashboard");
-      return;
-    }
+      // Giải mã JWT
+      const decoded = jwtDecode(result.token);
 
-    if (email === "candidate@recruithub.com") {
-      localStorage.setItem("role", "candidate");
-      navigate("/");
-      return;
+      // Scope nằm trong payload: decoded.scope
+      const role = decoded.scope; // ADMIN | TUTOR | LEARNER
+
+      console.log("Decoded token:", decoded);
+      console.log("Role:", role);
+
+      // Lưu token và role cho phiên hiện tại
+      localStorage.setItem("token", result.token);
+      if (role) {
+        localStorage.setItem("role", role);
+      }
+
+      // Điều hướng theo role
+      let redirectPath = "/";
+      switch (role) {
+        case "ADMIN":
+          redirectPath = "/admin/dashboard";
+          break;
+        case "HR":
+          redirectPath = "/hr/dashboard";
+          break;
+        case "INTERVIEWER":
+          redirectPath = "/interviewer/dashboard";
+          break;
+        case "INTERVIEWER":
+          redirectPath = "/";
+          break;
+        default:
+          redirectPath = "/";
+      }
+
+      // Refresh trang để cập nhật giao diện và trạng thái
+      window.location.href = redirectPath;
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Sai email hoặc mật khẩu!");
     }
   };
 
@@ -44,33 +88,41 @@ export default function Login() {
 
         <form onSubmit={handleLogin} className={styles.form}>
           <div className={styles.formGroup}>
-            <label>Email *</label>
+            <label>
+              Email <span style={{ color: "red" }}>*</span>
+            </label>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              placeholder="Nhập email"
               required
             />
           </div>
 
           <div className={styles.formGroup}>
-            <label>Mật khẩu *</label>
+            <label>
+              Mật khẩu <span style={{ color: "red" }}>*</span>
+            </label>
             <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              placeholder="Mật khẩu"
               required
             />
           </div>
 
-          {/* QUÊN MẬT KHẨU Ở TRÊN */}
           <Link to="/forgot-password" className={styles.forgotTop}>
             Quên mật khẩu?
           </Link>
 
-          <button className={styles.btnSubmit}>Đăng nhập</button>
+          <button type="submit" className={styles.btnSubmit}>
+            Đăng nhập
+          </button>
 
-          {/* ĐĂNG KÝ Ở DƯỚI */}
           <div className={styles.signup}>
             Chưa có tài khoản? <Link to="/register">Đăng ký</Link>
           </div>
@@ -78,4 +130,6 @@ export default function Login() {
       </div>
     </AuthLayout>
   );
-}
+};
+
+export default Login;

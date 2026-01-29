@@ -3,7 +3,7 @@ import styles from "./RecruitmentPages.module.scss";
 const jobs = [
   {
     id: 1,
-    companyLogo: "https://via.placeholder.com/64",
+    companyLogo: "../../assets/imgs/logo.png",
     title: "Talent Acquisition Supervisor (Mass Recruit For Store)",
     company: "CÔNG TY TNHH JOLLIBEE VIỆT NAM",
     location: "Đà Nẵng",
@@ -12,7 +12,7 @@ const jobs = [
   },
   {
     id: 2,
-    companyLogo: "https://via.placeholder.com/64",
+    companyLogo: "../../assets/imgs/logo.png",
     title: "Chuyên Viên Tuyển Dụng Thu Nhập Lên Đến 20 Triệu",
     company: "CÔNG TY TNHH HALOVN",
     location: "Hà Nội",
@@ -21,7 +21,7 @@ const jobs = [
   },
   {
     id: 3,
-    companyLogo: "https://via.placeholder.com/64",
+    companyLogo: "../../assets/imgs/logo.png",
     title: "Thực Tập Sinh / Cộng Tác Viên Hành Chính Nhân Sự",
     company: "CÔNG TY CỔ PHẦN PHÁT TRIỂN TRẠM SẠC TOÀN CẦU V-GREEN",
     location: "Hà Nội & Hồ Chí Minh",

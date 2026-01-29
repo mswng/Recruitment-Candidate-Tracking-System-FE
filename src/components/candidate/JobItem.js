@@ -1,10 +1,13 @@
 import styles from "./MoreJobs.module.scss";
+import Logo from "../../assets/imgs/logo.png";
+
 
 export default function JobItem({ job }) {
+  
   return (
     <div className={styles.card}>
       <div className={styles.left}>
-        <img src={job.logo} alt="logo" className={styles.logo} />
+        <img src={Logo} alt="logo" className={styles.logo} />
       </div>
 
       <div className={styles.center}>
