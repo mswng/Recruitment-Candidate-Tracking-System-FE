@@ -66,9 +66,6 @@ const Login = () => {
         case "INTERVIEWER":
           redirectPath = "/interviewer/dashboard";
           break;
-        case "INTERVIEWER":
-          redirectPath = "/";
-          break;
         default:
           redirectPath = "/";
       }
