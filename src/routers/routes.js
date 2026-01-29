@@ -32,7 +32,6 @@ import JobsDetail from "../pages/candidate/JobsDetail";
 const publicRouter = [
   { path: "/", element: <HomePage /> },
   { path: "/jobs", element: <Jobs /> },
-  { path: "/companies", element: <Companies /> },
 
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
