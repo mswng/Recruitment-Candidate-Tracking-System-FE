@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import styles from "./Dashboard.module.scss";
 import {
   ResponsiveContainer,
@@ -13,53 +13,90 @@ import {
   CartesianGrid,
   Legend,
 } from "recharts";
+import { getAdminDashboard } from "../../api/services/adminAPI";
 
 export default function AdminDashboard() {
+  const [dashboard, setDashboard] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      try {
+        const data = await getAdminDashboard();
+        setDashboard(data);
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboard();
+  }, []);
+
+  if (loading) return <p>Đang tải dashboard...</p>;
+  if (!dashboard) return null;
+
+  /* ================= PIE CHART ================= */
   const trangThaiTuyenDung = [
-    { name: "Đang mở", value: 12 },
-    { name: "Đã đóng", value: 6 },
+    { name: "Đang mở", value: dashboard.recruitmentStatus.open },
+    { name: "Đã đóng", value: dashboard.recruitmentStatus.closed },
   ];
 
   const mauTrangThai = ["#22c55e", "#ef4444"];
 
-  const congViecHot = [
-    { title: "Frontend", apply: 82 },
-    { title: "Backend", apply: 65 },
-    { title: "Nhân sự", apply: 44 },
-    { title: "UI/UX", apply: 39 },
-  ];
+  /* ================= BAR CHART ================= */
+  const congViecHot = dashboard.topAppliedPositions.map((item) => ({
+    title: item.position,
+    apply: item.applications,
+  }));
 
   return (
     <div className={styles.adminPage}>
       <div className={styles.dashboardWrapper}>
+        {/* ===== HEADER ===== */}
         <div className={styles.statsHeader}>
-          <h3>Thống kê năm 2026</h3>
+          <h3>Thống kê năm {dashboard.year}</h3>
         </div>
 
+        {/* ===== MINI STATS ===== */}
         <div className={styles.statsTop}>
           <div className={styles.statMini}>
             <p>Tổng người dùng</p>
-            <h3>1250</h3>
-            <span className={styles.statYear}>+12% so với 2025</span>
+            <h3>{dashboard.totalUsers}</h3>
+            <span className={styles.statYear}>
+              +{dashboard.usersChangePercent}% so với năm trước
+            </span>
           </div>
+
           <div className={styles.statMini}>
             <p>Tổng công việc</p>
-            <h3>21</h3>
-            <span className={styles.statYear}>+5 công việc mới</span>
+            <h3>{dashboard.totalJobs}</h3>
+            <span className={styles.statYear}>
+              +{dashboard.newJobs} công việc mới
+            </span>
           </div>
+
           <div className={styles.statMini}>
             <p>Hồ sơ ứng tuyển</p>
-            <h3>340</h3>
-            <span className={styles.statYear}>+18% so với 2025</span>
+            <h3>{dashboard.applicationRate}</h3>
+            <span className={styles.statYear}>
+              +{dashboard.applicationChangePercent}% so với năm trước
+            </span>
           </div>
+
           <div className={styles.statMini}>
             <p>Nhân sự hoạt động</p>
-            <h3>32</h3>
-            <span className={styles.statYear}>+3 nhân sự</span>
+            <h3>{dashboard.activeStaff}</h3>
+            <span className={styles.statYear}>
+              +{dashboard.newStaff} nhân sự mới
+            </span>
           </div>
         </div>
 
+        {/* ===== CHARTS ===== */}
         <div className={styles.chartRow}>
+          {/* ===== PIE ===== */}
           <div className={styles.adminCard}>
             <h4>Trạng thái tuyển dụng</h4>
             <div className={styles.chartWrap}>
@@ -82,8 +119,9 @@ export default function AdminDashboard() {
             </div>
           </div>
 
+          {/* ===== BAR ===== */}
           <div className={styles.adminCard}>
-            <h4>Công việc đang được ứng tuyển nhiều</h4>
+            <h4>Công việc được ứng tuyển nhiều</h4>
             <div className={styles.chartWrap}>
               <ResponsiveContainer width="100%" height={340}>
                 <BarChart
@@ -95,10 +133,11 @@ export default function AdminDashboard() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis
                     dataKey="title"
-                    angle={-10}
+                    angle={-8}
                     textAnchor="end"
-                    height={30}
                     interval={0}
+                    top={30}
+                    fontSize={10}
                   />
                   <YAxis allowDecimals={false} />
                   <Tooltip />

@@ -15,11 +15,27 @@
   pointer-events: auto !important;
 }
 .adminDashboard {
-  .chartWrap,
-  svg,
-  canvas {
-    pointer-events: none;
+/* ===== FIX CHART INTERACTION ===== */
+  .chartWrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
   }
+
+ 
+  .chartWrap svg,
+  .chartWrap canvas {
+    pointer-events: auto;
+  }
+
+ 
+  .recharts-tooltip-wrapper {
+    pointer-events: none; 
+    z-index: 100;
+    transition: opacity 0.15s ease;
+  }
+
 }
 
 .chartRow {

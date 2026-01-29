@@ -1,38 +1,33 @@
-import React from "react";
 import styles from "./pagination.module.scss";
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+export default function Pagination({ page, totalPages, onPageChange }) {
   if (totalPages <= 1) return null;
-
-  const pages = [...Array(totalPages)].map((_, i) => i + 1);
 
   return (
     <div className={styles.pagination}>
       <button
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
+        disabled={page === 0}
+        onClick={() => onPageChange(page - 1)}
       >
-        Trước
+        ⟨
       </button>
 
-      {pages.map((page) => (
+      {Array.from({ length: totalPages }).map((_, index) => (
         <button
-          key={page}
-          onClick={() => onPageChange(page)}
-          className={page === currentPage ? styles.active : ""}
+          key={index}
+          className={page === index ? styles.active : ""}
+          onClick={() => onPageChange(index)}
         >
-          {page}
+          {index + 1}
         </button>
       ))}
 
       <button
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
+        disabled={page === totalPages - 1}
+        onClick={() => onPageChange(page + 1)}
       >
-        Sau
+        ⟩
       </button>
     </div>
   );
-};
-
-export default Pagination;
+}

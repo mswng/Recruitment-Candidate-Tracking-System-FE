@@ -1,37 +1,38 @@
 import { useState, useEffect } from "react";
 import styles from "./Profile.module.scss";
-import { decodeToken } from "../../utils/decodeToken";
-import { getCurrentUser } from "../../utils/getCurrentUser";
 import {
+  getProfileInfo,
   updateProfileInfo,
   changePassword,
 } from "../../api/services/profileAPI";
 
 export default function ProfileSettings() {
-  const user = getCurrentUser();
   const [activeTab, setActiveTab] = useState("info");
 
+  // ================= INFO =================
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
 
+  // ✅ LẤY DATA TỪ API GET
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
+    const fetchProfile = async () => {
+      try {
+        const data = await getProfileInfo();
 
-    const decoded = decodeToken(token);
+        // map đúng field backend
+        setFullName(data.fullName || "");
+        setEmail(data.email || "");
+      } catch (err) {
+        alert("Không lấy được thông tin người dùng");
+      }
+    };
 
-    // 👇 map đúng field từ BE
-    setFullName(decoded?.full_name || "");
-    setEmail(decoded?.sub || "");
+    fetchProfile();
   }, []);
-
 
   const handleSaveInfo = async () => {
     try {
       await updateProfileInfo({ fullName });
-      // ✅ LƯU LẠI
-      localStorage.setItem("fullName", fullName);
-
       alert("Cập nhật thông tin thành công");
     } catch (err) {
       alert(err.message);
@@ -75,7 +76,7 @@ export default function ProfileSettings() {
         confirmNewPassword: "",
       });
     } catch (err) {
-      alert(err.message); // invalid credentials
+      alert(err.message);
     }
   };
 
@@ -128,6 +129,9 @@ export default function ProfileSettings() {
       {activeTab === "password" && (
         <div className={styles.card}>
           <h3>Thay đổi mật khẩu đăng nhập</h3>
+          <p className={styles.note}>
+            <span className={styles.noteRequired}></span>Các thông tin bắt buộc
+          </p>
 
           <div className={styles.formGroupInline}>
             <label>Email đăng nhập</label>
