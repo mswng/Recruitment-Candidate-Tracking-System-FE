@@ -1,8 +1,14 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./JobsDetail.module.scss";
 import MoreJobs from "../../components/candidate/MoreJobs";
+import { getJobDetail } from "../../api/services/jobsAPI";
 
 export default function JobDetail() {
-    const sameMoreJobs = [
+  const { id } = useParams();
+  const [job, setJob] = useState(null);
+  const [loading, setLoading] = useState(true);
+      const sameMoreJobs = [
         {
         id: 1,
         title: "DotNET Developer",
@@ -24,68 +30,112 @@ export default function JobDetail() {
         logo: "/logo.png",
         },
     ];
+
+  useEffect(() => {
+    const fetchJob = async () => {
+      try {
+        const data = await getJobDetail(id);
+        setJob(data);
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchJob();
+  }, [id]);
+  
+  const formatSalary = (salary) => {
+    if (!salary) return "Thỏa thuận";
+
+    const million = Math.floor(salary / 1_000_000);
+    const remainder = salary % 1_000_000;
+
+    if (remainder === 0) {
+      return `${million} triệu`;
+    }
+
+    const hundredThousand = Math.floor(remainder / 100_000);
+    return `${million}tr${hundredThousand}`;
+  };
+  
+
+  if (loading) return <p>Đang tải...</p>;
+  if (!job) return <p>Không tìm thấy công việc</p>;
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        {/* Header */}
+        {/* ===== HEADER ===== */}
         <div className={styles.header}>
           <div>
-            <h1 className={styles.title}>
-              Tư Vấn Khóa Học & Chăm Sóc Học Viên (Educational Consultant)
-            </h1>
+            <h1 className={styles.title}>{job.title}</h1>
+
             <div className={styles.company}>
-              Công ty TNHH Giáo Dục ABC
+              {job.companyName}
             </div>
 
             <div className={styles.meta}>
               <div className={styles.metaItem}>
-                Thu nhập: <span className={styles.salary}>15 – 20 triệu</span>
+                Thu nhập:{" "}
+                <span className={styles.salary}>
+                  {formatSalary(job.basicSalary)}
+                </span>
               </div>
+
               <div className={styles.metaItem}>
-                Địa điểm: Hồ Chí Minh, Hà Nội
+                Địa điểm: {job.address}
               </div>
             </div>
           </div>
 
           <div className={styles.actions}>
-            <button className={styles.applyBtn}>Ứng tuyển ngay</button>
+            <button className={styles.applyBtn}>
+              Ứng tuyển ngay
+            </button>
           </div>
         </div>
 
-        {/* Sections */}
+        {/* ===== DESCRIPTION ===== */}
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>Mô tả công việc</h2>
           <ul className={styles.list}>
-            <li>Tư vấn trực tiếp / gián tiếp các khóa học phù hợp</li>
-            <li>Chăm sóc học viên trong suốt quá trình học</li>
-            <li>Hoàn thành KPI được giao</li>
-            <li>Tham gia sản xuất nội dung truyền thông</li>
+            {job.description
+              ?.split("\n")
+              .map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
           </ul>
         </div>
 
+        {/* ===== REQUIREMENTS ===== */}
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>Yêu cầu ứng viên</h2>
           <ul className={styles.list}>
-            <li>Tốt nghiệp Cao đẳng trở lên</li>
-            <li>Không yêu cầu kinh nghiệm</li>
-            <li>Kỹ năng giao tiếp tốt</li>
-            <li>Độ tuổi 20 – 32</li>
+            {job.requirements
+              ?.split("\n")
+              .map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
           </ul>
         </div>
 
+        {/* ===== BENEFITS ===== */}
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>Quyền lợi</h2>
           <ul className={styles.list}>
-            <li>Lương + thưởng hiệu quả</li>
-            <li>Đào tạo bài bản</li>
-            <li>Đóng BHXH, BHYT</li>
-            <li>Môi trường trẻ trung</li>
+            {job.benefits
+              ?.split("\n")
+              .map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
           </ul>
         </div>
       </div>
-      <MoreJobs jobs={sameMoreJobs} />
-    </div>
 
-    
+      {/* JOB LIÊN QUAN – TẠM GIỮ */}
+       <MoreJobs jobs={sameMoreJobs}/>
+    </div>
   );
 }
