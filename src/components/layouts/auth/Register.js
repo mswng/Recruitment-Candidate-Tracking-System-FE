@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AuthLayout from "./AuthLayout";
 import styles from "./Auth.module.scss";
-import { registerCandidate } from "../../../api/server/registerAPI";
+import { registerCandidate } from "../../../api/services/registerAPI";
 
 export default function Register() {
   const [form, setForm] = useState({

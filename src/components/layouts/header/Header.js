@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MENU } from "../../../config/menuConfig";
 import styles from "./Header.module.scss";
-import { logout } from "../../../api/server/logoutAPI";
+import { logout } from "../../../api/services/logoutAPI";
 
 export default function Header() {
   const role = localStorage.getItem("role") || "guest";
