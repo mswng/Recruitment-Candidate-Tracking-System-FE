@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "./AuthLayout";
 import styles from "./Auth.module.scss";
-import { login } from "../../../api/server/loginAPI";
+import { login } from "../../../api/services/loginAPI";
 import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
