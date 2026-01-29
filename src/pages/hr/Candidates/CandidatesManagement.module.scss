@@ -1,0 +1,382 @@
+// HRJobs.module.scss
+.wrapper {
+  padding: 20px;
+  background-color: #f5f7fa;
+  // min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;   
+  margin-top: 15px;
+  border-radius: 12px;
+}
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #010102;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: #718096;
+    font-size: 14px;
+  }
+}
+
+.actions {
+  padding: 10px 0;
+}
+
+.btnView {
+  background-color: #3182ce;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+
+  &:hover {
+    background-color: #2b6cb0;
+  }
+}
+
+
+/* Toolbar & Filters */
+.toolbar {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 16px;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  background: #f7fafc;
+  padding: 8px 12px;
+  border-radius: 6px;
+  flex: 1;
+  max-width: 400px;
+
+  input {
+    border: none;
+    background: transparent;
+    margin-left: 8px;
+    width: 100%;
+    outline: none;
+  }
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+
+  select {
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    outline: none;
+    color: #4a5568;
+  }
+}
+
+/* Table Styles */
+.tableContainer {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #edf2f7;
+  }
+
+  th {
+    background: #f8fafc;
+    color: #000000;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .name {
+    font-weight: 600;
+    color: #2d3748;
+  }
+
+  .contact {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 13px;
+    color: #718096;
+  }
+
+  .statusBadge {
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .score {
+    font-weight: bold;
+    color: #2b6cb0;
+  }
+
+  .iconBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #718096;
+    padding: 6px;
+    border-radius: 4px;
+
+    &:hover {
+      background: #edf2f7;
+      color: #3182ce;
+    }
+  }
+}
+
+/* Modal Overlay & Content */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 12px;
+  width: 600px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modalHeader {
+  padding: 20px;
+  border-bottom: 1px solid #edf2f7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+    padding: 0;
+  }
+
+  .closeBtn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+}
+
+.modalBody {
+  padding: 24px;
+}
+
+.infoRow {
+  margin-bottom: 16px;
+  display: flex;
+
+  label {
+    min-width: 120px;
+    color: #718096;
+    font-weight: 500;
+  }
+
+  span,
+  strong {
+    color: #2d3748;
+  }
+}
+
+.skills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  .skillTag {
+    background: #ebf8ff;
+    color: #2c5282;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+}
+
+.statusSelect {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.modalActions {
+  margin-top: 30px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+
+    &.primaryBtn {
+      background: #3182ce;
+      color: white;
+
+      &:hover {
+        background: #2b6cb0;
+      }
+    }
+
+    &.secondaryBtn {
+      background: #edf2f7;
+      color: #2d3748;
+
+      &:hover {
+        background: #e2e8f0;
+      }
+    }
+  }
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+
+  button {
+    padding: 8px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+
+    &:disabled {
+      background: #f5f5f5;
+      color: #aaa;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.tag {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.tagOpen {
+  background-color: #e6f4ea;
+  color: #1e7e34;
+}
+
+.tagPaused {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.tagClosed {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+
+/* --- Variables --- */
+$primary-color: #0D8ABC;
+$text-dark: #333;
+$text-gray: #666;
+$border-color: #e0e0e0;
+$white: #ffffff;
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px; // Khoảng cách nếu sau này bạn thêm nút khác vào cạnh nó
+  margin-bottom: 20px;
+}
+
+.selectFilter {
+  // 1. Xóa style mặc định của trình duyệt
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  // 2. Kích thước & Font
+  padding: 10px 40px 10px 16px; // Padding phải (40px) để chừa chỗ cho mũi tên
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: $text-dark;
+  font-weight: 500;
+  cursor: pointer;
+
+  // 3. Border & Background
+  background-color: $white;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  outline: none;
+  transition: all 0.2s ease;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23666666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center; // Căn mũi tên sang phải
+  background-size: 16px;
+
+  // 5. Hiệu ứng Hover
+  &:hover {
+    border-color: darken($border-color, 15%); // Viền đậm hơn chút
+    background-color: #fafafa;
+  }
+
+  // 6. Hiệu ứng Focus (Khi đang chọn)
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.15); // Glow xanh nhẹ bao quanh
+
+    // Đổi màu mũi tên sang xanh khi focus (Optional - thay mã màu %23666 thành màu primary)
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%230D8ABC' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  }
+}

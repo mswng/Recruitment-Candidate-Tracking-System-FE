@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./InterviewerDashboard.module.scss";
+import styles from "./InterviewerMyInterviews.module.scss";
 
 const LIST = [
   { id: 1, time: "09:00", name: "Thomas Alva", position: "Backend" },

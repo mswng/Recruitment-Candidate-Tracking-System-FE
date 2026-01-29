@@ -1,0 +1,123 @@
+.container {
+  margin-top: 20px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  
+  h3 { margin: 0; font-size: 18px; color: #333; }
+  
+  .btnAdd {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover { background-color: #1d4ed8; }
+  }
+}
+
+.timelineItem {
+  display: flex;
+  border-left: 2px solid #e5e7eb;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  position: relative;
+
+  &:last-child { border-left: none; }
+
+  &::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #2563eb;
+    border-radius: 50%;
+    position: absolute;
+    left: -7px;
+    top: 0;
+  }
+}
+
+.card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 15px;
+  width: 100%;
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .title { font-weight: bold; color: #1e293b; }
+  .time { color: #64748b; font-size: 14px; }
+  .location { font-size: 14px; color: #334155; margin-bottom: 10px; }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    
+    button {
+      padding: 5px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      background: white;
+      
+      &.btnEdit { color: #d97706; border-color: #d97706; }
+      &.btnEval { color: #059669; border-color: #059669; }
+    }
+  }
+}
+
+/* Modal Overlay */
+.overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  width: 500px;
+  padding: 20px;
+  border-radius: 8px;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  h3 { margin-top: 0; }
+  
+  .formGroup {
+    margin-bottom: 15px;
+    label { display: block; margin-bottom: 5px; font-weight: 500; }
+    input, select, textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+  }
+
+  .modalActions {
+    display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;
+    button { padding: 8px 16px; cursor: pointer; border-radius: 4px; border: none; }
+    .cancel { background: #e5e7eb; }
+    .submit { background: #2563eb; color: white; }
+  }
+}
+
+.evalItem {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  &:last-child { border-bottom: none; }
+  .interviewer { font-weight: bold; }
+  .score { color: #d97706; font-weight: bold; }
+  .comment { font-style: italic; color: #555; }
+}

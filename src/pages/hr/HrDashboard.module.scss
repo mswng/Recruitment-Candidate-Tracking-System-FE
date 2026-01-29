@@ -24,7 +24,8 @@
 
 .wrapper {
   min-height: 100vh;
-  padding: 24px 32px; // 👈 thêm lề
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .statCard {
