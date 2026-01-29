@@ -1,67 +1,116 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./users.module.scss";
+import {
+  getAdminUsers,
+  updateUserInfo,
+  updateUserStatus,
+  addAdminUser,
+} from "../../api/services/adminAPI";
+import Pagination from "../../components/pagination/pagination";
 
 export default function UserManagement() {
-  const [users, setUsers] = useState([
-    { id: 1, fullName: "Nguyễn Văn A", email: "a@gmail.com", role: "Ứng viên", status: "active" },
-    { id: 2, fullName: "Trần Thị B", email: "b@gmail.com", role: "HR", status: "active" },
-    { id: 3, fullName: "Lê Văn C", email: "c@gmail.com", role: "Phỏng vấn", status: "inactive" },
-    { id: 4, fullName: "Phạm Đức D", email: "d@gmail.com", role: "Ứng viên", status: "active" },
-    { id: 5, fullName: "Hoàng Anh E", email: "e@gmail.com", role: "Ứng viên", status: "active" },
-    { id: 6, fullName: "Vũ Minh F", email: "f@gmail.com", role: "HR", status: "inactive" },
-    { id: 7, fullName: "Ngô Thanh G", email: "g@gmail.com", role: "Phỏng vấn", status: "active" },
-    { id: 8, fullName: "Đặng Thu H", email: "h@gmail.com", role: "Ứng viên", status: "active" },
-  ]);
+  const [users, setUsers] = useState([]);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const pageSize = 10;
 
   const [showForm, setShowForm] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+
   const [currentUser, setCurrentUser] = useState({
     id: null,
     fullName: "",
     email: "",
-    role: "Ứng viên",
-    status: "active",
+    password: "",
+    roles: ["CANDIDATE"],
   });
 
-  // bật / tắt trạng thái
-  const toggleStatus = (id) => {
-    setUsers(users.map(u =>
-      u.id === id ? { ...u, status: u.status === "active" ? "inactive" : "active" } : u
-    ));
+  // ================= FETCH USERS =================
+  const fetchUsers = async () => {
+    try {
+      const data = await getAdminUsers({ page, size: pageSize });
+      setUsers(data.items || []);
+      setTotalPages(data.totalPages || 0);
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
-  // mở form thêm
-  const handleAddUser = () => {
+  useEffect(() => {
+    fetchUsers();
+  }, [page]);
+
+  // ================= ADD =================
+  const handleAdd = () => {
     setIsEdit(false);
     setCurrentUser({
       id: null,
       fullName: "",
       email: "",
-      role: "Ứng viên",
-      status: "active",
+      password: "",
+      roles: ["CANDIDATE"],
     });
     setShowForm(true);
   };
 
-  // mở form sửa
-  const handleUpdateUser = (id) => {
-    const user = users.find(u => u.id === id);
+  // ================= EDIT =================
+  const handleEdit = (u) => {
     setIsEdit(true);
-    setCurrentUser(user);
+    setCurrentUser({
+      id: u.id,
+      fullName: u.fullName,
+      email: u.email,
+      password: "",
+      roles: u.roles || [],
+    });
     setShowForm(true);
   };
 
-  // submit form
-  const handleSubmit = (e) => {
+  // ================= TOGGLE STATUS =================
+  const toggleStatus = async (id) => {
+    try {
+      await updateUserStatus(id);
+      setUsers(users =>
+        users.map(u =>
+          u.id === id
+            ? {
+                ...u,
+                status: u.status === "ACTIVE" ? "INACTIVE" : "ACTIVE",
+              }
+            : u
+        )
+      );
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  // ================= SUBMIT =================
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (isEdit) {
-      setUsers(users.map(u => u.id === currentUser.id ? currentUser : u));
-    } else {
-      setUsers([...users, { ...currentUser, id: Date.now() }]);
-    }
+    try {
+      if (isEdit) {
+        await updateUserInfo(currentUser.id, {
+          fullName: currentUser.fullName,
+          email: currentUser.email,
+          roles: currentUser.roles,
+        });
+      } else {
+        await addAdminUser({
+          email: currentUser.email,
+          fullName: currentUser.fullName,
+          password: currentUser.password,
+          roles: currentUser.roles,
+        });
+      }
 
-    setShowForm(false);
+      alert(isEdit ? "Cập nhật thành công" : "Thêm người dùng thành công");
+      setShowForm(false);
+      fetchUsers();
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   return (
@@ -69,7 +118,7 @@ export default function UserManagement() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h1></h1>
-          <button onClick={handleAddUser} className={styles.btnAdd}>
+          <button onClick={handleAdd} className={styles.btnAdd}>
             + Thêm người dùng
           </button>
         </div>
@@ -91,16 +140,22 @@ export default function UserManagement() {
                 <tr key={u.id}>
                   <td>{u.fullName}</td>
                   <td>{u.email}</td>
-                  <td className={styles.center}>{u.role}</td>
                   <td className={styles.center}>
-                    <span className={`${styles.status} ${styles[u.status]}`}>
-                      {u.status === "active" ? "Kích hoạt" : "Khóa"}
+                    {u.roles?.join(", ")}
+                  </td>
+                  <td className={styles.center}>
+                    <span
+                      className={`${styles.status} ${
+                        styles[u.status?.toLowerCase()]
+                      }`}
+                    >
+                      {u.status === "ACTIVE" ? "Kích hoạt" : "Khóa"}
                     </span>
                   </td>
                   <td className={styles.actionCell}>
                     <div className={styles.actionBox}>
                       <button
-                        onClick={() => handleUpdateUser(u.id)}
+                        onClick={() => handleEdit(u)}
                         className={styles.editBtn}
                       >
                         ✏️
@@ -109,7 +164,7 @@ export default function UserManagement() {
                       <label className={styles.switch}>
                         <input
                           type="checkbox"
-                          checked={u.status === "active"}
+                          checked={u.status === "ACTIVE"}
                           onChange={() => toggleStatus(u.id)}
                         />
                         <span className={styles.slider}></span>
@@ -121,9 +176,15 @@ export default function UserManagement() {
             </tbody>
           </table>
         </div>
+
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+        />
       </div>
 
-      {/* MODAL FORM */}
+      {/* ================= MODAL ================= */}
       {showForm && (
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
@@ -134,7 +195,10 @@ export default function UserManagement() {
                 placeholder="Họ tên"
                 value={currentUser.fullName}
                 onChange={e =>
-                  setCurrentUser({ ...currentUser, fullName: e.target.value })
+                  setCurrentUser({
+                    ...currentUser,
+                    fullName: e.target.value,
+                  })
                 }
                 required
               />
@@ -143,34 +207,56 @@ export default function UserManagement() {
                 placeholder="Email"
                 value={currentUser.email}
                 onChange={e =>
-                  setCurrentUser({ ...currentUser, email: e.target.value })
+                  setCurrentUser({
+                    ...currentUser,
+                    email: e.target.value,
+                  })
                 }
                 required
               />
 
+              {!isEdit && (
+                <input
+                  type="password"
+                  placeholder="Mật khẩu"
+                  value={currentUser.password}
+                  onChange={e =>
+                    setCurrentUser({
+                      ...currentUser,
+                      password: e.target.value,
+                    })
+                  }
+                  required
+                />
+              )}
+
               <select
-                value={currentUser.role}
+                value={currentUser.roles[0]}
                 onChange={e =>
-                  setCurrentUser({ ...currentUser, role: e.target.value })
+                  setCurrentUser({
+                    ...currentUser,
+                    roles: [e.target.value],
+                  })
                 }
               >
-                <option>Ứng viên</option>
-                <option>HR</option>
-                <option>Phỏng vấn</option>
+                <option value="CANDIDATE">Ứng viên</option>
+                <option value="HR">HR</option>
+                <option value="INTERVIEWER">Phỏng vấn</option>
+                <option value="ADMIN">Admin</option>
               </select>
 
               <div className={styles.modalActions}>
-                <button type="button"
-                 className={styles.btnCancel}
-                   onClick={() => setShowForm(false)}>
-                         Hủy
-               </button>
-
-             <button type="submit" className={styles.btnSave}>
-                       Lưu thay đổi
-            </button>
-            </div>
-
+                <button
+                  type="button"
+                  className={styles.btnCancel}
+                  onClick={() => setShowForm(false)}
+                >
+                  Hủy
+                </button>
+                <button type="submit" className={styles.btnSave}>
+                  {isEdit ? "Lưu" : "Thêm"}
+                </button>
+              </div>
             </form>
           </div>
         </div>
