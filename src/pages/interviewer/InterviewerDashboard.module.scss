@@ -1,343 +1,218 @@
+/* Màu sắc biến (để dễ sửa sau này) */
+$primary-color: #0D8ABC;
+$bg-color: #f4f7fa;
+$white: #ffffff;
+$text-dark: #333;
+$text-gray: #666;
+$border-radius: 12px;
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
 .wrapper {
-  padding: 24px;
+  background-color: $bg-color;
   min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.layout {
+.container {
   display: grid;
-  grid-template-columns: 420px 1fr;
-  gap: 28px;
+  grid-template-columns: 300px 1fr; /* Cột trái cố định 300px, Cột phải tự dãn */
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  /* Responsive: Màn hình nhỏ thì chuyển về 1 cột */
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* LEFT */
-.leftCol {
-  display: grid;
-  grid-template-rows: auto auto auto;
+/* --- SIDEBAR STYLES --- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
 }
 
-/* CARD */
-.card {
-  background: #fff;
-  border-radius: 18px;
+.cardBase {
+  background: $white;
+  border-radius: $border-radius;
   padding: 24px;
-  box-shadow: 0 8px 22px rgba(0,0,0,.06);
-}
-.card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 20px 24px;
-
-  border: 1.5px solid #93c5fd; // viền xanh nhạt
+  box-shadow: $shadow;
 }
 
-
-.title {
+.profileCard {
+  @extend .cardBase;
   text-align: center;
-  font-weight: 700;
-  margin-bottom: 12px;
+
+  .avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    border: 3px solid lighten($primary-color, 40%);
+  }
+
+  .userName {
+    margin: 0;
+    font-size: 1.2rem;
+    color: $text-dark;
+  }
+
+  .userRole {
+    margin: 4px 0 16px;
+    color: $primary-color;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .divider {
+    height: 1px;
+    background: #eee;
+    margin: 16px 0;
+  }
+
+  .infoRow {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: $text-gray;
+    
+    b { color: $text-dark; }
+  }
 }
 
-.table {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 10px 14px;
-}
+.statsCard {
+  @extend .cardBase;
 
-.table span {
-  font-weight: 500; /* nhẹ */
-  color: #334155;
-}
+  .cardTitle {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1rem;
+    color: $text-dark;
+  }
 
-.table b {
-  font-weight: 400; /* bỏ đậm */
-  color: #0f172a;
-}
+  .statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cột đều nhau */
+    gap: 12px;
+  }
 
-/* SMALL CARD */
-.smallGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.smallCard {
-  background: #fff;
-  border: 2px solid #93c5fd;
-  border-radius: 16px;
-  height: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 700;
-  color: #1e3a8a;
-  cursor: pointer;
-  transition: .25s;
-}
-
-.smallCard:hover {
-  background: #eff6ff;
-}
-
-/* RIGHT */
-.calendarBox {
-  background: #fff;
-  border-radius: 18px;
-  padding: 20px;
-  box-shadow: 0 8px 22px rgba(0,0,0,.06);
-}
-
-// lịch phỏng vấn
-/* ===== SCHEDULE WRAP ===== */
-.wrapper {
-  padding: 32px;
-}
-
-.card {
-  background: #fff;
-  border-radius: 18px;
-  padding: 24px 32px;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
-}
-
-/* ===== FILTER ===== */
-.filterRow {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  margin: 14px 0 22px;
-}
-
-.filterRow button {
-  min-width: 120px;
-  padding: 8px 0;
-  border-radius: 999px;
-  border: 2px solid #2563eb;
-  background: #fff;
-  color: #2563eb;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.filterRow button:hover {
-  background: #eff6ff;
-}
-
-.activeFilter {
-  background: #2563eb !important;
-  color: #fff !important;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
-}
-
-/* ===== TABLE ===== */
-.scheduleTable {
-  display: grid;
-  grid-template-columns: 90px 1fr 180px;
-  gap: 14px;
-}
-
-.scheduleRow {
-  display: contents;
-  cursor: pointer;
-}
-
-.scheduleCell {
-  background: #fff;
-  padding: 14px 16px;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  display: flex;
-  align-items: center;
-}
-
-.scheduleRow:hover .scheduleCell {
-  background: #f1f5ff;
-}
-
-.timeCell {
-  justify-content: center;
-  font-weight: 700;
-  font-size: 18px;
-  color: #1e40af;
-}
-
-.infoCell {
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.infoCell h4 {
-  margin: 0;
-  font-size: 16px;
-}
-
-.infoCell p {
-  margin: 0;
-  color: #64748b;
-  font-size: 13px;
-}
-
-.metaCell {
-  justify-content: space-between;
-  width: 100%;
-  gap: 8px;
-}
-
-.badgePending {
-  background: #fde68a;
-  color: #92400e;
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-size: 12px;
-}
-
-.badgeDone {
-  background: #bbf7d0;
-  color: #065f46;
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-size: 12px;
-}
-// danh sách ứng viên===============================
-.metaCell {
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.viewCv {
-  color: #2563eb;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.link {
-  color: #16a34a;
-  cursor: pointer;
-  font-weight: 600;
-}
-///////  ĐÁNH GIÁ ỨNG VIÊN ////////////////////
-.reviewCard {
-  max-width: 760px;
-  margin: auto;
-}
-
-.infoTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 16px;
-}
-
-.infoTable td {
-  padding: 10px 14px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.infoTable td:first-child {
-  width: 180px;
-  font-weight: 600;
-  color: #334155;
-}
-
-.link {
-  color: #2563eb;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.link:hover {
-  text-decoration: underline;
-}
-
-.scoreBox {
-  margin: 16px 0;
-}
-
-.scoreBox input {
-  width: 100%;
-}
-
-.noteBox {
-  margin-top: 12px;
-}
-
-.noteBox textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #cbd5f5;
-}
-
-.actionRow {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
-}
-
-.primaryBtn {
-  background: #2563eb;
-  color: #fff;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 999px;
-  cursor: pointer;
-}
-/// CV PREVIEW /////////////////////////
-.cvModal {
-  background: #fff;
-  width: 70%;
-  max-width: 900px;
-  height: 85vh;
-  border-radius: 16px;
-  padding: 20px;
-  position: relative;
-}
-
-.cvFrame {
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 12px;
-}
-
-.pdfBox {
-  display: flex;
-  justify-content: center;
-  margin: 16px 0;
-  background: #f8fafc;
-  padding: 10px;
-  border-radius: 12px;
-}
-
-.pdfNav {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  margin-bottom: 10px;
-
-  button {
-    background: #2563eb;
-    color: white;
-    border: none;
-    padding: 6px 14px;
+  .statItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
     border-radius: 8px;
-    cursor: pointer;
-  }
+    
+    /* Màu nền nhạt cho từng trạng thái */
+    &.blue { background-color: rgba(13, 138, 188, 0.1); color: #0D8ABC; }
+    &.orange { background-color: rgba(255, 165, 0, 0.1); color: #e67e22; }
+    &.green { background-color: rgba(46, 204, 113, 0.1); color: #27ae60; }
 
-  button:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+    .statNumber {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .statLabel {
+      font-size: 0.75rem;
+      margin-top: 4px;
+      text-align: center;
+    }
   }
 }
-.backBtn {
-  background: #3b82f6; // xanh sáng
-  color: white;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 999px;
-  cursor: pointer;
+
+/* --- MAIN CONTENT STYLES --- */
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.backBtn:hover {
-  background: #2563eb;
+.calendarSection {
+  @extend .cardBase;
+  
+  .sectionHeader {
+    margin-bottom: 20px;
+    .pageTitle { margin: 0; font-size: 1.5rem; }
+  }
+  
+  .calendarWrapper {
+    /* Đảm bảo calendar cũ của bạn hiển thị tốt trong này */
+    min-height: 400px; 
+  }
+}
+
+
+/* Style cho Popup nổi */
+.popupCard {
+  position: fixed; /* Hoặc absolute tùy bố cục cha */
+  z-index: 1000;
+  background: white;
+  width: 280px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Đổ bóng sâu để tạo cảm giác nổi */
+  border: 1px solid #eee;
+  animation: fadeIn 0.2s ease-out;
+  overflow: hidden;
+
+  .popupHeader {
+    background: #f8f9fa;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h5 {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .badge {
+      background: #0D8ABC;
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+  }
+
+  .popupBody {
+    padding: 8px 0;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .popupItem {
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+    
+    &:last-child { border-bottom: none; }
+    &:hover { background-color: #faffff; }
+
+    .time {
+      font-weight: bold;
+      color: #0D8ABC;
+      font-size: 0.85rem;
+      width: 50px;
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      
+      strong { font-size: 0.9rem; color: #333; }
+      span { font-size: 0.8rem; color: #777; }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
