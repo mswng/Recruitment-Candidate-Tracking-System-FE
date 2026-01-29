@@ -4,26 +4,26 @@ export const MENU = {
     { key: "jobs", label: "Tuyển dụng", path: "/jobs" },
   ],
 
-  admin: [
+  ADMIN: [
     { key: "dashboard", label: "Trang chủ", path: "/admin/dashboard" },
     { key: "users", label: "Người dùng", path: "/admin/users" },
   ],
 
-  hr: [
+  HR: [
     { key: "dashboard", label: "Trang chủ", path: "/hr/dashboard" },
     { key: "jobs", label: "Tuyển dụng", path: "/hr/jobs" },
     { key: "candidates", label: "Ứng viên", path: "/hr/candidates" },
     { key: "interviews", label: "Phỏng vấn", path: "/hr/interviews" }
   ],
 
-  interviewer: [
+  INTERVIEWER: [
     { key: "dashboard", label: "Trang chủ", path: "/interviewer/dashboard" },
     { key: "schedule", label: "Lịch phỏng vấn", path: "/interviewer/schedule" },
-    { key: "my-interviews", label: "Danh sách ứng viên", path: "/interviewer/my-interviews" },
+    { key: "candidates", label: "Danh sách ứng viên", path: "/interviewer/my-interviews" },
 ],
 
 
-  candidate: [
+  CANDIDATE: [
     { key: "dashboard", label: "Trang chủ", path: "/" },
     { key: "jobs", label: "Tuyển dụng", path: "/jobs" },
     { key: "profile", label: "Hồ sơ", path: "/candidate/profile" },
