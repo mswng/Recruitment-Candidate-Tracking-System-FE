@@ -2,7 +2,11 @@
 .wrapper {
   padding: 20px;
   background-color: #f5f7fa;
-  min-height: 100vh;
+  min-height: 90vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 15px;
+  border-radius: 12px;
 
   h2 {
     color: #333;
@@ -205,4 +209,51 @@
       }
     }
   }
+}
+
+/* HRJobs.module.scss */
+// ... (các class cũ giữ nguyên)
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  
+  button {
+    padding: 8px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+
+    &:disabled {
+      background: #f5f5f5;
+      color: #aaa;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.tag {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.tagOpen {
+  background-color: #e6f4ea;
+  color: #1e7e34;
+}
+
+.tagPaused {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.tagClosed {
+  background-color: #f8d7da;
+  color: #721c24;
 }

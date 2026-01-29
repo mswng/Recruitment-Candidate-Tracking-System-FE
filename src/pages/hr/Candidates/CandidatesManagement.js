@@ -1,231 +1,214 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './CandidatesManagement.module.scss';
-import { FiSearch, FiFilter, FiDownload, FiEye, FiMail, FiPhone, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import CandidateDetailModal from './CandidateDetailModal';
+import hrApplicationAPI from '../../../api/services/hrApplicationAPI';
+import CandidateDetailModal from './CandidateDetailModal'; // Giả sử bạn đã tạo file này cùng thư mục
+// import { toast } from 'react-toastify'; // Nếu project có dùng thư viện toast, hoặc dùng alert thay thế
 
-// Cấu hình URL cơ bản
-const API_BASE_URL = 'http://localhost:8080/RecruitmentCandidateTracking';
+// Các trạng thái tuyển dụng (Mapping theo Backend enum nếu có)
+const STAGES = [
+  { value: 'ALL', label: 'Tất cả' },
+  { value: 'APPLIED', label: 'Ứng tuyển mới' },
+  { value: 'SCREENING', label: 'Sàng lọc' },
+  { value: 'INTERVIEW', label: 'Phỏng vấn' },
+  { value: 'OFFER', label: 'Đề nghị' },
+  { value: 'HIRED', label: 'Đã tuyển' },
+  { value: 'REJECTED', label: 'Từ chối' },
+];
 
-export default function CandidatesManagement() {
-  // --- STATE QUẢN LÝ DỮ LIỆU ---
-  const [applications, setApplications] = useState([]);
+const CandidatesManagement = () => {
+  // --- State Management ---
+  const [candidates, setCandidates] = useState([]);
   const [loading, setLoading] = useState(false);
-  
-  // --- STATE BỘ LỌC ---
-  const [filters, setFilters] = useState({
-    jobId: '',    // Nếu có giá trị sẽ ưu tiên gọi API theo Job
-    stage: '',    // Nếu jobId rỗng mà stage có, sẽ gọi API theo Stage
-    search: ''    // Search client-side hoặc API nếu backend hỗ trợ (ở đây tạm search client)
-  });
+  const [selectedStage, setSelectedStage] = useState('ALL');
 
-  // --- STATE PHÂN TRANG ---
-  const [pagination, setPagination] = useState({
-    page: 0,      // Backend thường bắt đầu từ 0
-    size: 5,      // Size mặc định là 5 (hoặc 2 như ví dụ của bạn)
-    totalPages: 0,
-    totalElements: 0
-  });
+  // Pagination State
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const pageSize = 10 ;
 
-  const [selectedAppId, setSelectedAppId] = useState(null); // ID đơn ứng tuyển đang xem chi tiết
+  // Modal State
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCandidateId, setSelectedCandidateId] = useState(null);
 
-  // --- HÀM GỌI API (FETCH DATA) ---
-  const fetchApplications = useCallback(async () => {
+  // --- Effects ---
+  useEffect(() => {
+    fetchCandidates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, selectedStage]);
+
+  // --- API Calls ---
+  const fetchCandidates = async () => {
     setLoading(true);
     try {
-      let url = `${API_BASE_URL}/hr/applications`;
-      
-      // LOGIC CHỌN ENDPOINT DỰA TRÊN FILTER
-      if (filters.jobId && filters.jobId !== 'all') {
-        // Endpoint: Xem danh sách theo Job
-        url = `${API_BASE_URL}/hr/applications/job/${filters.jobId}`;
-      } else if (filters.stage && filters.stage !== 'all') {
-        // Endpoint: Lọc theo Stage
-        url = `${API_BASE_URL}/hr/applications/stage/${filters.stage}`;
+      let response;
+
+      // Gọi API dựa trên filter
+      if (selectedStage === 'ALL') {
+        response = await hrApplicationAPI.getAll(page, pageSize);
+        // console.log("Response by stage:", response.data.result.items);
+
+      } else {
+        response = await hrApplicationAPI.getByStage(selectedStage, page, pageSize);
       }
 
-      // Thêm Query Param cho phân trang (size & page)
-      // Lưu ý: URLSearchParams giúp nối chuỗi an toàn
-      const params = new URLSearchParams({
-        page: pagination.page,
-        size: pagination.size
-      });
+      // Giả sử response trả về cấu trúc phân trang chuẩn (Spring Boot style: content, totalPages)
+      // Bạn cần điều chỉnh dòng này tùy theo actual response của BE trả về
+      const data = response.data || response;
 
-      const response = await fetch(`${url}?${params.toString()}`);
-      if (!response.ok) throw new Error('Failed to fetch data');
-
-      const data = await response.json();
-
-      // Giả sử Backend trả về Page object chuẩn của Spring Boot
-      // { content: [...], totalPages: 10, totalElements: 100, number: 0 }
-      setApplications(data.content || []); 
-      setPagination(prev => ({
-        ...prev,
-        totalPages: data.totalPages,
-        totalElements: data.totalElements
-      }));
+      setCandidates(data.result.items || []);
+      setTotalPages(data.result.totalPages || 0);
 
     } catch (error) {
-      console.error("Error loading applications:", error);
-      alert("Không thể tải danh sách đơn ứng tuyển!");
+      console.error("Failed to fetch candidates:", error);
+      // alert("Không thể tải danh sách ứng viên");
     } finally {
       setLoading(false);
     }
-  }, [filters.jobId, filters.stage, pagination.page, pagination.size]);
-
-  // Gọi API mỗi khi filter hoặc page thay đổi
-  useEffect(() => {
-    fetchApplications();
-  }, [fetchApplications]);
-
-  // --- XỬ LÝ SỰ KIỆN ---
-  const handleFilterChange = (key, value) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
-    setPagination(prev => ({ ...prev, page: 0 })); // Reset về trang đầu khi filter
   };
 
-  const handlePageChange = (newPage) => {
-    if (newPage >= 0 && newPage < pagination.totalPages) {
-      setPagination(prev => ({ ...prev, page: newPage }));
+  const handleUpdateStage = async (id, newStage) => {
+    try {
+      await hrApplicationAPI.updateStage(id, newStage);
+      // alert("Cập nhật trạng thái thành công!");
+      fetchCandidates(); // Reload data
+      setShowModal(false); // Đóng modal nếu đang mở
+    } catch (error) {
+      console.error("Failed to update stage:", error);
+      // alert("Cập nhật thất bại");
     }
   };
 
-  const handleRefresh = () => {
-    fetchApplications(); // Reload lại list sau khi update trong modal
+  // --- Event Handlers ---
+  const handleStageFilterChange = (e) => {
+    setSelectedStage(e.target.value);
+    setPage(0); // Reset về trang đầu khi filter
   };
 
-  // Helper hiển thị trạng thái màu sắc
-  const getStatusInfo = (stage) => {
-    const map = {
-      APPLIED: { text: 'Mới ứng tuyển', color: '#FFA500', bg: '#fff7e6' },
-      SCREENING: { text: 'Sàng lọc', color: '#2196F3', bg: '#e3f2fd' },
-      INTERVIEW: { text: 'Phỏng vấn', color: '#9C27B0', bg: '#f3e5f5' },
-      OFFER: { text: 'Đề nghị (Offer)', color: '#00BCD4', bg: '#e0f7fa' },
-      HIRED: { text: 'Đã tuyển', color: '#4CAF50', bg: '#e8f5e9' },
-      REJECTED: { text: 'Từ chối', color: '#F44336', bg: '#ffebee' }
-    };
-    return map[stage] || { text: stage, color: '#666', bg: '#eee' };
+  const handlePageChange = (newPage) => {
+    if (newPage >= 0 && newPage < totalPages) {
+      setPage(newPage);
+    }
+  };
+
+  const openDetailModal = (id) => {
+    console.log("Opening modal for candidate ID:", id);
+    setSelectedCandidateId(id);
+    setShowModal(true);
+  };
+
+  const closeDetailModal = () => {
+    setShowModal(false);
+    setSelectedCandidateId(null);
+  };
+
+  // --- Helper Render ---
+  const renderStatusBadge = (stage) => {
+    let className = styles.badge;
+    switch (stage) {
+      case 'APPLIED': className += ` ${styles.badgeNew}`; break;
+      case 'INTERVIEW': className += ` ${styles.badgeInfo}`; break;
+      case 'HIRED': className += ` ${styles.badgeSuccess}`; break;
+      case 'REJECTED': className += ` ${styles.badgeDanger}`; break;
+      default: className += ` ${styles.badgeDefault}`;
+    }
+    return <span className={className}>{stage}</span>;
   };
 
   return (
     <div className={styles.wrapper}>
+      {/* Header Section */}
       <div className={styles.header}>
-        <div>
-           <h1>Quản lý Đơn ứng tuyển</h1>
-           <p>Tổng số hồ sơ: {pagination.totalElements}</p>
-        </div>
-        <button className={styles.exportBtn}><FiDownload /> Xuất Excel</button>
-      </div>
-
-      {/* --- THANH CÔNG CỤ & BỘ LỌC --- */}
-      <div className={styles.toolbar}>
-        <div className={styles.searchBox}>
-          <FiSearch />
-          <input 
-            placeholder="Tìm nhanh (Client side)..." 
-            value={filters.search}
-            onChange={e => handleFilterChange('search', e.target.value)}
-          />
-        </div>
-        
-        <div className={styles.filters}>
-            {/* Lọc theo Job (Giả lập list job ID, thực tế bạn nên fetch list job để render option) */}
-            <select onChange={e => handleFilterChange('jobId', e.target.value)}>
-                <option value="all">Tất cả công việc</option>
-                <option value="1">Job ID: 1 (Java Dev)</option>
-                <option value="2">Job ID: 2 (Tester)</option>
-            </select>
-
-            {/* Lọc theo Stage */}
-            <select onChange={e => handleFilterChange('stage', e.target.value)}>
-                <option value="all">Tất cả giai đoạn</option>
-                <option value="APPLIED">Mới ứng tuyển</option>
-                <option value="SCREENING">Sàng lọc</option>
-                <option value="INTERVIEW">Phỏng vấn</option>
-                <option value="HIRED">Đã tuyển</option>
-                <option value="REJECTED">Từ chối</option>
-            </select>
+        <h2 className={styles.title}>Quản lý Ứng Viên</h2>
+        <div className={styles.actions}>
+          <select
+            className={styles.selectFilter}
+            value={selectedStage}
+            onChange={handleStageFilterChange}
+          >
+            {STAGES.map(stage => (
+              <option key={stage.value} value={stage.value}>
+                {stage.label}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
-      {/* --- BẢNG DỮ LIỆU --- */}
-      <div className={styles.tableContainer}>
-        {loading ? <div style={{padding: 20, textAlign: 'center'}}>Đang tải dữ liệu...</div> : (
+      {/* Table Section */}
+      <div className={styles.tableWrapper}>
+        {loading ? (
+          <div className={styles.loading}>Đang tải dữ liệu...</div>
+        ) : (
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>Ứng viên</th>
-                <th>Liên hệ</th>
-                <th>Vị trí (Job ID)</th>
+                <th>Họ và tên</th>
+                {/* <th>Email</th> */}
+                <th>Vị trí ứng tuyển</th>
                 <th>Ngày nộp</th>
-                <th>Giai đoạn</th>
+                <th>Trạng thái</th>
                 <th>Hành động</th>
               </tr>
             </thead>
             <tbody>
-              {applications.length === 0 && <tr><td colSpan="6" style={{textAlign:'center'}}>Không tìm thấy dữ liệu</td></tr>}
-              {applications.map(app => {
-                const statusInfo = getStatusInfo(app.stage); // Giả sử field trả về là 'stage'
-                // Mapping dữ liệu từ Backend entity sang UI
-                return (
-                    <tr key={app.id}>
-                        <td>
-                            <div className={styles.name}>{app.candidateName || 'N/A'}</div>
-                            <small>App ID: #{app.id}</small>
-                        </td>
-                        <td>
-                            <div className={styles.contact}>
-                                <span><FiMail/> {app.email}</span>
-                                <span><FiPhone/> {app.phone}</span>
-                            </div>
-                        </td>
-                        <td>{app.jobTitle || `Job #${app.jobId}`}</td>
-                        <td>{app.appliedDate}</td>
-                        <td>
-                            <span 
-                                className={styles.statusBadge}
-                                style={{ color: statusInfo.color, backgroundColor: statusInfo.bg }}
-                            >
-                                {statusInfo.text}
-                            </span>
-                        </td>
-                        <td>
-                            <button className={styles.iconBtn} onClick={() => setSelectedAppId(app.id)}>
-                                <FiEye />
-                            </button>
-                        </td>
-                    </tr>
-                );
-              })}
+              {candidates.length > 0 ? (
+                candidates.map((candidate) => (
+                  <tr key={candidate.id}>
+                    <td>{candidate.candidateName || "N/A"}</td>
+                    {/* <td>{candidate.candidateEmail}</td> */}
+                    <td>{candidate.jobTitle || "N/A"}</td>
+                    <td>{candidate.appliedDate ? new Date(candidate.appliedDate).toLocaleDateString('vi-VN') : '-'}</td>
+                    <td>{renderStatusBadge(candidate.currentStage)}</td>
+                    <td>
+                      <button
+                        className={styles.btnView}
+                        onClick={() => openDetailModal(candidate.id)}
+                      >
+                        Chi tiết
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" className={styles.empty}>Không có dữ liệu ứng viên</td>
+                </tr>
+              )}
             </tbody>
           </table>
         )}
       </div>
 
-      {/* --- PHÂN TRANG --- */}
-      <div className={styles.pagination}>
-        <button 
-          disabled={pagination.page === 0} 
-          onClick={() => handlePageChange(pagination.page - 1)}
-        >
-          <FiChevronLeft /> Trước
-        </button>
-        <span>Trang {pagination.page + 1} / {pagination.totalPages}</span>
-        <button 
-          disabled={pagination.page >= pagination.totalPages - 1} 
-          onClick={() => handlePageChange(pagination.page + 1)}
-        >
-          Sau <FiChevronRight />
-        </button>
-      </div>
+      {/* Pagination Section */}
+      {totalPages > 1 && (
+        <div className={styles.pagination}>
+          <button
+            disabled={page === 0}
+            onClick={() => handlePageChange(page - 1)}
+          >
+            Trước
+          </button>
+          <span>Trang {page + 1} / {totalPages}</span>
+          <button
+            disabled={page === totalPages - 1}
+            onClick={() => handlePageChange(page + 1)}
+          >
+            Sau
+          </button>
+        </div>
+      )}
 
-      {/* --- MODAL CHI TIẾT --- */}
-      {selectedAppId && (
-        <CandidateDetailModal 
-            applicationId={selectedAppId} 
-            onClose={() => setSelectedAppId(null)}
-            onUpdateSuccess={handleRefresh}
+      {/* Detail Modal */}
+      {showModal && (
+        <CandidateDetailModal
+          isOpen={showModal}
+          onClose={closeDetailModal}
+          applicationId={selectedCandidateId}
+          onUpdateStage={handleUpdateStage} // Truyền hàm update xuống modal
         />
       )}
     </div>
   );
-}
+};
+
+export default CandidatesManagement;

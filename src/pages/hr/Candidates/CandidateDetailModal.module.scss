@@ -1,0 +1,179 @@
+/* --- Variables --- */
+$primary-color: #0D8ABC;
+$primary-hover: darken($primary-color, 10%);
+$danger-color: #e53935; // Màu đỏ cho nút từ chối
+$danger-hover: #c62828;
+$text-main: #333;
+$text-secondary: #666;
+$border-radius: 12px;
+$overlay-bg: rgba(0, 0, 0, 0.5);
+
+/* --- Animation Keyframes --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* --- Overlay --- */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $overlay-bg;
+  backdrop-filter: blur(4px); // Làm mờ nền phía sau modal
+  z-index: 1000; // Đảm bảo luôn nổi lên trên cùng
+  display: flex;
+  align-items: center; // Căn giữa dọc
+  justify-content: center; // Căn giữa ngang
+  padding: 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* --- Modal Content --- */
+.modalContent {
+  background: white;
+  width: 100%;
+  max-width: 600px; // Không quá rộng trên màn hình lớn
+  border-radius: $border-radius;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; // Bo góc cho header bên trong
+  animation: slideIn 0.3s ease-out;
+}
+
+/* --- Header --- */
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+
+  h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: $text-main;
+    font-weight: 700;
+  }
+}
+
+.btnClose {
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $danger-color;
+  }
+}
+
+/* --- Body --- */
+.modalBody {
+  padding: 24px;
+  overflow-y: auto; // Nếu nội dung dài quá thì scroll
+  max-height: 80vh;
+}
+
+/* --- Info Section --- */
+.infoGroup {
+  margin-bottom: 30px;
+
+  p {
+    margin-bottom: 12px;
+    font-size: 1rem;
+    color: $text-secondary;
+    line-height: 1.6;
+
+    strong {
+      color: $text-main;
+      font-weight: 600;
+      min-width: 140px;
+      display: inline-block; // Để các nhãn thẳng hàng
+    }
+
+    a {
+      color: $primary-color;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px dashed transparent;
+
+      &:hover {
+        border-bottom-color: $primary-color;
+      }
+    }
+  }
+}
+
+/* --- Action Buttons --- */
+.actionGroup {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+
+  h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: $text-main;
+    font-weight: 600;
+  }
+
+  // Container chứa các nút
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 36px; 
+
+  button {
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    // Style nút mặc định (Mời phỏng vấn)
+    background-color: $primary-color;
+    color: white;
+
+    &:hover {
+      background-color: $primary-hover;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba($primary-color, 0.3);
+    }
+  }
+}
+
+// Style riêng cho nút Từ chối (Ghi đè nút mặc định)
+.btnReject {
+  background-color: white !important;
+  color: $danger-color !important;
+  border: 1px solid $danger-color !important;
+  box-shadow: none !important;
+
+  &:hover {
+    background-color: $danger-color !important;
+    color: white !important;
+    box-shadow: 0 4px 8px rgba($danger-color, 0.3) !important;
+  }
+}

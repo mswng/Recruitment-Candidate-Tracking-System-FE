@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './CreateJob.module.scss';
+import hrJobAPI from '../../../api/services/hrJobAPI'; // Import API service
 
 export default function CreateJob() {
     const location = useLocation();
@@ -8,6 +9,9 @@ export default function CreateJob() {
     
     // Lấy dữ liệu sơ bộ từ Modal (HRJobs.js)
     const initialData = location.state?.initialData || {};
+    console.log("Initial data for new job:", initialData);
+
+    const [loading, setLoading] = useState(false); // State để quản lý trạng thái loading
 
     const [formData, setFormData] = useState({
         title: initialData.title || '',
@@ -20,7 +24,7 @@ export default function CreateJob() {
         address: '',
         basicSalary: '',
         startDate: new Date().toISOString().split('T')[0], // Mặc định hôm nay
-        status: 'OPEN'
+        status: 'OPEN' // Mặc định là OPEN
     });
 
     const handleChange = (e) => {
@@ -28,12 +32,29 @@ export default function CreateJob() {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // TODO: Gọi API POST /api/jobs
-        console.log("Submitting Job Data:", formData);
-        alert("Tạo công việc thành công!");
-        navigate('/hr/jobs'); // Quay về danh sách
+
+        // 1. Validate dữ liệu cơ bản
+        if (!formData.title.trim() || !formData.branchName.trim()) {
+            alert("Vui lòng nhập tiêu đề công việc và chi nhánh!");
+            return;
+        }
+
+        // 2. Gọi API
+        setLoading(true);
+        try {
+            await hrJobAPI.createJob(formData);
+            
+            alert("Tạo công việc thành công!");
+            navigate('/hr/jobs'); // Quay về danh sách sau khi tạo xong
+        } catch (error) {
+            console.error("Lỗi khi tạo công việc:", error);
+            // Bạn có thể hiển thị thông báo lỗi chi tiết hơn nếu backend trả về message
+            alert("Đã xảy ra lỗi khi tạo công việc. Vui lòng thử lại!");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -41,8 +62,20 @@ export default function CreateJob() {
             <div className={styles.header}>
                 <h1>Hoàn thiện tin tuyển dụng</h1>
                 <div className={styles.actions}>
-                    <button className={styles.cancel} onClick={() => navigate('/hr/jobs')}>Hủy</button>
-                    <button className={styles.save} onClick={handleSubmit}>Đăng tuyển</button>
+                    <button 
+                        className={styles.cancel} 
+                        onClick={() => navigate('/hr/jobs')}
+                        disabled={loading} // Disable khi đang loading
+                    >
+                        Hủy
+                    </button>
+                    <button 
+                        className={styles.save} 
+                        onClick={handleSubmit}
+                        disabled={loading} // Disable khi đang loading
+                    >
+                        {loading ? "Đang xử lý..." : "Đăng tuyển"}
+                    </button>
                 </div>
             </div>
 
@@ -53,10 +86,11 @@ export default function CreateJob() {
                         <h3>Nội dung tuyển dụng</h3>
                         
                         <div className={styles.formGroup}>
-                            <label>Tiêu đề công việc</label>
+                            <label>Tiêu đề công việc <span style={{color:'red'}}>*</span></label>
                             <input 
                                 type="text" 
                                 name="title" 
+                                placeholder="VD: Senior Java Developer"
                                 value={formData.title} 
                                 onChange={handleChange} 
                             />
@@ -66,7 +100,8 @@ export default function CreateJob() {
                             <label>Mô tả công việc (Description)</label>
                             <textarea 
                                 name="description" 
-                                placeholder="Mô tả chi tiết nhiệm vụ..."
+                                rows="5"
+                                placeholder="- Phân tích yêu cầu và xây dựng kế hoạch..."
                                 value={formData.description}
                                 onChange={handleChange}
                             />
@@ -76,7 +111,8 @@ export default function CreateJob() {
                             <label>Yêu cầu ứng viên (Requirements)</label>
                             <textarea 
                                 name="requirements" 
-                                placeholder="Kỹ năng, kinh nghiệm, bằng cấp..."
+                                rows="5"
+                                placeholder="- Tốt nghiệp chuyên ngành CNTT..."
                                 value={formData.requirements}
                                 onChange={handleChange}
                             />
@@ -86,7 +122,8 @@ export default function CreateJob() {
                             <label>Quyền lợi (Benefits)</label>
                             <textarea 
                                 name="benefits" 
-                                placeholder="Bảo hiểm, thưởng, du lịch..."
+                                rows="5"
+                                placeholder="- Đóng BHXH đầy đủ, thưởng tháng 13..."
                                 value={formData.benefits}
                                 onChange={handleChange}
                             />
@@ -101,41 +138,75 @@ export default function CreateJob() {
                         
                         <div className={styles.formGroup}>
                             <label>Trạng thái</label>
+                            {/* Khi tạo mới thường mặc định là OPEN, có thể disable hoặc cho chọn */}
                             <select name="status" value={formData.status} onChange={handleChange}>
                                 <option value="OPEN">Đang tuyển (OPEN)</option>
-                                <option value="DRAFT">Nháp (DRAFT)</option>
-                                <option value="CLOSED">Đóng (CLOSED)</option>
+                                <option value="PAUSED">Tạm dừng (PAUSED)</option>
                             </select>
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label>Chi nhánh</label>
-                            <input type="text" name="branchName" value={formData.branchName} onChange={handleChange} />
+                            <label>Chi nhánh <span style={{color:'red'}}>*</span></label>
+                            <input 
+                                type="text" 
+                                name="branchName" 
+                                placeholder="VD: Hà Nội"
+                                value={formData.branchName} 
+                                onChange={handleChange} 
+                            />
                         </div>
 
                         <div className={styles.formGroup}>
                             <label>Địa điểm làm việc cụ thể</label>
-                            <input type="text" name="address" placeholder="Số 123 đường ABC..." value={formData.address} onChange={handleChange} />
+                            <input 
+                                type="text" 
+                                name="address" 
+                                placeholder="VD: Tầng 5, Tòa nhà ABC..." 
+                                value={formData.address} 
+                                onChange={handleChange} 
+                            />
                         </div>
 
                         <div className={styles.formGroup}>
                             <label>Lương cơ bản (VND)</label>
-                            <input type="number" name="basicSalary" value={formData.basicSalary} onChange={handleChange} />
+                            <input 
+                                type="number" 
+                                name="basicSalary" 
+                                placeholder="VD: 25000000"
+                                value={formData.basicSalary} 
+                                onChange={handleChange} 
+                            />
                         </div>
 
                         <div className={styles.formGroup}>
                             <label>Số lượng tuyển</label>
-                            <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} />
+                            <input 
+                                type="number" 
+                                name="quantity" 
+                                min="1"
+                                value={formData.quantity} 
+                                onChange={handleChange} 
+                            />
                         </div>
 
                         <div className={styles.formGroup}>
                             <label>Ngày bắt đầu</label>
-                            <input type="date" name="startDate" value={formData.startDate} onChange={handleChange} />
+                            <input 
+                                type="date" 
+                                name="startDate" 
+                                value={formData.startDate} 
+                                onChange={handleChange} 
+                            />
                         </div>
 
                         <div className={styles.formGroup}>
                             <label>Hạn chót (Deadline)</label>
-                            <input type="date" name="deadline" value={formData.deadline} onChange={handleChange} />
+                            <input 
+                                type="date" 
+                                name="deadline" 
+                                value={formData.deadline} 
+                                onChange={handleChange} 
+                            />
                         </div>
                     </div>
                 </div>

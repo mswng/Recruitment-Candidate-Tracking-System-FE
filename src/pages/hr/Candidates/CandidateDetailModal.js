@@ -1,147 +1,64 @@
+// src/pages/hr/Candidates/CandidateDetailModal.js
 import React, { useEffect, useState } from 'react';
-import styles from './CandidatesManagement.module.scss';
-import { FiDownload, FiMail, FiX } from 'react-icons/fi';
+import styles from './CandidateDetailModal.module.scss'; // Dùng chung style hoặc tạo file mới
+import hrApplicationAPI from '../../../api/services/hrApplicationAPI';
 
-const API_BASE_URL = 'http://localhost:8080/RecruitmentCandidateTracking';
-
-export default function CandidateDetailModal({ applicationId, onClose, onUpdateSuccess }) {
-  const [detail, setDetail] = useState(null);
+const CandidateDetailModal = ({ isOpen, onClose, applicationId, onUpdateStage }) => {
+  const [details, setDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [updating, setUpdating] = useState(false);
 
-  // 1. Fetch chi tiết khi Modal mở
   useEffect(() => {
-    if (!applicationId) return;
-
-    const fetchDetail = async () => {
-      try {
-        setLoading(true);
-        // Endpoint: Xem chi tiết một đơn ứng tuyển
-        const res = await fetch(`${API_BASE_URL}/hr/applications/${applicationId}`);
-        if (!res.ok) throw new Error("Fetch detail failed");
-        const data = await res.json();
-        setDetail(data);
-      } catch (err) {
-        console.error(err);
-        alert("Không tải được chi tiết đơn ứng tuyển");
-        onClose();
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDetail();
-  }, [applicationId, onClose]);
-
-  // 2. Hàm thay đổi trạng thái
-  const handleStageChange = async (newStage) => {
-    if (!window.confirm(`Bạn có chắc chắn muốn đổi sang trạng thái ${newStage}?`)) return;
-    
-    setUpdating(true);
-    try {
-      // Endpoint: Thay đổi giai đoạn tuyển dụng
-      // Method PUT (hoặc POST tùy backend của bạn), body chứa stage mới
-      const res = await fetch(`${API_BASE_URL}/hr/applications/${applicationId}/stage`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          // 'Authorization': 'Bearer ...' // Nếu có token
-        },
-        body: JSON.stringify({ stage: newStage }) // Hoặc gửi string trực tiếp tùy Backend nhận gì
-      });
-
-      if (!res.ok) throw new Error("Update failed");
-
-      alert("Cập nhật trạng thái thành công!");
-      
-      // Update local state để UI hiển thị ngay lập tức
-      setDetail(prev => ({ ...prev, stage: newStage }));
-      
-      // Báo cho component cha reload lại list
-      onUpdateSuccess();
-
-    } catch (err) {
-      console.error(err);
-      alert("Lỗi khi cập nhật trạng thái!");
-    } finally {
-      setUpdating(false);
+    if (isOpen && applicationId) {
+      const fetchDetail = async () => {
+        try {
+          const res = await hrApplicationAPI.getDetail(applicationId);
+          setDetails(res.data.result || res);
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchDetail();
     }
-  };
+  }, [isOpen, applicationId]);
 
-  if (!applicationId) return null;
+  if (!isOpen) return null;
 
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        
-        {/* Header */}
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
-          <h2>Chi tiết đơn ứng tuyển #{applicationId}</h2>
-          <button onClick={onClose} className={styles.closeBtn}><FiX/></button>
+          <h3>Chi tiết ứng viên</h3>
+          <button onClick={onClose} className={styles.btnClose}>&times;</button>
         </div>
 
-        {/* Body */}
         <div className={styles.modalBody}>
-          {loading ? <p>Đang tải thông tin...</p> : detail ? (
+          {loading ? (
+            <p>Đang tải...</p>
+          ) : details ? (
             <>
-              <div className={styles.candidateInfo}>
-                {/* Thông tin cơ bản */}
-                <InfoRow label="Họ tên" value={detail.candidateName} bold />
-                <InfoRow label="Email" value={detail.email} />
-                <InfoRow label="Số điện thoại" value={detail.phone} />
-                <InfoRow label="Vị trí ứng tuyển" value={detail.jobTitle} />
-                <InfoRow label="Ngày nộp" value={detail.appliedDate} />
-                
-                {/* CV Link */}
-                <div className={styles.infoRow}>
-                   <label>CV đính kèm:</label>
-                   <a href={detail.cvUrl} target="_blank" rel="noreferrer" style={{color: '#007bff'}}>
-                     Xem hồ sơ (PDF)
-                   </a>
-                </div>
-
-                {/* Thay đổi trạng thái */}
-                <div className={styles.infoRow} style={{marginTop: 20, borderTop: '1px solid #eee', paddingTop: 15}}>
-                  <label style={{alignSelf:'center'}}>Giai đoạn hiện tại:</label>
-                  <select
-                    value={detail.stage}
-                    onChange={(e) => handleStageChange(e.target.value)}
-                    className={styles.statusSelect}
-                    disabled={updating}
-                  >
-                    <option value="APPLIED">Mới ứng tuyển</option>
-                    <option value="SCREENING">Sàng lọc hồ sơ</option>
-                    <option value="INTERVIEW">Phỏng vấn</option>
-                    <option value="OFFER">Gửi đề nghị (Offer)</option>
-                    <option value="HIRED">Đã tuyển dụng</option>
-                    <option value="REJECTED">Từ chối</option>
-                  </select>
-                  {updating && <span style={{marginLeft: 10, fontSize: 12, color: 'blue'}}>Đang lưu...</span>}
-                </div>
+              <div className={styles.infoGroup}>
+                <p><strong>Tên:</strong> {details.candidateName}</p>
+                <p><strong>Email:</strong> {details.candidateEmail}</p>
+                <p><strong>CV:</strong> <a href={details.resumePath} target="_blank" rel="noreferrer">Xem CV</a></p>
+                <p><strong>Trạng thái:</strong> {details.currentStage}</p>
               </div>
 
-              {/* Actions Footer */}
-              <div className={styles.modalActions}>
-                <a href={detail.cvUrl} className={styles.primaryBtn} download>
-                  <FiDownload /> Tải CV về máy
-                </a>
-                <a href={`mailto:${detail.email}`} className={styles.secondaryBtn}>
-                  <FiMail /> Gửi Email
-                </a>
+              <div className={styles.actionGroup}>
+                <h4>Chuyển trạng thái:</h4>
+                {/* Ví dụ nút chuyển trạng thái nhanh */}
+                <button onClick={() => onUpdateStage(applicationId, 'INTERVIEW')}>Mời phỏng vấn</button>
+                <button onClick={() => onUpdateStage(applicationId, 'REJECTED')} className={styles.btnReject}>Từ chối</button>
               </div>
             </>
           ) : (
-             <p style={{color:'red'}}>Không tìm thấy dữ liệu</p>
+            <p>Không tìm thấy thông tin.</p>
           )}
         </div>
       </div>
     </div>
   );
-}
+};
 
-const InfoRow = ({ label, value, bold }) => (
-  <div className={styles.infoRow}>
-    <label>{label}:</label>
-    {bold ? <strong>{value}</strong> : <span>{value}</span>}
-  </div>
-);
+export default CandidateDetailModal;
