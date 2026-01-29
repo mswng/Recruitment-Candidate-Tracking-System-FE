@@ -1,39 +1,44 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import AuthLayout from "./AuthLayout";
 import styles from "./Auth.module.scss";
+import { loginApi } from "../../../api/authApi";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // DEMO phân quyền bằng email
-    if (email === "admin@recruithub.com") {
-      localStorage.setItem("role", "admin");
-      navigate("/admin/dashboard");
-      return;
-    }
+    try {
+      const res = await loginApi({ email, password });
 
-    if (email === "hr@recruithub.com") {
-      localStorage.setItem("role", "hr");
-      navigate("/hr/dashboard");
-      return;
-    }
+      console.log("LOGIN RESPONSE:", res.data);
 
-    if (email === "interviewer@recruithub.com") {
-      localStorage.setItem("role", "interviewer");
-      navigate("/interviewer/dashboard");
-      return;
-    }
+      // Backend chỉ trả token
+      const { token } = res.data.result;
 
-    if (email === "candidate@recruithub.com") {
-      localStorage.setItem("role", "candidate");
-      navigate("/");
-      return;
+      // Lưu token
+      localStorage.setItem("token", token);
+
+      // Decode token lấy role
+      const decoded = jwtDecode(token);
+      const role = decoded.scope;   // <-- role nằm trong claim "scope"
+
+      localStorage.setItem("role", role);
+
+      // Điều hướng theo role
+      if (role === "ADMIN") navigate("/admin/dashboard");
+      else if (role === "HR") navigate("/hr/dashboard");
+      else if (role === "INTERVIEWER") navigate("/interviewer/dashboard");
+      else navigate("/"); // CANDIDATE hoặc mặc định
+
+    } catch (err) {
+      console.log("LOGIN ERROR:", err.response?.data);
+      alert("Sai email hoặc mật khẩu hoặc chưa xác thực email");
     }
   };
 
@@ -63,14 +68,8 @@ export default function Login() {
             />
           </div>
 
-          {/* QUÊN MẬT KHẨU Ở TRÊN */}
-          <Link to="/forgot-password" className={styles.forgotTop}>
-            Quên mật khẩu?
-          </Link>
-
           <button className={styles.btnSubmit}>Đăng nhập</button>
 
-          {/* ĐĂNG KÝ Ở DƯỚI */}
           <div className={styles.signup}>
             Chưa có tài khoản? <Link to="/register">Đăng ký</Link>
           </div>
