@@ -1,21 +1,33 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MENU } from "../../../config/menuConfig";
 import styles from "./Header.module.scss";
+import { logout } from "../../../api/server/logoutAPI";
 
 export default function Header() {
   const role = localStorage.getItem("role") || "guest";
   const location = useLocation();
+  const navigate = useNavigate();
 
   const menus = MENU[role] || [];
 
   const isActive = (path) => {
     const current = location.pathname;
-
-    if (path === "/") {
-      return current === "/";
-    }
-
+    if (path === "/") return current === "/";
     return current === path || current.startsWith(path + "/");
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout(); // ✅ gọi API backend
+    } catch (err) {
+      console.error("Logout error:", err);
+    } finally {
+      ["token", "role", "userType", "user"].forEach((key) =>
+        localStorage.removeItem(key)
+      );
+
+      navigate("/login", { replace: true }); // ✅ điều hướng đúng React
+    }
   };
 
   return (
@@ -47,14 +59,8 @@ export default function Header() {
             </Link>
           </>
         ) : (
-          <button
-            className={styles.logout}
-            onClick={() => {
-              localStorage.clear();
-              window.location.href = "/";
-            }}
-          >
-            Logout
+          <button className={styles.logout} onClick={handleLogout}>
+            Đăng xuất
           </button>
         )}
       </div>
