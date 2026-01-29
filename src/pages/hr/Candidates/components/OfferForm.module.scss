@@ -1,0 +1,143 @@
+// Định nghĩa biến màu sắc (bạn có thể thay đổi theo theme của dự án)
+$primary-color: #007bff;   // Màu xanh dương chủ đạo
+$success-color: #28a745;   // Màu xanh lá (dùng cho nút gửi offer)
+$danger-color: #dc3545;    // Màu đỏ (lỗi)
+$text-color: #333;         // Màu chữ chính
+$label-color: #555;        // Màu nhãn
+$border-color: #ced4da;    // Màu viền input
+$bg-hover: #f8f9fa;        // Màu nền khi hover
+
+.offerFormContainer {
+  background-color: #fff;
+  padding: 20px 25px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px; // Giới hạn chiều rộng form cho đẹp
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); // Đổ bóng nhẹ tạo chiều sâu
+  animation: slideDown 0.3s ease-out; // Hiệu ứng xuất hiện
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-color;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+
+  // Style cho thông báo lỗi
+  :global(.alert-danger) {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    border: 1px solid #f5c6cb;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; // Khoảng cách giữa các input
+  }
+
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: $label-color;
+      margin-bottom: 6px;
+    }
+
+    input, select {
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      outline: none;
+      background-color: #fff;
+
+      // Hiệu ứng khi focus vào input
+      &:focus {
+        border-color: $success-color; // Đổi màu viền sang xanh lá
+        box-shadow: 0 0 0 3px rgba($success-color, 0.2); // Highlight nhẹ
+      }
+
+      // Placeholder style
+      &::placeholder {
+        color: #adb5bd;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end; // Căn phải các nút
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+
+    button {
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    }
+
+    .btnCancel {
+      background-color: #e9ecef;
+      color: $text-color;
+
+      &:hover {
+        background-color: #dde2e6;
+      }
+    }
+
+    .btnSubmit {
+      background-color: $success-color;
+      color: #fff;
+
+      &:hover:not(:disabled) {
+        background-color: darken($success-color, 10%);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      }
+
+      // Icon spinner xoay
+      i {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+// Keyframes cho animation xuất hiện
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

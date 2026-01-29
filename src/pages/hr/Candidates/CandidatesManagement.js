@@ -7,10 +7,10 @@ import CandidateDetailModal from './CandidateDetailModal'; // Giả sử bạn �
 // Các trạng thái tuyển dụng (Mapping theo Backend enum nếu có)
 const STAGES = [
   { value: 'ALL', label: 'Tất cả' },
-  { value: 'APPLIED', label: 'Ứng tuyển mới' },
+  { value: 'APPLIED', label: 'Đơn ứng tuyển mới' },
   { value: 'SCREENING', label: 'Sàng lọc' },
-  { value: 'INTERVIEW', label: 'Phỏng vấn' },
-  { value: 'OFFER', label: 'Đề nghị' },
+  { value: 'INTERVIEWING', label: 'Phỏng vấn' },
+  { value: 'OFFERED', label: 'Đề nghị' },
   { value: 'HIRED', label: 'Đã tuyển' },
   { value: 'REJECTED', label: 'Từ chối' },
 ];
@@ -106,10 +106,20 @@ const CandidatesManagement = () => {
     let className = styles.badge;
     switch (stage) {
       case 'APPLIED': className += ` ${styles.badgeNew}`; break;
-      case 'INTERVIEW': className += ` ${styles.badgeInfo}`; break;
+      case 'INTERVIEWING': className += ` ${styles.badgeInfo}`; break;
       case 'HIRED': className += ` ${styles.badgeSuccess}`; break;
       case 'REJECTED': className += ` ${styles.badgeDanger}`; break;
       default: className += ` ${styles.badgeDefault}`;
+    }
+    // hiển thị tiếng Việt cho từng stage 
+    switch (stage) {
+      case 'APPLIED': stage = 'Đơn ứng tuyển mới'; break;
+      case 'SCREENING': stage = 'Sàng lọc'; break;
+      case 'INTERVIEWING': stage = 'Phỏng vấn'; break;
+      case 'OFFERED': stage = 'Đề nghị'; break;
+      case 'HIRED': stage = 'Đã tuyển'; break;
+      case 'REJECTED': stage = 'Từ chối'; break;
+      default: stage = 'N/A';
     }
     return <span className={className}>{stage}</span>;
   };

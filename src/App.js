@@ -18,7 +18,6 @@ import CreateJob from "./pages/hr/Jobs/CreateJob";
 import EditJob from "./pages/hr/Jobs/EditJob";
 import CandidatesManagement from "./pages/hr/Candidates/CandidatesManagement";
 import CandidateDetailModal from "./pages/hr/Candidates/CandidateDetailModal";      
-import InterviewSection from "./pages/hr/Interviews/InterviewSection";
 
 // Interviewer pages
 import InterviewerDashboard from "./pages/interviewer/InterviewerDashboard";
@@ -58,7 +57,6 @@ function App() {
         <Route path="/hr/candidates" element={<CandidatesManagement />} />
         <Route path="/hr/candidates/:id" element={<CandidateDetailModal />} />
         <Route path="/hr/candidates/detail/:id" element={<CandidateDetailModal />} />
-        <Route path="/hr/interviews" element={<InterviewSection />} />
 
         {/* INTERVIEWER */}
         <Route
