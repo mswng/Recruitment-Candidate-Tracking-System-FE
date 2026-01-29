@@ -1,0 +1,208 @@
+// HRJobs.module.scss
+.wrapper {
+  padding: 20px;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  .btnAdd {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .logo {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #eee;
+  }
+
+  .content {
+    flex: 1;
+
+    .titleRow {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+
+      h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #2d3748;
+      }
+
+      .salary {
+        color: #e53e3e;
+        font-weight: 600;
+      }
+    }
+
+    .company {
+      color: #718096;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .meta {
+      display: flex;
+      gap: 16px;
+      font-size: 14px;
+      color: #4a5568;
+      margin-bottom: 12px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+
+      .tag {
+        background: #ebf8ff;
+        color: #3182ce;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+
+    button {
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      border: 1px solid #e2e8f0;
+      background: white;
+
+      &.editBtn {
+        color: #007bff;
+        border-color: #007bff;
+        &:hover { background: #e7f1ff; }
+      }
+    }
+  }
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 500px;
+  max-width: 90%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  .formGroup {
+    margin-bottom: 15px;
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+      }
+    }
+  }
+
+  .modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+
+    button {
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+
+      &.cancel {
+        background: #e2e8f0;
+        color: #4a5568;
+      }
+
+      &.submit {
+        background: #007bff;
+        color: white;
+      }
+    }
+  }
+}

@@ -13,6 +13,11 @@ import UserManagement from "./pages/admin/users";
 
 // HR pages
 import HrDashboard from "./pages/hr/HRDashboard";
+import HRJobs from "./pages/hr/Jobs/HRJobs";
+import CreateJob from "./pages/hr/Jobs/CreateJob";
+import EditJob from "./pages/hr/Jobs/EditJob";
+import CandidatesManagement from "./pages/hr/Candidates/CandidatesManagement";
+
 
 // Interviewer pages
 import InterviewerDashboard from "./pages/interviewer/InterviewerDashboard";
@@ -46,6 +51,11 @@ function App() {
 
         {/* HR */}
         <Route path="/hr/dashboard" element={<HrDashboard />} />
+        <Route path="/hr/jobs" element={<HRJobs />} />
+        <Route path="/hr/jobs/create" element={<CreateJob />} />
+        <Route path="/hr/jobs/edit/:id" element={<EditJob />} />
+        <Route path="/hr/candidates" element={<CandidatesManagement />} />
+
 
         {/* INTERVIEWER */}
         <Route

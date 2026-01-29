@@ -1,0 +1,325 @@
+.wrapper {
+  padding: 24px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #1a202c;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: #718096;
+    font-size: 14px;
+  }
+}
+
+.exportBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #4a5568;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #f7fafc;
+    border-color: #cbd5e0;
+  }
+}
+
+/* Toolbar & Filters */
+.toolbar {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 16px;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  background: #f7fafc;
+  padding: 8px 12px;
+  border-radius: 6px;
+  flex: 1;
+  max-width: 400px;
+
+  input {
+    border: none;
+    background: transparent;
+    margin-left: 8px;
+    width: 100%;
+    outline: none;
+  }
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+
+  select {
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    outline: none;
+    color: #4a5568;
+  }
+}
+
+/* Table Styles */
+.tableContainer {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #edf2f7;
+  }
+
+  th {
+    background: #f8fafc;
+    color: #4a5568;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .name {
+    font-weight: 600;
+    color: #2d3748;
+  }
+
+  .contact {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 13px;
+    color: #718096;
+  }
+
+  .statusBadge {
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .score {
+    font-weight: bold;
+    color: #2b6cb0;
+  }
+
+  .iconBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #718096;
+    padding: 6px;
+    border-radius: 4px;
+
+    &:hover {
+      background: #edf2f7;
+      color: #3182ce;
+    }
+  }
+}
+
+/* Modal Overlay & Content */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 12px;
+  width: 600px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modalHeader {
+  padding: 20px;
+  border-bottom: 1px solid #edf2f7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  .closeBtn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+}
+
+.modalBody {
+  padding: 24px;
+}
+
+.infoRow {
+  margin-bottom: 16px;
+  display: flex;
+
+  label {
+    min-width: 120px;
+    color: #718096;
+    font-weight: 500;
+  }
+
+  span,
+  strong {
+    color: #2d3748;
+  }
+}
+
+.skills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  .skillTag {
+    background: #ebf8ff;
+    color: #2c5282;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+}
+
+.statusSelect {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.modalActions {
+  margin-top: 30px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+
+    &.primaryBtn {
+      background: #3182ce;
+      color: white;
+
+      &:hover {
+        background: #2b6cb0;
+      }
+    }
+
+    &.secondaryBtn {
+      background: #edf2f7;
+      color: #2d3748;
+
+      &:hover {
+        background: #e2e8f0;
+      }
+    }
+  }
+}
+
+
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  padding: 20px 0;
+  border-top: 1px solid #eee;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 16px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #4a5568;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: #f7fafc;
+    }
+
+    &:hover:not(:disabled) {
+      background: #edf2f7;
+      border-color: #cbd5e0;
+    }
+  }
+
+  span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2d3748;
+  }
+}
+
+.statusSelect {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+
+  &:focus {
+    border-color: #007bff;
+  }
+}

@@ -16,7 +16,8 @@ $shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
 .container {
   display: grid;
-  grid-template-columns: 300px 1fr; /* Cột trái cố định 300px, Cột phải tự dãn */
+  grid-template-columns: 300px 1fr;
+  /* Cột trái cố định 300px, Cột phải tự dãn */
   gap: 24px;
   max-width: 1400px;
   margin: 0 auto;
@@ -77,8 +78,10 @@ $shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     justify-content: space-between;
     font-size: 0.9rem;
     color: $text-gray;
-    
-    b { color: $text-dark; }
+
+    b {
+      color: $text-dark;
+    }
   }
 }
 
@@ -94,7 +97,8 @@ $shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
   .statsGrid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 cột đều nhau */
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 cột đều nhau */
     gap: 12px;
   }
 
@@ -104,11 +108,22 @@ $shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     align-items: center;
     padding: 12px 8px;
     border-radius: 8px;
-    
+
     /* Màu nền nhạt cho từng trạng thái */
-    &.blue { background-color: rgba(13, 138, 188, 0.1); color: #0D8ABC; }
-    &.orange { background-color: rgba(255, 165, 0, 0.1); color: #e67e22; }
-    &.green { background-color: rgba(46, 204, 113, 0.1); color: #27ae60; }
+    &.blue {
+      background-color: rgba(13, 138, 188, 0.1);
+      color: #0D8ABC;
+    }
+
+    &.orange {
+      background-color: rgba(255, 165, 0, 0.1);
+      color: #e67e22;
+    }
+
+    &.green {
+      background-color: rgba(46, 204, 113, 0.1);
+      color: #27ae60;
+    }
 
     .statNumber {
       font-size: 1.5rem;
@@ -132,27 +147,33 @@ $shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
 .calendarSection {
   @extend .cardBase;
-  
+
   .sectionHeader {
     margin-bottom: 20px;
-    .pageTitle { margin: 0; font-size: 1.5rem; }
+
+    .pageTitle {
+      margin: 0;
+      font-size: 1.5rem;
+    }
   }
-  
+
   .calendarWrapper {
     /* Đảm bảo calendar cũ của bạn hiển thị tốt trong này */
-    min-height: 400px; 
+    min-height: 400px;
   }
 }
 
 
 /* Style cho Popup nổi */
 .popupCard {
-  position: fixed; /* Hoặc absolute tùy bố cục cha */
+  position: fixed;
+  /* Hoặc absolute tùy bố cục cha */
   z-index: 1000;
   background: white;
   width: 280px;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Đổ bóng sâu để tạo cảm giác nổi */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  /* Đổ bóng sâu để tạo cảm giác nổi */
   border: 1px solid #eee;
   animation: fadeIn 0.2s ease-out;
   overflow: hidden;
@@ -191,9 +212,14 @@ $shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
     border-bottom: 1px solid #f0f0f0;
-    
-    &:last-child { border-bottom: none; }
-    &:hover { background-color: #faffff; }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: #faffff;
+    }
 
     .time {
       font-weight: bold;
@@ -205,14 +231,28 @@ $shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     .details {
       display: flex;
       flex-direction: column;
-      
-      strong { font-size: 0.9rem; color: #333; }
-      span { font-size: 0.8rem; color: #777; }
+
+      strong {
+        font-size: 0.9rem;
+        color: #333;
+      }
+
+      span {
+        font-size: 0.8rem;
+        color: #777;
+      }
     }
   }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

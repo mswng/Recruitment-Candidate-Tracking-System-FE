@@ -2,7 +2,6 @@ import React from "react";
 
 // PUBLIC
 import HomePage from "../pages/home/HomePage";
-import Jobs from "../pages/jobs/Jobs";
 import Companies from "../pages/companies/Companies";
 
 // AUTH (đã chuyển sang components/layouts/auth)
@@ -17,6 +16,10 @@ import PipelineConfig from "../pages/admin/pipeline";
 
 // HR
 import HRDashboard from "../pages/hr/HRDashboard";
+import HRJobs from "../pages/hr/Jobs/HRJobs";
+import CreateJob from "../pages/hr/Jobs/CreateJob";
+import EditJob from "../pages/hr/Jobs/EditJob";
+import CandidatesManagement from "../pages/hr/Candidates/CandidatesManagement";
 
 // INTERVIEWER
 import InterviewerDashboard from "../pages/interviewer/InterviewerDashboard";
@@ -27,7 +30,7 @@ import InterviewDetail from "../pages/interviewer/InterviewDetail";
 import Profile from "../pages/candidate/Profile";
 import AppliedJobs from "../pages/candidate/appliedJobs";
 import Jobs from "../pages/candidate/RecruitmentPages";
-import JobsDetail from "../pages/candidate/JobsDetail"; 
+import JobsDetail from "../pages/candidate/JobsDetail";
 
 // ================= PUBLIC ROUTES =================
 const publicRouter = [
@@ -51,9 +54,13 @@ const adminRouter = [
 
 // ================= HR ROUTES =================
 const hrRouter = [
-  { path: "/dashboard", element: <HRDashboard /> },
-  { path: "/interviews", element: <MyInterviews /> },
-  { path: "/interviews/:id", element: <InterviewDetail /> },
+  { path: "/hr/dashboard", element: <HRDashboard /> },
+  // { path: "/hr/interviews", element: <MyInterviews /> },
+  // { path: "/hr/interviews/:id", element: <InterviewDetail /> },
+  { path: "/hr/jobs", element: <HRJobs /> },
+  { path: "/hr/jobs/create", element: <CreateJob /> },
+  { path: "/hr/jobs/edit/:id", element: <EditJob /> },
+  { path: "/hr/candidates", element: <CandidatesManagement /> },
 ];
 
 // ================= INTERVIEWER ROUTES =================

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import styles from "./InterviewerDashboard.module.scss";
+import styles from "./InterviewerSchedule.module.scss";
 
 const ALL_SCHEDULE = [
   { date: "2026-01-12", time: "11:30", name: "Thomas Alva", position: "Backend", room: "201", status: "Đang chờ", id: 1 },

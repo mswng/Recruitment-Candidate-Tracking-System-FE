@@ -19,7 +19,7 @@ export const MENU = {
   interviewer: [
     { key: "dashboard", label: "Trang chủ", path: "/interviewer/dashboard" },
     { key: "schedule", label: "Lịch phỏng vấn", path: "/interviewer/schedule" },
-    { key: "schedule", label: "Danh sách ứng viên", path: "/interviewer/my-interviews" },
+    { key: "my-interviews", label: "Danh sách ứng viên", path: "/interviewer/my-interviews" },
 ],
 
 
