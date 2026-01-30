@@ -1,7 +1,9 @@
 import styles from "./MoreJobs.module.scss";
 import JobItem from "./JobItem";
 
-export default function CompanyJobs({ jobs }) {
+export default function CompanyJobs({ jobs = [] }) {
+  if (jobs.length === 0) return null;
+
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.title}>Xem thêm việc làm khác</h2>
@@ -14,3 +16,5 @@ export default function CompanyJobs({ jobs }) {
     </div>
   );
 }
+
+

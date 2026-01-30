@@ -2,7 +2,6 @@ import React from "react";
 
 // PUBLIC
 import HomePage from "../pages/home/HomePage";
-import Companies from "../pages/companies/Companies";
 
 // AUTH (đã chuyển sang components/layouts/auth)
 import Login from "../components/layouts/auth/Login";

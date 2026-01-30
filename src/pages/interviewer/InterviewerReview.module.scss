@@ -1,0 +1,149 @@
+.wrapper {
+  padding: 24px;
+  min-height: 100vh;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 28px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  border: 1.5px solid #93c5fd; 
+  box-shadow: 0 8px 22px rgba(0,0,0,.06);
+}
+
+.viewCv {
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 600;
+}
+///////  ĐÁNH GIÁ ỨNG VIÊN ////////////////////
+.reviewCard {
+  max-width: 760px;
+  margin: auto;
+}
+
+.infoTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+.infoTable td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.infoTable td:first-child {
+  width: 180px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.link {
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.scoreBox {
+  margin: 16px 0;
+}
+
+.scoreBox input {
+  width: 100%;
+}
+
+.noteBox {
+  margin-top: 12px;
+}
+
+.noteBox textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #cbd5f5;
+}
+
+.actionRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.primaryBtn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+/// CV PREVIEW /////////////////////////
+.cvModal {
+  background: #fff;
+  width: 70%;
+  max-width: 900px;
+  height: 85vh;
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+}
+
+.cvFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+}
+
+.pdfBox {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.pdfNav {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 10px;
+
+  button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+.backBtn {
+  background: #3b82f6; // xanh sáng
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.backBtn:hover {
+  background: #2563eb;
+}

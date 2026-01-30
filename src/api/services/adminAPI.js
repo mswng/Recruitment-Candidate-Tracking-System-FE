@@ -1,5 +1,7 @@
 import axiosInstance from "../client/axios";
 
+
+// Lấy dữ liệu dashboard cho admin
 export const getAdminDashboard = async () => {
   const res = await axiosInstance.get("/admin/dashboard");
 
