@@ -5,10 +5,10 @@
 
 h2 {
   font-size: 24px;
-  // margin-bottom: 16px;
   padding: 0 8px;
-  color: #000000;
+  color: #000;
 }
+
 .list {
   display: flex;
   flex-direction: column;
@@ -22,6 +22,7 @@ h2 {
   box-shadow: 0 0 0 1px #a7bdc4;
 }
 
+/* ===== HEADER ===== */
 .header {
   display: flex;
   justify-content: space-between;
@@ -30,19 +31,17 @@ h2 {
   h3 {
     margin: 0 0 4px;
     font-size: 16px;
+    font-weight: 600;
   }
-}
-
-.company {
-  font-size: 14px;
-  color: #374151;
 }
 
 .salary {
   color: #1676a3;
   font-weight: 600;
+  font-size: 14px;
 }
 
+/* ===== META ===== */
 .meta {
   display: flex;
   gap: 16px;
@@ -51,30 +50,94 @@ h2 {
   margin: 8px 0 12px;
 }
 
+/* ===== STATUS BADGE ===== */
 .status {
   display: inline-block;
   padding: 6px 12px;
   border-radius: 999px;
   font-size: 13px;
   font-weight: 500;
+  margin-bottom: 12px;
 }
 
-.WAIT_INTERVIEW {
+/* ==== BE STATUS ==== */
+.APPLIED {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.SCREENING {
   background: #eff6ff;
   color: #2563eb;
 }
 
-.WAIT_RESULT {
+.INTERVIEWING {
   background: #fff7ed;
   color: #ea580c;
 }
 
-.PASSED {
+.OFFERED {
+  background: #fefce8;
+  color: #ca8a04;
+}
+
+.HIRED {
   background: #ecfdf5;
   color: #16a34a;
 }
 
-.FAILED {
+.REJECTED {
   background: #fef2f2;
   color: #dc2626;
+}
+
+/* ===== INTERVIEW BOX ===== */
+.interviewBox {
+  background: #f9fafb;
+  border-left: 4px solid #1676a3;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #374151;
+  margin-bottom: 12px;
+
+  p {
+    margin: 4px 0;
+  }
+}
+
+/* ===== OFFER ACTION ===== */
+.offerActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.accept,
+.reject {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.accept {
+  background: #16a34a;
+  color: #fff;
+
+  &:hover {
+    background: #15803d;
+  }
+}
+
+.reject {
+  background: #dc2626;
+  color: #fff;
+
+  &:hover {
+    background: #b91c1c;
+  }
 }
