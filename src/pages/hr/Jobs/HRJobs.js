@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from "./HRJobs.module.scss";
+import Logo from '../../../assets/imgs/logo.png'; // Import logo image
 import hrJobAPI from '../../../api/services/hrJobAPI'; // Import API service
 
 export default function HRJobs() {
@@ -114,7 +115,7 @@ export default function HRJobs() {
                     {jobs.length > 0 ? (
                         jobs.map((job) => (
                             <div key={job.id} className={styles.card}>
-                                <img src="./../assets/imgs/logo.png" alt="logo" className={styles.logo} />
+                                <img src={Logo} alt="logo" className={styles.logo} />
                                 <div className={styles.content}>
                                     <div className={styles.titleRow}>
                                         <h3>{job.title}</h3>
