@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from "./HRJobs.module.scss";
 import Logo from '../../../assets/imgs/logo.png'; // Import logo image
 import hrJobAPI from '../../../api/services/hrJobAPI'; // Import API service
+import Pagination from '../../../components/pagination/pagination';
 
 export default function HRJobs() {
     const navigate = useNavigate();
@@ -13,11 +14,9 @@ export default function HRJobs() {
     const [loading, setLoading] = useState(false);
     
     // Pagination State (Mặc định trang 1, size 5 như yêu cầu)
-    const [pagination, setPagination] = useState({
-        page: 0,
-        size: 5,
-        totalItems: 0
-    });
+    const [page, setPage] = useState(0);        // page hiện tại (0-based)
+    const [size] = useState(5);                // size cố định
+    const [totalPages, setTotalPages] = useState(0);
 
     // Modal State (Giữ nguyên logic cũ của bạn)
     const [showModal, setShowModal] = useState(false);
@@ -32,25 +31,41 @@ export default function HRJobs() {
     useEffect(() => {
         fetchJobs();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pagination.page]);
+    }, [page]);
 
     // --- API Calls ---
+    // const fetchJobs = async () => {
+    //     setLoading(true);
+    //     try {
+    //         // Gọi API: page, size
+    //         const response = await hrJobAPI.getAllJobs(pagination.page, pagination.size);
+    //         if (response && response.data.result) {
+    //             setJobs(response.data.result.items || []);
+    //             setPageNumber(response.data.result.totalPages || 0);
+    //         }
+    //         console.log("Fetched jobs:", pageNumber);
+    //     } catch (error) {
+    //         console.error("Failed to fetch jobs:", error);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
     const fetchJobs = async () => {
         setLoading(true);
         try {
-            // Gọi API: page, size
-            const response = await hrJobAPI.getAllJobs(pagination.page, pagination.size);
-            if (response && response.data.result) {
-                setJobs(response.data.result.items || []);
-                setPageNumber(response.data.result.totalPages || 0);
-            }
-            console.log("Fetched jobs:", pageNumber);
+            const res = await hrJobAPI.getAllJobs(page, size);
+
+            const result = res.data.result;
+            setJobs(result.items || []);
+            setTotalPages(result.totalPages || 0);
         } catch (error) {
             console.error("Failed to fetch jobs:", error);
         } finally {
             setLoading(false);
         }
-    };
+        };
+
 
     // --- Handlers ---
     const handleOpenModal = () => setShowModal(true);
@@ -146,22 +161,11 @@ export default function HRJobs() {
             )}
 
             {/* Pagination Controls (Đơn giản) */}
-            <div className={styles.pagination}>
-                <button 
-                    disabled={pagination.page <= 1} 
-                    onClick={() => setPagination(prev => ({ ...prev, page: prev.page - 1 }))}
-                >
-                    Trước
-                </button>
-                <span style={{ margin: '0 10px' }}>Trang {pagination.page + 1}/ {pageNumber}</span>
-                <button 
-                    // Logic disable nút sau cần totalPages từ BE, tạm thời để luôn mở hoặc check jobs.length < size
-                    disabled={jobs.length < pagination.size}
-                    onClick={() => setPagination(prev => ({ ...prev, page: prev.page + 1 }))}
-                >
-                    Sau
-                </button>
-            </div>
+            <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+            />
 
             {/* MODAL THÊM CƠ BẢN (Giữ nguyên) */}
             {showModal && (
