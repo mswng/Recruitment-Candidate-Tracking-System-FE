@@ -7,7 +7,7 @@ import {
 
 const STAGE_MAP = {
   APPLIED: "Đã nộp hồ sơ",
-  SCREENING: "Bạn đã vượt qua vòng sàng lọc, lịch phỏng vấn là: ",
+  SCREENING: "Bạn đã vượt qua vòng sàng lọc, chờ lịch phỏng vấn. Lich phỏng vấn sẽ được gửi qua email.",
   INTERVIEWING: "Chờ kết quả phỏng vấn",
   OFFERED: "Bạn đã trúng tuyển! Vui lòng phản hồi offer: ",
   HIRED: "Đã trúng tuyển",
