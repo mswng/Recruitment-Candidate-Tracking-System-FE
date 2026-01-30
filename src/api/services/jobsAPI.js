@@ -73,3 +73,20 @@ export const getRelatedJobs = async (jobId) => {
 
   return res.data.result; // { items, page, totalPages }
 };
+
+export const getAppliedJobs = async () => {
+  const res = await axiosInstance.get(
+    "/candidate/applications/applied-jobs"
+  );
+  return res.data.result;
+};
+
+export const respondOffer = async ({applicationId, accepted}) => {
+  return axiosInstance.post(
+    "/candidate/offer/respond",
+    { 
+      applicationId, 
+      accepted, 
+    }
+  );
+};
