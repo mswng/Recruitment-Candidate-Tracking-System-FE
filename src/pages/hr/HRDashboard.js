@@ -1,48 +1,80 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Calendar from "./Calendar";
 import styles from "./HrDashboard.module.scss";
-
-const interviews = {
-  "2026-01-05": [
-    { time: "09:00", candidate: "Nguyễn An", interviewer: "Mr. Long" },
-  ],
-  "2026-01-12": [
-    { time: "14:00", candidate: "Trần Bình", interviewer: "Ms. Hoa" },
-  ],
-};
+import { getHrDashboard } from "../../api/services/hrDashboradAPI";
 
 export default function HrDashboard() {
+  const [loading, setLoading] = useState(true);
+  const [dashboard, setDashboard] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      try {
+        const data = await getHrDashboard();
+        setDashboard(data);
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboard();
+  }, []);
+
+  if (loading) return <p>Đang tải dashboard HR...</p>;
+  if (!dashboard) return <p>Không có dữ liệu</p>;
+
+  const {
+    month,
+    pendingCVs,
+    openJobs,
+    interviewsToday,
+    interviewCalendar,
+  } = dashboard;
+
+  const formatMonth = (monthStr) => {
+    if (!monthStr) return "";
+
+    const [year, month] = monthStr.split("-");
+    return `${month}/${year}`;
+  };
+
 
   return (
     <div className={styles.wrapper}>
-     {/* ROW 1: 3 CARD */}
-<h3 className={styles.sectionTitle}></h3>
+      
+      {/* ===== ROW 1: OVERVIEW ===== */}
+      <h3 className={styles.sectionTitle}>
+        Tổng quan tháng {formatMonth(month)}
+      </h3>
 
-<div className={styles.overviewGrid}>
-  <div className={`${styles.statCard} ${styles.cardBlue}`}>
-    <p>CV chờ duyệt</p>
-    <h2>35</h2>
-  </div>
+      <div className={styles.overviewGrid}>
+        <div className={`${styles.statCard} ${styles.cardBlue}`}>
+          <p>CV chờ duyệt</p>
+          <h2>{pendingCVs}</h2>
+        </div>
 
-  <div className={`${styles.statCard} ${styles.cardGreen}`}>
-    <p>Job đang mở</p>
-    <h2>48</h2>
-  </div>
+        <div className={`${styles.statCard} ${styles.cardGreen}`}>
+          <p>Job đang mở</p>
+          <h2>{openJobs}</h2>
+        </div>
 
-  <div className={`${styles.statCard} ${styles.cardOrange}`}>
-    <p>Phỏng vấn hôm nay</p>
-    <h2>12</h2>
-  </div>
-</div>
+        <div className={`${styles.statCard} ${styles.cardOrange}`}>
+          <p>Phỏng vấn hôm nay</p>
+          <h2>{interviewsToday}</h2>
+        </div>
+      </div>
 
-      {/* ROW 2: CALENDAR */}
+      {/* ===== ROW 2: CALENDAR ===== */}
       <div className={styles.calendarFull}>
         <Calendar
-          data={interviews}
+          data={interviewCalendar?.daysWithInterviews || []}
           onSelect={(d) => setSelectedDate(d)}
         />
       </div>
+
     </div>
   );
 }

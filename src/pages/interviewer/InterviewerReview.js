@@ -1,28 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import styles from "./InterviewerDashboard.module.scss";
+import styles from "./InterviewerReview.module.scss";
+import { evaluateInterview, getResumeLink } from "../../api/services/interviewerAPI";
 
 export default function InterviewerReview() {
   const { search } = useLocation();
   const navigate = useNavigate();
-  const id = new URLSearchParams(search).get("id");
 
-  const [score, setScore] = useState(7);
-  const [note, setNote] = useState("");
+  const interviewId = new URLSearchParams(search).get("id");
+  const applicationId = new URLSearchParams(search).get("applicationId");
 
-  const handleSave = () => {
-    const data = {
-      id,
-      score,
-      note,
-      time: new Date().toLocaleString(),
+  const [score, setScore] = useState(80);
+  const [comment, setComment] = useState("");
+  const [resumeLink, setResumeLink] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  /* ===== GET RESUME LINK ===== */
+  useEffect(() => {
+    if (!applicationId) return;
+
+    const fetchResume = async () => {
+      try {
+        const link = await getResumeLink(applicationId);
+        setResumeLink(link);
+      } catch {
+        alert("Không lấy được CV ứng viên");
+      }
     };
 
-    const old = JSON.parse(localStorage.getItem("REVIEWS") || "[]");
-    localStorage.setItem("REVIEWS", JSON.stringify([...old, data]));
+    fetchResume();
+  }, [applicationId]);
 
-    alert("Đã lưu đánh giá!");
-    navigate("/interviewer/my-interviews");
+  /* ===== SUBMIT EVALUATION ===== */
+  const handleSave = async () => {
+    if (!comment.trim()) {
+      alert("Vui lòng nhập nhận xét");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await evaluateInterview(interviewId, {
+        score: Number(score),
+        comment,
+      });
+
+      alert(
+        score >= 80
+          ? "Đánh giá xong – Ứng viên được OFFER 🎉"
+          : "Đánh giá xong – Ứng viên bị REJECTED"
+      );
+
+      navigate("/interviewer/my-interviews");
+    } catch {
+      alert("Lưu đánh giá thất bại");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -34,42 +68,62 @@ export default function InterviewerReview() {
           <tbody>
             <tr>
               <td>Mã phiên</td>
-              <td>#{id}</td>
+              <td>#{interviewId}</td>
             </tr>
             <tr>
-              <td>Ứng viên</td>
-              <td>Thomas Alva</td>
-            </tr>
-            <tr>
-              <td>Vị trí</td>
-              <td>Backend Developer</td>
+              <td>CV</td>
+              <td>
+                {resumeLink ? (
+                  <a
+                    href={resumeLink}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Xem CV
+                  </a>
+                ) : (
+                  "Không có"
+                )}
+              </td>
             </tr>
           </tbody>
         </table>
 
+        {/* SCORE */}
         <div className={styles.scoreBox}>
-          <label>Điểm: {score}/10</label>
+          <label>Điểm: {score}/100</label>
           <input
             type="range"
-            min="1"
-            max="10"
+            min="0"
+            max="100"
             value={score}
             onChange={(e) => setScore(e.target.value)}
           />
+          <p>
+            Kết quả:{" "}
+            <b style={{ color: score >= 80 ? "green" : "red" }}>
+              {score >= 80 ? "OFFERED" : "REJECTED"}
+            </b>
+          </p>
         </div>
 
+        {/* COMMENT */}
         <div className={styles.noteBox}>
           <label>Nhận xét</label>
           <textarea
             placeholder="Nhập nhận xét..."
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
           />
         </div>
 
         <div className={styles.actionRow}>
-          <button className={styles.primaryBtn} onClick={handleSave}>
-            Lưu đánh giá
+          <button
+            className={styles.primaryBtn}
+            onClick={handleSave}
+            disabled={loading}
+          >
+            {loading ? "Đang lưu..." : "Lưu đánh giá"}
           </button>
         </div>
       </div>
