@@ -1,13 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./InterviewerSchedule.module.scss";
-
-const ALL_SCHEDULE = [
-  { date: "2026-01-12", time: "11:30", name: "Thomas Alva", position: "Backend", room: "201", status: "Đang chờ", id: 1 },
-  { date: "2026-01-12", time: "12:00", name: "Masum Billah", position: "UI/UX", room: "105", status: "Hoàn thành", id: 2 },
-  { date: "2026-01-12", time: "12:30", name: "Smith Lives", position: "Content", room: "307", status: "Đang chờ", id: 3 },
-  { date: "2026-01-05", time: "09:00", name: "Nguyễn An", position: "Tester", room: "101", status: "Đang chờ", id: 4 },
-];
+import { getInterviewerInterviews } from "../../api/services/interviewerAPI";
 
 export default function InterviewerSchedule() {
   const { search } = useLocation();
@@ -15,19 +9,48 @@ export default function InterviewerSchedule() {
   const date = new URLSearchParams(search).get("date");
 
   const [filter, setFilter] = useState("ALL");
+  const [schedules, setSchedules] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getInterviewerInterviews();
+
+        const mapped = data.map((i) => ({
+          id: i.id,
+          date: i.interviewDate,
+          time: i.interviewTime,
+          name: i.candidateName,
+          position: i.position,
+          room: i.room,
+          status: mapStatus(i.status),
+        }));
+
+        setSchedules(mapped);
+      } catch (e) {
+        alert("Không lấy được lịch phỏng vấn");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   let data = date
-    ? ALL_SCHEDULE.filter((s) => s.date === date)
-    : ALL_SCHEDULE;
+    ? schedules.filter((s) => s.date === date)
+    : schedules;
 
   if (filter !== "ALL") {
     data = data.filter((s) => s.status === filter);
   }
 
+  if (loading) return <p>Đang tải...</p>;
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.card}>
-
         <h3>
           {date
             ? `Lịch phỏng vấn ngày ${date.split("-").reverse().join("/")}`
@@ -62,7 +85,9 @@ export default function InterviewerSchedule() {
             <div
               key={s.id}
               className={styles.scheduleRow}
-              onClick={() => navigate(`/interviewer/workspace?id=${s.id}`)}
+              onClick={() =>
+                navigate(`/interviewer/workspace?id=${s.id}`)
+              }
             >
               <div className={`${styles.scheduleCell} ${styles.timeCell}`}>
                 {s.time}
@@ -87,9 +112,21 @@ export default function InterviewerSchedule() {
               </div>
             </div>
           ))}
-        </div>
 
+          {data.length === 0 && (
+            <p style={{ textAlign: "center" }}>
+              Không có lịch phỏng vấn
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
 }
+
+/* helper */
+const mapStatus = (status) => {
+  if (status === "PENDING") return "Đang chờ";
+  if (status === "COMPLETED") return "Hoàn thành";
+  return status;
+};

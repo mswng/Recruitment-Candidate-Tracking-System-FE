@@ -1,23 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./InterviewerMyInterviews.module.scss";
+import { getInterviewerInterviews, getResumeLink } from "../../api/services/interviewerAPI";
 
-const LIST = [
-  { id: 1, time: "09:00", name: "Thomas Alva", position: "Backend" },
-  { id: 2, time: "14:00", name: "Masum Billah", position: "UI/UX" },
-  { id: 3, time: "15:30", name: "Smith Lives", position: "Content" },
-];
 
 export default function InterviewerMyInterviews() {
   const navigate = useNavigate();
+  const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  /* ===== FETCH INTERVIEWS ===== */
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getInterviewerInterviews();
+        setList(Array.isArray(data) ? data : []);
+      } catch (err) {
+        alert("Không lấy được danh sách phỏng vấn");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  /* ===== VIEW CV ===== */
+  const handleViewCV = async (applicationId) => {
+    try {
+      const link = await getResumeLink(applicationId);
+      window.open(link, "_blank");
+    } catch {
+      alert("Không lấy được CV");
+    }
+  };
+
+  if (loading) return <p>Đang tải...</p>;
 
   return (
     <div className={styles.wrapper}>
       <div className={`${styles.card} ${styles.reviewCard}`}>
         <h3 className={styles.centerTitle}>Danh sách ứng viên</h3>
 
+        {list.length === 0 && <p>Không có lịch phỏng vấn</p>}
+
         <div className={styles.scheduleTable}>
-          {LIST.map((c) => (
+          {list.map((c) => (
             <div key={c.id} className={styles.scheduleRow}>
               {/* TIME */}
               <div className={`${styles.scheduleCell} ${styles.timeCell}`}>
@@ -26,22 +54,26 @@ export default function InterviewerMyInterviews() {
 
               {/* INFO */}
               <div className={`${styles.scheduleCell} ${styles.infoCell}`}>
-                <h4>{c.name}</h4>
-                <p>{c.position}</p>
+                <h4>{c.candidateName}</h4>
+                <p>{c.positionTitle}</p>
               </div>
 
               {/* ACTION */}
               <div className={`${styles.scheduleCell} ${styles.metaCell}`}>
                 <span
                   className={styles.viewCv}
-                  onClick={() => navigate(`/interviewer/cv?id=${c.id}`)}
+                  onClick={() => handleViewCV(c.applicationId)}
                 >
                   Xem CV
                 </span>
 
                 <span
                   className={styles.link}
-                  onClick={() => navigate(`/interviewer/review?id=${c.id}`)}
+                  onClick={() =>
+                    navigate(
+                      `/interviewer/review?id=${c.id}&applicationId=${c.applicationId}`
+                    )
+                  }
                 >
                   Đánh giá
                 </span>

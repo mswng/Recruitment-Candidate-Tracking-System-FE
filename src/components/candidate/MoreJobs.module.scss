@@ -24,6 +24,8 @@
   border: 1px solid #359862;
   border-radius: 12px;
   align-items: center;
+  text-decoration: none;
+  color: inherit;
 }
 
 .logo {
@@ -40,6 +42,7 @@
 .jobTitle {
   font-size: 16px;
   font-weight: 700;
+  display: flex; 
 }
 
 .verify {
