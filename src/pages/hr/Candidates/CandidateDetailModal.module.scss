@@ -172,3 +172,41 @@
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+
+/* ... Code cũ giữ nguyên ... */
+
+/* Thêm Class này để xử lý Popup Offer Form */
+.modalContentSmall {
+  background: #fff;
+  width: 500px; /* Nhỏ hơn modal chính (900px) */
+  max-width: 90%;
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(36, 32, 32, 0.2);
+  animation: scaleUp 0.25s ease-out;
+
+  /* Đảm bảo nó nổi lên trên */
+  z-index: 1100; 
+}
+
+/* Animation cho popup nhỏ bật lên */
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Cập nhật lại z-index cho Overlay để đảm bảo nếu overlay chồng overlay thì vẫn nhìn được */
+.modalOverlay {
+  /* Code cũ: z-index: 1000 */
+  /* Nếu popup Offer nằm trong popup Candidate, thì overlay con cần z-index cao hơn */
+  /* Tuy nhiên, vì cấu trúc HTML lồng nhau, bạn chỉ cần style modalContentSmall tốt là được.
+     Nếu gặp lỗi overlay bị đen quá mức, hãy điều chỉnh rgba alpha thấp hơn */
+}

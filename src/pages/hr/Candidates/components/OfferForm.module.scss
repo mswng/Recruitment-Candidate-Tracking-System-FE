@@ -1,102 +1,269 @@
-// Định nghĩa biến màu sắc (bạn có thể thay đổi theo theme của dự án)
-$primary-color: #007bff;   // Màu xanh dương chủ đạo
-$success-color: #28a745;   // Màu xanh lá (dùng cho nút gửi offer)
-$danger-color: #dc3545;    // Màu đỏ (lỗi)
-$text-color: #333;         // Màu chữ chính
-$label-color: #555;        // Màu nhãn
-$border-color: #ced4da;    // Màu viền input
-$bg-hover: #f8f9fa;        // Màu nền khi hover
+// 1. Define Variables (Theme System)
+// Giúp dễ dàng thay đổi màu sắc toàn cục sau này
+$primary-color: #3b82f6;       // Xanh dương hiện đại (Tailwind Blue-500)
+$primary-hover: #2563eb;       // Xanh đậm hơn khi hover
+$secondary-bg: #f3f4f6;        // Màu nền xám nhẹ cho nút hủy
+$secondary-text: #4b5563;      // Màu chữ xám
+$text-main: #111827;           // Màu chữ chính (gần đen)
+$text-label: #374151;          // Màu chữ label
+$border-color: #d1d5db;        // Màu viền input
+$border-focus: #3b82f6;        // Màu viền khi focus
+$error-bg: #fef2f2;            // Nền đỏ nhạt cho lỗi
+$error-text: #ef4444;          // Chữ đỏ cho lỗi
+$radius: 8px;                  // Bo góc chuẩn
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$transition: all 0.2s ease-in-out;
 
+// 2. Main Container
 .offerFormContainer {
-  background-color: #fff;
-  padding: 20px 25px;
-  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: $radius * 1.5; // Bo góc mềm mại hơn cho container
+  box-shadow: $shadow-md;
+  max-width: 500px;
   width: 100%;
-  max-width: 500px; // Giới hạn chiều rộng form cho đẹp
-  margin: 0 auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); // Đổ bóng nhẹ tạo chiều sâu
-  animation: slideDown 0.3s ease-out; // Hiệu ứng xuất hiện
+  margin: 0 auto; // Căn giữa nếu đặt trong flow bình thường
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
+  // Tiêu đề
   h3 {
     margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    color: $text-color;
+    color: $text-main;
     text-align: center;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+    letter-spacing: -0.025em;
   }
 
-  // Style cho thông báo lỗi
-  :global(.alert-danger) {
-    background-color: #f8d7da;
-    color: #721c24;
+  // Xử lý Alert Error (Global class inside local module)
+  // Vì trong JS bạn dùng className="alert alert-danger" (global class)
+  // Ta dùng :global để style nó nằm gọn trong scope này
+  :global(.alert) {
+    padding: 0.75rem 1rem;
+    border-radius: $radius;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    
+    &.alert-danger {
+      background-color: $error-bg;
+      color: $error-text;
+      border: 1px solid rgba($error-text, 0.2);
+    }
+  }
+
+  // 3. Form Group Styling
+  .formGroup {
+    margin-bottom: 1.25rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.925rem;
+      font-weight: 500;
+      color: $text-label;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: $text-main;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid $border-color;
+      border-radius: $radius;
+      transition: $transition;
+      outline: none;
+
+      // Placeholder style
+      &::placeholder {
+        color: #9ca3af;
+        font-size: 0.95rem;
+      }
+
+      // States
+      &:hover {
+        border-color: darken($border-color, 10%);
+      }
+
+      &:focus {
+        border-color: $border-focus;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.15); // Hiệu ứng glow hiện đại
+      }
+
+      // Input type date fix for iOS/Webkit
+      &[type="date"] {
+        appearance: none;
+        min-height: 48px; // Đảm bảo dễ bấm trên mobile
+      }
+    }
+  }
+
+  // 4. Action Buttons
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f3f4f6; // Đường kẻ mờ phân cách
+
+    button {
+      padding: 0.625rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: $radius;
+      border: none;
+      cursor: pointer;
+      transition: $transition;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 100px;
+
+      // Nút Hủy
+      &.btnCancel {
+        background-color: transparent;
+        color: $secondary-text;
+        border: 1px solid transparent;
+
+        &:hover {
+          background-color: $secondary-bg;
+          color: darken($secondary-text, 10%);
+        }
+      }
+
+      // Nút Submit
+      &.btnSubmit {
+        background-color: $primary-color;
+        color: white;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+        &:hover {
+          background-color: $primary-hover;
+          transform: translateY(-1px); // Nhấc nhẹ nút lên khi hover
+          box-shadow: 0 4px 6px -1px rgba($primary-color, 0.2);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+
+        &:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+          transform: none;
+        }
+        
+        // Icon loading
+        i {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+
+/* --- Variables match with CandidateDetailModal --- */
+$primary-color: #2563eb;
+$success-color: #059669; /* Màu xanh lá cho nút Gửi */
+$text-main: #374151;
+$text-light: #6b7280;
+$border-color: #e2e8f0;
+$bg-input: #fff;
+
+.offerFormContainer {
+  padding: 10px 5px;
+  width: 100%;
+  box-sizing: border-box;
+
+  h3 {
+    margin: 0 0 20px 0;
+    text-align: center;
+    color: $text-main;
+    font-size: 1.25rem;
+    font-weight: 600;
+    border-bottom: 1px dashed $border-color;
+    padding-bottom: 15px;
+  }
+
+  /* Style hiển thị lỗi chung */
+  .alert {
     padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 15px;
+    border-radius: 6px;
     font-size: 0.9rem;
-    border: 1px solid #f5c6cb;
+    margin-bottom: 15px;
+    background-color: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    gap: 15px; // Khoảng cách giữa các input
+    gap: 15px;
   }
 
   .formGroup {
     display: flex;
     flex-direction: column;
+    gap: 6px;
 
     label {
       font-size: 0.9rem;
       font-weight: 500;
-      color: $label-color;
-      margin-bottom: 6px;
+      color: $text-main;
     }
 
     input, select {
       padding: 10px 12px;
-      font-size: 0.95rem;
       border: 1px solid $border-color;
-      border-radius: 4px;
-      transition: all 0.2s ease;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      color: #1f2937;
+      background-color: $bg-input;
+      transition: all 0.2s;
       outline: none;
-      background-color: #fff;
 
-      // Hiệu ứng khi focus vào input
       &:focus {
-        border-color: $success-color; // Đổi màu viền sang xanh lá
-        box-shadow: 0 0 0 3px rgba($success-color, 0.2); // Highlight nhẹ
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
       }
 
-      // Placeholder style
       &::placeholder {
-        color: #adb5bd;
+        color: #9ca3af;
       }
     }
   }
 
   .actions {
+    margin-top: 10px;
+    padding-top: 20px;
+    border-top: 1px solid $border-color;
     display: flex;
-    justify-content: flex-end; // Căn phải các nút
-    gap: 10px;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
+    justify-content: flex-end;
+    gap: 12px;
 
     button {
-      padding: 8px 20px;
-      border-radius: 4px;
-      font-size: 0.95rem;
+      padding: 10px 20px;
+      border-radius: 6px;
       font-weight: 500;
       cursor: pointer;
       border: none;
-      transition: all 0.2s;
+      transition: background 0.2s;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 8px;
 
       &:disabled {
         opacity: 0.7;
@@ -105,39 +272,27 @@ $bg-hover: #f8f9fa;        // Màu nền khi hover
     }
 
     .btnCancel {
-      background-color: #e9ecef;
-      color: $text-color;
-
+      background-color: #f3f4f6;
+      color: $text-main;
+      
       &:hover {
-        background-color: #dde2e6;
+        background-color: #e5e7eb;
       }
     }
 
     .btnSubmit {
       background-color: $success-color;
-      color: #fff;
+      color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
       &:hover:not(:disabled) {
-        background-color: darken($success-color, 10%);
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        background-color: darken($success-color, 5%);
+        transform: translateY(-1px);
       }
 
-      // Icon spinner xoay
       i {
         font-size: 0.9rem;
       }
     }
-  }
-}
-
-// Keyframes cho animation xuất hiện
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
