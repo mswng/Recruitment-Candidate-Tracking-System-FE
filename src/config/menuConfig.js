@@ -13,7 +13,7 @@ export const MENU = {
     { key: "dashboard", label: "Trang chủ", path: "/hr/dashboard" },
     { key: "jobs", label: "Tuyển dụng", path: "/hr/jobs" },
     { key: "candidates", label: "Ứng viên", path: "/hr/candidates" },
-    { key: "interviews", label: "Phỏng vấn", path: "/hr/interviews" }
+    // { key: "interviews", label: "Phỏng vấn", path: "/hr/interviews" }
   ],
 
   INTERVIEWER: [

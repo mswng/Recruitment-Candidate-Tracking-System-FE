@@ -30,13 +30,6 @@ const hrApplicationAPI = {
   getDetail: (id) => {
     const url = `/hr/applications/${id}`;
     return axiosClient.get(url);
-  },
-
-  // 5. Cập nhật giai đoạn tuyển dụng (Chuyển trạng thái)
-  updateStage: (id, newStage) => {
-    const url = `/hr/applications/${id}/stage`;
-    // Body gửi lên backend: { "stage": "INTERVIEW" }
-    return axiosClient.put(url, { stage: newStage });
   }
 };
 

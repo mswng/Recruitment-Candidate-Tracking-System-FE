@@ -27,6 +27,27 @@ const hrInterviewAPI = {
   getEvaluations: (interviewId) => {
     const url = `/hr/interviews/${interviewId}/evaluations`;
     return axiosClient.get(url);
+  },
+
+  getInterviewers: () => {
+    const url = '/hr/interviews/interviewers/all';
+    return axiosClient.get(url);
+  },
+
+  // 6. Cập nhật trạng thái của ứng viên (Dùng cho nút Gửi Offer / Chuyển vòng)
+  // PUT /hr/applications/{id}/stage (Giả sử bạn có API này)
+  updateStage: (applicationId, stage) => {
+    const url = `/hr/applications/${applicationId}/stage`;
+    return axiosClient.put(url, null, { params: { stage } });
+  },
+  // Lấy chi tiết đánh giá
+  // GET /interviews/{interviewId}/evaluations
+  getEvaluations: (interviewId) => {
+    // Lưu ý: Dựa trên yêu cầu của bạn là http://.../interviews/{id}/evaluations
+    // Nếu axiosClient đã có base URL là /RecruitmentCandidateTracking/hr thì bạn cần chỉnh lại path
+    // Dưới đây giả định axiosClient trỏ tới root API
+    const url = `/interviews/${interviewId}/evaluations`; 
+    return axiosClient.get(url);
   }
 };
 

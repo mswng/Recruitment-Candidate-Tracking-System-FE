@@ -1,179 +1,212 @@
-/* --- Variables --- */
-$primary-color: #0D8ABC;
-$primary-hover: darken($primary-color, 10%);
-$danger-color: #e53935; // Màu đỏ cho nút từ chối
-$danger-hover: #c62828;
-$text-main: #333;
-$text-secondary: #666;
-$border-radius: 12px;
-$overlay-bg: rgba(0, 0, 0, 0.5);
-
-/* --- Animation Keyframes --- */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
 }
 
-@keyframes slideIn {
+.modalContent {
+    background: #fff;
+    width: 900px;
+    max-width: 95%;
+    height: 85vh; /* Cố định chiều cao */
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+
+    .closeBtn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: #666;
+        z-index: 10;
+        &:hover { color: #000; }
+    }
+
+    .loading {
+        margin: auto;
+        font-size: 1.2rem;
+        color: #666;
+    }
+}
+
+.header {
+    padding: 20px 25px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .titleSection {
+        h2 { margin: 0; color: #333; font-size: 1.5rem; }
+        .subtitle { margin: 5px 0 0; color: #666; font-size: 0.95rem; }
+    }
+
+    .statusSection {
+        margin-right: 30px;
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            
+            &.APPLIED { background: #e0f2fe; color: #0284c7; }
+            &.SCREENING { background: #fef9c3; color: #ca8a04; }
+            &.INTERVIEWING { background: #dbeafe; color: #2563eb; }
+            &.OFFERED { background: #f3e8ff; color: #9333ea; }
+            &.HIRED { background: #dcfce7; color: #16a34a; }
+            &.REJECTED { background: #fee2e2; color: #dc2626; }
+        }
+    }
+}
+
+.tabs {
+    display: flex;
+    padding: 0 25px;
+    border-bottom: 1px solid #eee;
+    background: #f9fafb;
+
+    button {
+        padding: 12px 20px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-weight: 500;
+        color: #6b7280;
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s;
+
+        &:hover { color: #374151; }
+        &.active {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
+        }
+    }
+}
+
+.body {
+    flex: 1;
+    overflow-y: auto; /* Scroll nội dung body */
+    padding: 25px;
+}
+
+/* --- Styles cho từng Tab --- */
+
+.infoTab {
+    .infoGroup {
+        margin-bottom: 15px;
+        label { font-weight: 600; min-width: 120px; display: inline-block; color: #374151; }
+        span, p { display: inline-block; color: #4b5563; }
+        p { display: block; margin-top: 5px; line-height: 1.5; }
+    }
+
+    .actionFooter {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px dashed #eee;
+        display: flex;
+        gap: 15px;
+    }
+}
+
+.cvTab {
+    height: 100%;
+    .pdfViewer {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+}
+
+.interviewTab {
+    .actionBar {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+
+    .subFormWrapper {
+        margin-bottom: 25px;
+        padding: 15px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        animation: slideDown 0.3s ease;
+    }
+}
+
+/* --- Common Buttons --- */
+.btnPrimary, .btnAdd, .btnOffer, .btnReject {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.btnPrimary { background: #2563eb; color: white; &:hover { background: #1d4ed8; } }
+.btnAdd { background: #059669; color: white; &:hover { background: #047857; } }
+.btnOffer { background: #7c3aed; color: white; &:hover { background: #6d28d9; } }
+.btnReject { background: #ef4444; color: white; &:hover { background: #dc2626; } }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+
+/* ... Code cũ giữ nguyên ... */
+
+/* Thêm Class này để xử lý Popup Offer Form */
+.modalContentSmall {
+  background: #fff;
+  width: 500px; /* Nhỏ hơn modal chính (900px) */
+  max-width: 90%;
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(36, 32, 32, 0.2);
+  animation: scaleUp 0.25s ease-out;
+
+  /* Đảm bảo nó nổi lên trên */
+  z-index: 1100; 
+}
+
+/* Animation cho popup nhỏ bật lên */
+@keyframes scaleUp {
   from {
-    transform: translateY(20px);
     opacity: 0;
+    transform: scale(0.9);
   }
   to {
-    transform: translateY(0);
     opacity: 1;
+    transform: scale(1);
   }
 }
 
-/* --- Overlay --- */
+/* Cập nhật lại z-index cho Overlay để đảm bảo nếu overlay chồng overlay thì vẫn nhìn được */
 .modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: $overlay-bg;
-  backdrop-filter: blur(4px); // Làm mờ nền phía sau modal
-  z-index: 1000; // Đảm bảo luôn nổi lên trên cùng
-  display: flex;
-  align-items: center; // Căn giữa dọc
-  justify-content: center; // Căn giữa ngang
-  padding: 20px;
-  animation: fadeIn 0.3s ease-out;
-}
-
-/* --- Modal Content --- */
-.modalContent {
-  background: white;
-  width: 100%;
-  max-width: 600px; // Không quá rộng trên màn hình lớn
-  border-radius: $border-radius;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; // Bo góc cho header bên trong
-  animation: slideIn 0.3s ease-out;
-}
-
-/* --- Header --- */
-.modalHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 24px;
-  border-bottom: 1px solid #eee;
-  background-color: #fff;
-
-  h3 {
-    margin: 0;
-    font-size: 1.25rem;
-    color: $text-main;
-    font-weight: 700;
-  }
-}
-
-.btnClose {
-  background: transparent;
-  border: none;
-  font-size: 2rem;
-  line-height: 1;
-  color: #999;
-  cursor: pointer;
-  padding: 0;
-  transition: color 0.2s;
-
-  &:hover {
-    color: $danger-color;
-  }
-}
-
-/* --- Body --- */
-.modalBody {
-  padding: 24px;
-  overflow-y: auto; // Nếu nội dung dài quá thì scroll
-  max-height: 80vh;
-}
-
-/* --- Info Section --- */
-.infoGroup {
-  margin-bottom: 30px;
-
-  p {
-    margin-bottom: 12px;
-    font-size: 1rem;
-    color: $text-secondary;
-    line-height: 1.6;
-
-    strong {
-      color: $text-main;
-      font-weight: 600;
-      min-width: 140px;
-      display: inline-block; // Để các nhãn thẳng hàng
-    }
-
-    a {
-      color: $primary-color;
-      text-decoration: none;
-      font-weight: 500;
-      border-bottom: 1px dashed transparent;
-
-      &:hover {
-        border-bottom-color: $primary-color;
-      }
-    }
-  }
-}
-
-/* --- Action Buttons --- */
-.actionGroup {
-  border-top: 1px solid #eee;
-  padding-top: 20px;
-
-  h4 {
-    margin: 0;
-    font-size: 1rem;
-    color: $text-main;
-    font-weight: 600;
-  }
-
-  // Container chứa các nút
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 36px; 
-
-  button {
-    padding: 10px 24px;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-
-    // Style nút mặc định (Mời phỏng vấn)
-    background-color: $primary-color;
-    color: white;
-
-    &:hover {
-      background-color: $primary-hover;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba($primary-color, 0.3);
-    }
-  }
-}
-
-// Style riêng cho nút Từ chối (Ghi đè nút mặc định)
-.btnReject {
-  background-color: white !important;
-  color: $danger-color !important;
-  border: 1px solid $danger-color !important;
-  box-shadow: none !important;
-
-  &:hover {
-    background-color: $danger-color !important;
-    color: white !important;
-    box-shadow: 0 4px 8px rgba($danger-color, 0.3) !important;
-  }
+  /* Code cũ: z-index: 1000 */
+  /* Nếu popup Offer nằm trong popup Candidate, thì overlay con cần z-index cao hơn */
+  /* Tuy nhiên, vì cấu trúc HTML lồng nhau, bạn chỉ cần style modalContentSmall tốt là được.
+     Nếu gặp lỗi overlay bị đen quá mức, hãy điều chỉnh rgba alpha thấp hơn */
 }
